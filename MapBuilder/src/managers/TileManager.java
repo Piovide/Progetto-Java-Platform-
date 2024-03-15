@@ -10,12 +10,56 @@ import static helpz.Constants.Tiles.*;
 
 public class TileManager {
 
-	public Tile GRASS, WATER, ROAD_LR, ROAD_TB, ROAD_B_TO_R, ROAD_L_TO_B, ROAD_L_TO_T, ROAD_T_TO_R, BL_WATER_CORNER, TL_WATER_CORNER, TR_WATER_CORNER, BR_WATER_CORNER, T_WATER, R_WATER, B_WATER,
+	public Tile GRASS, ROAD_LR, ROAD_TB, ROAD_B_TO_R, ROAD_L_TO_B, ROAD_L_TO_T, ROAD_T_TO_R, BL_WATER_CORNER, TL_WATER_CORNER, TR_WATER_CORNER, BR_WATER_CORNER, T_WATER, R_WATER, B_WATER,
 			L_WATER, TL_ISLE, TR_ISLE, BR_ISLE, BL_ISLE;
+	public Tile SPROUT, 
+				GRASS_N_PEABBLES, 
+				LADDERS,
+				WIND_GRAY,
+				WIND_WHITE,
+				DOORS,
+				TERRAIN,
+				WATER,
+				FLAWERS,
+				OTHER_TERRAINS,
+				FLOATING_ISLAND,
+				SPIKES,
+				INFO,
+				ARROWS,
+				BIG_TREE_1,
+				BIG_TREE_2,
+				BIG_TREE_3,
+				BIG_TREE_4,
+				MOON,
+				SUN,
+				STARS,
+				BIG_CLOUDS,
+				SMALL_CLOUDS,
+				DOUBLE_CLOUDS;
 
 	private BufferedImage atlas;
 	public ArrayList<Tile> tiles = new ArrayList<>();
-
+	
+	public ArrayList<Tile> grassNPeabbles = new ArrayList<>();
+	public ArrayList<Tile> ladders = new ArrayList<>();
+	public ArrayList<Tile> wind_G = new ArrayList<>();
+	public ArrayList<Tile> wind_W = new ArrayList<>();
+	public ArrayList<Tile> doors = new ArrayList<>();
+	public ArrayList<Tile> terrains = new ArrayList<>();
+	public ArrayList<Tile> flawers = new ArrayList<>();
+	public ArrayList<Tile> other_terrains = new ArrayList<>();
+	public ArrayList<Tile> spikes = new ArrayList<>();
+	public ArrayList<Tile> arrows = new ArrayList<>();
+	public ArrayList<Tile> big_trees = new ArrayList<>();
+	public ArrayList<Tile> moon = new ArrayList<>();
+	public ArrayList<Tile> sun = new ArrayList<>();
+	public ArrayList<Tile> big_clouds = new ArrayList<>();
+	public ArrayList<Tile> small_clouds = new ArrayList<>();
+	public ArrayList<Tile> double_clouds = new ArrayList<>();
+	
+	
+	
+	
 	public ArrayList<Tile> roadsS = new ArrayList<>();
 	public ArrayList<Tile> roadsC = new ArrayList<>();
 	public ArrayList<Tile> corners = new ArrayList<>();
@@ -34,30 +78,50 @@ public class TileManager {
 		int id = 0;
 
 		tiles.add(GRASS = new Tile(getSprite(9, 0), id++, GRASS_TILE));
-		tiles.add(WATER = new Tile(getAniSprites(0, 0), id++, WATER_TILE));
-
+		tiles.add(WATER = new Tile(getAniSprites(0, 0, 4), id++, WATER_TILE));
+		tiles.add(SPROUT = new Tile(getAniSprites(0, 0, 4), id++, SPROUT_TILE));
+		
+		grassNPeabbles.add(GRASS_N_PEABBLES = new Tile(ImgFix.getTrasparentImage(getSprite(0,0)), id++, GRASS_N_PEABBLES_TILE));
+		grassNPeabbles.add(GRASS_N_PEABBLES = new Tile(ImgFix.getTrasparentImage(getSprite(0,1)), id++, GRASS_N_PEABBLES_TILE));
+		grassNPeabbles.add(GRASS_N_PEABBLES = new Tile(ImgFix.getTrasparentImage(getSprite(0,2)), id++, GRASS_N_PEABBLES_TILE));
+		grassNPeabbles.add(GRASS_N_PEABBLES = new Tile(ImgFix.getTrasparentImage(getSprite(0,3)), id++, GRASS_N_PEABBLES_TILE));
+		grassNPeabbles.add(GRASS_N_PEABBLES = new Tile(ImgFix.getTrasparentImage(getSprite(0,4)), id++, GRASS_N_PEABBLES_TILE));
+		grassNPeabbles.add(GRASS_N_PEABBLES = new Tile(ImgFix.getTrasparentImage(getSprite(0,5)), id++, GRASS_N_PEABBLES_TILE));
+		
+		ladders.add(LADDERS = new Tile(ImgFix.getTrasparentImage(getSprite(1,0)), id++, LADDERS_TILE));
+		ladders.add(LADDERS = new Tile(ImgFix.getTrasparentImage(getSprite(1,1)), id++, LADDERS_TILE));
+		ladders.add(LADDERS = new Tile(ImgFix.getTrasparentImage(getSprite(1,2)), id++, LADDERS_TILE));
+		ladders.add(LADDERS = new Tile(ImgFix.getTrasparentImage(getSprite(1,3)), id++, LADDERS_TILE));
+		ladders.add(LADDERS = new Tile(ImgFix.getTrasparentImage(getSprite(1,4)), id++, LADDERS_TILE));
+		ladders.add(LADDERS = new Tile(ImgFix.getTrasparentImage(getSprite(1,5)), id++, LADDERS_TILE));
+		
+		wind_G.add(WIND_GRAY = new Tile(ImgFix.getTrasparentImage(getAniSprites(2,0)), id++, LADDERS_TILE));
+		
+		
+		
+		
 		roadsS.add(ROAD_LR = new Tile(getSprite(8, 0), id++, ROAD_TILE));
 		roadsS.add(ROAD_TB = new Tile(ImgFix.getRotImg(getSprite(8, 0), 90), id++, ROAD_TILE));
 
 		roadsC.add(ROAD_B_TO_R = new Tile(getSprite(7, 0), id++, ROAD_TILE));
 		roadsC.add(ROAD_L_TO_B = new Tile(ImgFix.getRotImg(getSprite(7, 0), 90), id++, ROAD_TILE));
 		roadsC.add(ROAD_L_TO_T = new Tile(ImgFix.getRotImg(getSprite(7, 0), 180), id++, ROAD_TILE));
-		roadsC.add(ROAD_T_TO_R = new Tile(ImgFix.getRotImg(getSprite(7, 0), 270), id++, ROAD_TILE));
+		roadsC.add(ROAD_T_TO_R = new Tile(ImgFix.getRotImg(getSprite(7, 0), 270), id++, ROAD_TILE));	
+		
+		corners.add(BL_WATER_CORNER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0, 4), getSprite(5, 0), 0), id++, WATER_TILE));
+		corners.add(TL_WATER_CORNER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0, 4), getSprite(5, 0), 90), id++, WATER_TILE));
+		corners.add(TR_WATER_CORNER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0, 4), getSprite(5, 0), 180), id++, WATER_TILE));
+		corners.add(BR_WATER_CORNER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0, 4), getSprite(5, 0), 270), id++, WATER_TILE));
 
-		corners.add(BL_WATER_CORNER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0), getSprite(5, 0), 0), id++, WATER_TILE));
-		corners.add(TL_WATER_CORNER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0), getSprite(5, 0), 90), id++, WATER_TILE));
-		corners.add(TR_WATER_CORNER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0), getSprite(5, 0), 180), id++, WATER_TILE));
-		corners.add(BR_WATER_CORNER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0), getSprite(5, 0), 270), id++, WATER_TILE));
+		beaches.add(T_WATER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0, 4), getSprite(6, 0), 0), id++, WATER_TILE));
+		beaches.add(R_WATER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0, 4), getSprite(6, 0), 90), id++, WATER_TILE));
+		beaches.add(B_WATER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0, 4), getSprite(6, 0), 180), id++, WATER_TILE));
+		beaches.add(L_WATER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0, 4), getSprite(6, 0), 270), id++, WATER_TILE));
 
-		beaches.add(T_WATER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0), getSprite(6, 0), 0), id++, WATER_TILE));
-		beaches.add(R_WATER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0), getSprite(6, 0), 90), id++, WATER_TILE));
-		beaches.add(B_WATER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0), getSprite(6, 0), 180), id++, WATER_TILE));
-		beaches.add(L_WATER = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0), getSprite(6, 0), 270), id++, WATER_TILE));
-
-		islands.add(TL_ISLE = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0), getSprite(4, 0), 0), id++, WATER_TILE));
-		islands.add(TR_ISLE = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0), getSprite(4, 0), 90), id++, WATER_TILE));
-		islands.add(BR_ISLE = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0), getSprite(4, 0), 180), id++, WATER_TILE));
-		islands.add(BL_ISLE = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0), getSprite(4, 0), 270), id++, WATER_TILE));
+		islands.add(TL_ISLE = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0, 4), getSprite(4, 0), 0), id++, WATER_TILE));
+		islands.add(TR_ISLE = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0, 4), getSprite(4, 0), 90), id++, WATER_TILE));
+		islands.add(BR_ISLE = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0, 4), getSprite(4, 0), 180), id++, WATER_TILE));
+		islands.add(BL_ISLE = new Tile(ImgFix.getBuildRotImg(getAniSprites(0, 0, 4), getSprite(4, 0), 270), id++, WATER_TILE));
 
 		tiles.addAll(roadsS);
 		tiles.addAll(roadsC);
@@ -82,9 +146,9 @@ public class TileManager {
 		return tiles.get(id).getSprite(animationIndex);
 	}
 
-	private BufferedImage[] getAniSprites(int xCord, int yCord) {
-		BufferedImage[] arr = new BufferedImage[4];
-		for (int i = 0; i < 4; i++) {
+	private BufferedImage[] getAniSprites(int xCord, int yCord, int nAni) {
+		BufferedImage[] arr = new BufferedImage[nAni];
+		for (int i = 0; i < nAni; i++) {
 			arr[i] = getSprite(xCord + i, yCord);
 		}
 
