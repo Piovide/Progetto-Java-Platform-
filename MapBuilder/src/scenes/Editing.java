@@ -1,5 +1,6 @@
 package scenes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import helpz.LoadSave;
@@ -57,7 +58,12 @@ public class Editing extends GameScene implements SceneMethods {
         int screenHeight = game.getHeight();
         int levelWidth = lvl[0].length * TILE_SIZE;
         int levelHeight = lvl.length * TILE_SIZE;
+       
+        // SETTA IL COLORE DI BACKGROUND
+        g.setColor(new Color(219, 207, 117));
+//        g.setColor(Color.black);
         g.fillRect(0, 0, screenWidth, screenHeight);
+        
         int startX = 160;
         int startY = 50;
         for (int y = 0; y < lvl.length; y++) {
@@ -74,11 +80,13 @@ public class Editing extends GameScene implements SceneMethods {
                 }
             }
         }
+        g.setColor(Color.black);
+        g.drawRect(startX, startY, levelWidth-5, levelHeight);
     }
 
     private void drawSelectedTile(Graphics g) {
         if (selectedTile != null && drawSelect) {
-            g.drawImage(selectedTile.getSprite(), mouseX-1, mouseY+4, TILE_SIZE, TILE_SIZE, null);
+            g.drawImage(selectedTile.getSprite(), mouseX, mouseY+4, TILE_SIZE, TILE_SIZE, null);
         }
     }
 

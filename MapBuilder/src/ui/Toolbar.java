@@ -15,7 +15,7 @@ public class Toolbar extends Bar {
 	private Tile selectedTile;
 	private Map<MyButton, ArrayList<Tile>> map = new HashMap<MyButton, ArrayList<Tile>>();
 
-	private MyButton bGrass, bWater, bRoadS, bRoadC, bWaterC, bWaterB, bWaterI;
+	private MyButton bGrass, bWater, bWind, bTerrains, bGrassNPeabbles, bFlawers, bOtherTerrains, bSpikes, bDoors, bLadders;
 	private MyButton currentButton;
 	private int currentIndex = 0;
 	private int y;
@@ -38,14 +38,35 @@ public class Toolbar extends Bar {
 		int yOffset = (int) (w * 1.1f);
 		int i = 0;
 
-		bGrass = new MyButton("Grass", xStart, yStart, w, h, i++);
+		bGrass = new MyButton("Sprout", xStart, yStart, w, h, i++);
 		bWater = new MyButton("Water", xStart, yStart + yOffset, w, h, i++);
+		
+		// Get grassNPeabbles tiles
+		initMapButton(bGrassNPeabbles, editing.getGame().getTileManager().getGrassNPeabbles(), xStart, yStart, yOffset, w, h, i++);
+		// Get Wind tiles
+		initMapButton(bWind, editing.getGame().getTileManager().getWind(), xStart, yStart, yOffset, w, h, i++);
+		
+		// Get Terrains tiles
+		initMapButton(bTerrains, editing.getGame().getTileManager().getTerrains(), xStart, yStart, yOffset, w, h, i++);
+		
 
-		initMapButton(bRoadS, editing.getGame().getTileManager().getRoadsS(), xStart, yStart, yOffset, w, h, i++);
-		initMapButton(bRoadC, editing.getGame().getTileManager().getRoadsC(), xStart, yStart, yOffset, w, h, i++);
-		initMapButton(bWaterC, editing.getGame().getTileManager().getCorners(), xStart, yStart, yOffset, w, h, i++);
-		initMapButton(bWaterB, editing.getGame().getTileManager().getBeaches(), xStart, yStart, yOffset, w, h, i++);
-		initMapButton(bWaterI, editing.getGame().getTileManager().getIslands(), xStart, yStart, yOffset, w, h, i++);
+		// Get ladders tiles
+		initMapButton(bLadders, editing.getGame().getTileManager().getLadders(), xStart, yStart, yOffset, w, h, i++);
+
+		// Get doors tiles
+		initMapButton(bDoors, editing.getGame().getTileManager().getDoors(), xStart, yStart, yOffset, w, h, i++);
+
+		// Get terrains tiles
+		initMapButton(bTerrains, editing.getGame().getTileManager().getTerrains(), xStart, yStart, yOffset, w, h, i++);
+
+		// Get flawers tiles
+		initMapButton(bFlawers, editing.getGame().getTileManager().getFlawers(), xStart, yStart, yOffset, w, h, i++);
+
+		// Get other_terrains tiles
+		initMapButton(bOtherTerrains, editing.getGame().getTileManager().getOther_terrains(), xStart, yStart, yOffset, w, h, i++);
+
+		// Get spikes tiles
+		initMapButton(bSpikes, editing.getGame().getTileManager().getSpikes(), xStart, yStart, yOffset, w, h, i++);
 
 	}
 

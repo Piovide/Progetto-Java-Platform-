@@ -84,7 +84,7 @@ public class ImgFix {
 
 	}
 	// Metodo per modificare l'immagine e incollare sopra un immagine trasparente
-		public static BufferedImage getTransparentImageOnBackGround(BufferedImage background, BufferedImage overlay) {
+	public static BufferedImage getTransparentImageOnBackGround(BufferedImage background, BufferedImage overlay) {
 	        // Prende la dimensione massima fra le due
 	        int width = Math.max(background.getWidth(), overlay.getWidth());
 	        int height = Math.max(background.getHeight(), overlay.getHeight());
@@ -109,15 +109,31 @@ public class ImgFix {
 	
 	// Metodo per modificare l'immagine e incollare sopra un immagine trasparente
 	public static BufferedImage getTrasparentImage(BufferedImage img) {
+//
+//        // Ottieni un contesto grafico
+//        Graphics2D g2d = img.createGraphics();
+//
+//        // Imposta il colore di sfondo trasparente 
+//        img = g2d.getDeviceConfiguration().createCompatibleImage(img.getWidth(), img.getHeight(), java.awt.Transparency.TRANSLUCENT);
+//        g2d.dispose();
+//        g2d = img.createGraphics();
+//        
+        return img;
+        
+	}
+	
+	public static BufferedImage[] getTrasparentImage(BufferedImage[] img) {
 
         // Ottieni un contesto grafico
-        Graphics2D g2d = img.createGraphics();
-
-        // Imposta il colore di sfondo trasparente 
-        img = g2d.getDeviceConfiguration().createCompatibleImage(img.getWidth(), img.getHeight(), java.awt.Transparency.TRANSLUCENT);
-        g2d.dispose();
-        g2d = img.createGraphics();
-        
+		for(int i = 0; i < img.length; i++) {
+			BufferedImage image = img[i]; 
+	        Graphics2D g2d = image.createGraphics();
+	        // Imposta il colore di sfondo trasparente 
+	        image = g2d.getDeviceConfiguration().createCompatibleImage(image.getWidth(), image.getHeight(), java.awt.Transparency.TRANSLUCENT);
+	        g2d.dispose();
+	        g2d = image.createGraphics();
+	        img[i] = image;
+		}
         return img;
 	}
 

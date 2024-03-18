@@ -33,6 +33,7 @@ public class Game extends JFrame implements Runnable {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUndecorated(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setBackground(new Color(219, 207, 117));
 		setLocationRelativeTo(null);
 		setTitle("LevelBuilder");
 		add(gameScreen);
@@ -41,9 +42,9 @@ public class Game extends JFrame implements Runnable {
 	}
 
 	private void createDefaultLevel() {
-		int[] arr = new int[1980];
+		int[] arr = new int[300];
 		for (int i = 0; i < arr.length; i++)
-			arr[i] = 0;
+			arr[i] = 1;
 
 		LoadSave.CreateLevel(arr);
 

@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
@@ -36,7 +37,7 @@ public class GameScreen extends JPanel {
 
 	private void setPanelSize() {
 		size = new Dimension(1920, 1080);
-
+		
 		setMinimumSize(size);
 		setPreferredSize(size);
 		setMaximumSize(size);
