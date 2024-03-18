@@ -2,13 +2,10 @@ package helpz;
 
 public class Constants {
 	public static class Tiles {
-//		public static final int WATER_TILE = 0;
-//		public static final int GRASS_TILE = 1;
-//		public static final int ROAD_TILE = 2;
 		public static final int SPROUT_TILE = 0;
 		public static final int GRASS_N_PEABBLES_TILE = 1;
-		public static final int LADDERS_TILE = 2;
-		public static final int WIND_GRAY_TILE = 3;
+		public static final int WIND_GRAY_TILE = 2;
+		public static final int LADDERS_TILE = 3;
 		public static final int WIND_WHITE_TILE = 4;
 		public static final int DOORS_TILE = 5;
 		public static final int TERRAIN_TILE = 6;

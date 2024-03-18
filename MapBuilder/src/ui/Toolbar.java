@@ -15,7 +15,7 @@ public class Toolbar extends Bar {
 	private Tile selectedTile;
 	private Map<MyButton, ArrayList<Tile>> map = new HashMap<MyButton, ArrayList<Tile>>();
 
-	private MyButton bGrass, bWater, bWind, bTerrains, bGrassNPeabbles, bFlawers, bOtherTerrains, bSpikes, bDoors, bLadders;
+	private MyButton bGrass, bWater, bWind, bTerrains, bGrassNPeabbles, bFlowers, bOtherTerrains, bSpikes, bDoors, bLadders;
 	private MyButton currentButton;
 	private int currentIndex = 0;
 	private int y;
@@ -40,15 +40,16 @@ public class Toolbar extends Bar {
 
 		bGrass = new MyButton("Sprout", xStart, yStart, w, h, i++);
 		bWater = new MyButton("Water", xStart, yStart + yOffset, w, h, i++);
+		bWind = new MyButton("Wind", xStart, yStart + yOffset, w, h, i++);
+		
 		
 		// Get grassNPeabbles tiles
 		initMapButton(bGrassNPeabbles, editing.getGame().getTileManager().getGrassNPeabbles(), xStart, yStart, yOffset, w, h, i++);
 		// Get Wind tiles
-		initMapButton(bWind, editing.getGame().getTileManager().getWind(), xStart, yStart, yOffset, w, h, i++);
+//		initMapButton(bWind, editing.getGame().getTileManager().getWind(), xStart, yStart, yOffset, w, h, i++);
 		
 		// Get Terrains tiles
 		initMapButton(bTerrains, editing.getGame().getTileManager().getTerrains(), xStart, yStart, yOffset, w, h, i++);
-		
 
 		// Get ladders tiles
 		initMapButton(bLadders, editing.getGame().getTileManager().getLadders(), xStart, yStart, yOffset, w, h, i++);
@@ -56,11 +57,8 @@ public class Toolbar extends Bar {
 		// Get doors tiles
 		initMapButton(bDoors, editing.getGame().getTileManager().getDoors(), xStart, yStart, yOffset, w, h, i++);
 
-		// Get terrains tiles
-		initMapButton(bTerrains, editing.getGame().getTileManager().getTerrains(), xStart, yStart, yOffset, w, h, i++);
-
-		// Get flawers tiles
-		initMapButton(bFlawers, editing.getGame().getTileManager().getFlawers(), xStart, yStart, yOffset, w, h, i++);
+		// Get flowers tiles
+		initMapButton(bFlowers, editing.getGame().getTileManager().getFlawers(), xStart, yStart, yOffset, w, h, i++);
 
 		// Get other_terrains tiles
 		initMapButton(bOtherTerrains, editing.getGame().getTileManager().getOther_terrains(), xStart, yStart, yOffset, w, h, i++);
@@ -104,6 +102,7 @@ public class Toolbar extends Bar {
 		bExit.draw(g);
 		drawNormalButton(g, bGrass);
 		drawNormalButton(g, bWater);
+		drawNormalButton(g, bWind);
 		drawSelectedTile(g);
 		drawMapButtons(g);
 
