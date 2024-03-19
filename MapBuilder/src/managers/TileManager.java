@@ -10,6 +10,9 @@ import static helpz.Constants.Tiles.*;
 
 public class TileManager {
 
+	private int id = 0;
+
+	
 	public Tile GRASS, ROAD_LR, ROAD_TB, ROAD_B_TO_R, ROAD_L_TO_B, ROAD_L_TO_T, ROAD_T_TO_R, BL_WATER_CORNER, TL_WATER_CORNER, TR_WATER_CORNER, BR_WATER_CORNER, T_WATER, R_WATER, B_WATER,
 			L_WATER, TL_ISLE, TR_ISLE, BR_ISLE, BL_ISLE;
 	public Tile SPROUT, 
@@ -72,10 +75,7 @@ public class TileManager {
 
 	}
 
-	private void createTiles() {
-
-		int id = 0;
-		
+	private void createTiles() {		
 	    // Sprout animation
 	    tiles.add(SPROUT = new Tile(getAniSprites(0, 0, 4), id++, SPROUT_TILE));
 
@@ -132,12 +132,20 @@ public class TileManager {
 		tiles.addAll(other_terrains);
 		tiles.addAll(islands);
 		tiles.addAll(spikes);
+		
+		
+		tiles.add(new Tile(ImgFix.getTrasparentImage(getSprite(5, 0)), id++, id++));
+		tiles.add(new Tile(getAniSprites(0, 28, 6), id+1, id+1));
 	}
 
 	private void loadAtalas() {
 		atlas = LoadSave.getSpriteAtlas();
 	}
-
+	
+	public Tile getGomma() {
+		return tiles.get(id-2);
+	}
+	
 	public Tile getTile(int id) {
 		return tiles.get(id);
 	}
@@ -253,6 +261,10 @@ public class TileManager {
 
 	public ArrayList<Tile> getWind() {
 		return winds;
+	}
+
+	public int getTilesLenght() {
+		return tiles.size();
 	}
 
 

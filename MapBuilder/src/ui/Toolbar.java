@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,12 +12,13 @@ import scenes.Editing;
 
 public class Toolbar extends Bar {
 	private Editing editing;
-	private MyButton bExit, bSave;
+	private MyButton bExit, bSave, bGomma;
 	private Tile selectedTile;
 	private Map<MyButton, ArrayList<Tile>> map = new HashMap<MyButton, ArrayList<Tile>>();
 
 	private MyButton bGrass, bWater, bWind, bTerrains, bGrassNPeabbles, bFlowers, bOtherTerrains, bSpikes, bDoors, bLadders;
 	private MyButton currentButton;
+	private double aniIndex = 0;
 	private int currentIndex = 0;
 	private int y;
 
@@ -31,18 +33,18 @@ public class Toolbar extends Bar {
 		
 		bExit = new MyButton("Esci", 2, y+20, 100, 30);
 		bSave = new MyButton("Save", 2, y+60, 100, 30);
+		bGomma = new MyButton("Gomma", 2, y+100, 100, 30);
 		int w = 50;
 		int h = 50;
 		int xStart = 10;
-		int yStart = y+100;
+		int yStart = y+140;
 		int yOffset = (int) (w * 1.1f);
 		int i = 0;
-
+		
 		bGrass = new MyButton("Sprout", xStart, yStart, w, h, i++);
 		bWater = new MyButton("Water", xStart, yStart + yOffset*2, w, h, i++);
 		bWind = new MyButton("Wind", xStart, yStart + yOffset, w, h, i++);
 		
-		System.out.println(bWind.toString());
 		
 		// Get grassNPeabbles tiles
 		initMapButton(bGrassNPeabbles, editing.getGame().getTileManager().getGrassNPeabbles(), xStart, yStart, yOffset, w, h, i++);
@@ -90,14 +92,16 @@ public class Toolbar extends Bar {
 		// Background
 		g.setColor(new Color(220, 123, 15));
 		g.fillRect(x, y, width, editing.getGame().getToolkit().getScreenSize().height);
-
+		
 		// Buttons
 		drawButtons(g);
+		drawSelectedTile(g);
 	}
 
 	private void drawButtons(Graphics g) {
 		bSave.draw(g);
 		bExit.draw(g);
+		bGomma.draw(g);
 		drawNormalButton(g, bGrass);
 		drawNormalButton(g, bWind);
 		drawNormalButton(g, bWater);
@@ -128,9 +132,19 @@ public class Toolbar extends Bar {
 	private void drawSelectedTile(Graphics g) {
 
 		if (selectedTile != null) {
-			g.drawImage(selectedTile.getSprite(), 30, editing.getGame().getToolkit().getScreenSize().height -150, 100, 100, null);
-			g.setColor(Color.black);
-			g.drawRect(30, editing.getGame().getToolkit().getScreenSize().height -150, 100, 100);
+			if(!selectedTile.isAnimation()) {
+				g.drawImage(selectedTile.getSprite(), 15, editing.getGame().getToolkit().getScreenSize().height -150, 130, 130, null);
+				g.setColor(Color.black);
+				g.drawRect(15, editing.getGame().getToolkit().getScreenSize().height -150, 130, 130);
+			}else {
+				try {
+					aniIndex = aniIndex >= selectedTile.getSpriteLenght() ? 0 : aniIndex+0.02;
+					g.drawImage(selectedTile.getSprite((int) aniIndex), 15, editing.getGame().getToolkit().getScreenSize().height -150, 130, 130, null);
+					g.setColor(Color.black);
+					g.drawRect(15, editing.getGame().getToolkit().getScreenSize().height -150, 130, 130);
+				} catch (ArrayIndexOutOfBoundsException e) {
+				}
+			}
 		}
 
 	}
@@ -144,7 +158,11 @@ public class Toolbar extends Bar {
 			saveLevel();
 		else if (bExit.getBounds().contains(x, y))
 			editing.getGame().close();
-		else if (bWater.getBounds().contains(x, y)) {
+		else if (bGomma.getBounds().contains(x, y)) {
+			selectedTile = editing.getGame().getTileManager().getGomma();
+			editing.setSelectedTile(selectedTile);
+			return;
+		}else if (bWater.getBounds().contains(x, y)) {
 			selectedTile = editing.getGame().getTileManager().getTile(bWater.getId());
 			editing.setSelectedTile(selectedTile);
 			return;
@@ -172,6 +190,7 @@ public class Toolbar extends Bar {
 	public void mouseMoved(int x, int y) {
 		bSave.setMouseOver(false);
 		bExit.setMouseOver(false);
+		bGomma.setMouseOver(false);
 		bWater.setMouseOver(false);
 		bGrass.setMouseOver(false);
 		bWind.setMouseOver(false);
@@ -182,6 +201,8 @@ public class Toolbar extends Bar {
 			bSave.setMouseOver(true);
 		else if (bExit.getBounds().contains(x, y))
 			bExit.setMouseOver(true);
+		else if (bGomma.getBounds().contains(x, y))
+			bGomma.setMouseOver(true);
 		else if (bWater.getBounds().contains(x, y))
 			bWater.setMouseOver(true);
 		else if (bGrass.getBounds().contains(x, y))
@@ -203,6 +224,8 @@ public class Toolbar extends Bar {
 			bSave.setMousePressed(true);
 		else if (bExit.getBounds().contains(x, y))
 			bExit.setMousePressed(true);
+		else if (bGomma.getBounds().contains(x, y))
+			bGomma.setMousePressed(true);
 		else if (bWater.getBounds().contains(x, y))
 			bWater.setMousePressed(true);
 		else if (bGrass.getBounds().contains(x, y))
@@ -224,6 +247,7 @@ public class Toolbar extends Bar {
 		bGrass.resetBooleans();
 		bWater.resetBooleans();
 		bWind.resetBooleans();
+		bGomma.resetBooleans();
 		for (MyButton b : map.keySet())
 			b.resetBooleans();
 

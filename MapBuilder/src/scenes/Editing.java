@@ -47,11 +47,25 @@ public class Editing extends GameScene implements SceneMethods {
 
     @Override
     public void render(Graphics g) {
+    	drawLevelBackground(g);
         drawLevel(g);
         toolbar.draw(g);
         drawSelectedTile(g);
     }
-
+    
+    // SETTA IL BACKGROND CON I TILE GIALLI A RIGHR
+    private void drawLevelBackground(Graphics g) {
+    	int startX = 160;
+        for (int y = 0; y < game.getHeight()/29; y++) {
+            for (int x = 0; x < game.getWidth()/32; x++) {
+                int id = game.getTileManager().getTilesLenght();
+                int drawX = startX + x * TILE_SIZE;
+                int drawY = y * TILE_SIZE;
+                g.drawImage(getSprite(id-1,3), drawX, drawY, 48, 48, null);   
+            }
+        }
+    }
+    
     private void drawLevel(Graphics g) {
     	g.fillRect(0, 0, lastTileId, TILE_SIZE);
         int screenWidth = game.getWidth();
@@ -60,9 +74,9 @@ public class Editing extends GameScene implements SceneMethods {
         int levelHeight = lvl.length * TILE_SIZE;
        
         // SETTA IL COLORE DI BACKGROUND
-        g.setColor(new Color(219, 207, 117));
+//        g.setColor(new Color(219, 207, 117));
 //        g.setColor(Color.black);
-        g.fillRect(0, 0, screenWidth, screenHeight);
+//        g.fillRect(0, 0, screenWidth, screenHeight);
         
         int startX = 160;
         int startY = 50;
@@ -72,11 +86,11 @@ public class Editing extends GameScene implements SceneMethods {
                 int drawX = startX + x * TILE_SIZE;
                 int drawY = startY + y * TILE_SIZE;
                 if (drawY + TILE_SIZE >= 0 && drawY < screenHeight) {
-                    if (isAnimation(id)) {
-                        g.drawImage(getSprite(id, animationIndex), drawX, drawY, TILE_SIZE, TILE_SIZE, null);
-                    } else {
-                        g.drawImage(getSprite(id), drawX, drawY, TILE_SIZE, TILE_SIZE, null);
-                    }
+	                    if (isAnimation(id)) {
+	                        g.drawImage(getSprite(id, animationIndex), drawX, drawY, TILE_SIZE, TILE_SIZE, null);
+	                    } else {
+	                        g.drawImage(getSprite(id), drawX, drawY, TILE_SIZE, TILE_SIZE, null);
+	                    }
                 }
             }
         }

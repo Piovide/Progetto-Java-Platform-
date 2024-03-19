@@ -7,7 +7,7 @@ import main.Game;
 public class GameScene {
 
 	protected Game game;
-	protected int animationIndex;
+	public int animationIndex;
 	protected int ANIMATION_SPEED = 25;
 	protected int tick;
 
@@ -28,7 +28,7 @@ public class GameScene {
 		if (tick >= ANIMATION_SPEED) {
 			tick = 0;
 			animationIndex++;
-			if (animationIndex >= 3)
+			if (animationIndex >= 4)
 				animationIndex = 0;
 		}
 	}
