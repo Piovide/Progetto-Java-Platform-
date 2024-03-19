@@ -70,6 +70,12 @@ public class MyButton {
 
 	}
 
+	@Override
+	public String toString() {
+		return "MyButton [x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ", id=" + id + ", text="
+				+ text + ", bounds=" + bounds + ", mouseOver=" + mouseOver + ", mousePressed=" + mousePressed + "]";
+	}
+
 	private void drawText(Graphics g) {
 		int w = g.getFontMetrics().stringWidth(text);
 		int h = g.getFontMetrics().getHeight();

@@ -83,7 +83,7 @@ public class TileManager {
 	    tiles.add(WATER = new Tile(getAniSprites(0, 6, 4), id++, WATER_TILE));
 
 	    // Wind Gray animation
-	    tiles.add(WIND_GRAY = new Tile(ImgFix.getTrasparentImage(getAniSprites(0, 3, 5)), id++, WIND_GRAY_TILE));
+	    tiles.add(WIND_GRAY = new Tile((getAniSprites(0, 3, 5)), id++, WIND_GRAY_TILE));
 
 	    // Wind White animation
 	    tiles.add(WIND_WHITE = new Tile(ImgFix.getTrasparentImage(getAniSprites(0, 4, 5)), id++, WIND_WHITE_TILE));

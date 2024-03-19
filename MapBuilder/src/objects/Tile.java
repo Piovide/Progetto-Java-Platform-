@@ -31,9 +31,17 @@ public class Tile {
 	public BufferedImage getSprite() {
 		return sprite[0];
 	}
+	public int getSpriteLenght() {
+		return sprite.length;
+	}
 
 	public boolean isAnimation() {
 		return sprite.length > 1;
+	}
+	
+	// DA CAMBIARE LE COSTANTI E METTERLE SOPRA IL VENTI
+	public boolean isMultiple() {
+		return tileType > 20;
 	}
 
 	public int getId() {
