@@ -12,12 +12,28 @@ import scenes.Editing;
 
 public class Toolbar extends Bar {
 	private Editing editing;
-	private MyButton bExit, bSave, bGomma;
 	private Tile selectedTile;
 	private Map<MyButton, ArrayList<Tile>> map = new HashMap<MyButton, ArrayList<Tile>>();
-
-	private MyButton bGrass, bWater, bWind, bTerrains, bGrassNPeabbles, bFlowers, bOtherTerrains, bSpikes, bDoors, bLadders;
+	
+	//BOTTONI FUNZIONI
+	private MyButton bExit, bSave, bGomma;
+	//BOTTONI SINGOLI
+	private MyButton bGrass,
+					 bWater,
+					 bWind,
+					 bFlowatingIsland;
+	//BOTTONI MAP
+    private MyButton bTerrains,
+					 bGrassNPeabbles,
+					 bFlowers,
+					 bOtherTerrains,
+					 bSpikes,
+					 bDoors,
+					 bLadders;
+    //BOTTONE SELEZIONATO
 	private MyButton currentButton;
+	
+	//Varibili di servizio
 	private double aniIndex = 0;
 	private int currentIndex = 0;
 	private int y;
@@ -39,11 +55,13 @@ public class Toolbar extends Bar {
 		int xStart = 10;
 		int yStart = y+140;
 		int yOffset = (int) (w * 1.1f);
+		int xOffset = (int) (w * 1.1f);
 		int i = 0;
 		
 		bGrass = new MyButton("Sprout", xStart, yStart, w, h, i++);
-		bWater = new MyButton("Water", xStart, yStart + yOffset*2, w, h, i++);
 		bWind = new MyButton("Wind", xStart, yStart + yOffset, w, h, i++);
+		bWater = new MyButton("Water", xStart, yStart + yOffset*2, w, h, i++);
+		bFlowatingIsland = new MyButton("Island", xStart + xOffset, yStart, w, h, i++);
 		
 		
 		// Get grassNPeabbles tiles
@@ -70,7 +88,7 @@ public class Toolbar extends Bar {
 	}
 
 	private void initMapButton(MyButton b, ArrayList<Tile> list, int x, int y, int xOff, int w, int h, int id) {
-		b = new MyButton("", x, y + xOff * id, w, h, id);
+		b = new MyButton("", x, y + xOff * (id-1), w, h, id);
 		map.put(b, list);
 	}
 
@@ -104,6 +122,7 @@ public class Toolbar extends Bar {
 		bGomma.draw(g);
 		drawNormalButton(g, bGrass);
 		drawNormalButton(g, bWind);
+		drawNormalButton(g, bFlowatingIsland);
 		drawNormalButton(g, bWater);
 		drawSelectedTile(g);
 		drawMapButtons(g);
@@ -174,6 +193,10 @@ public class Toolbar extends Bar {
 			selectedTile = editing.getGame().getTileManager().getTile(bWind.getId());
 			editing.setSelectedTile(selectedTile);
 			return;
+		} else if (bFlowatingIsland.getBounds().contains(x, y)) {
+			selectedTile = editing.getGame().getTileManager().getTile(bFlowatingIsland.getId());
+			editing.setSelectedTile(selectedTile);
+			return;
 		} else {
 			for (MyButton b : map.keySet())
 				if (b.getBounds().contains(x, y)) {
@@ -194,6 +217,7 @@ public class Toolbar extends Bar {
 		bWater.setMouseOver(false);
 		bGrass.setMouseOver(false);
 		bWind.setMouseOver(false);
+		bFlowatingIsland.setMouseOver(false);
 
 		for (MyButton b : map.keySet())
 			b.setMouseOver(false);
@@ -209,6 +233,8 @@ public class Toolbar extends Bar {
 			bGrass.setMouseOver(true);
 		else if (bWind.getBounds().contains(x, y))
 			bWind.setMouseOver(true);
+		else if (bFlowatingIsland.getBounds().contains(x, y))
+			bFlowatingIsland.setMouseOver(true);
 		else {
 			for (MyButton b : map.keySet())
 				if (b.getBounds().contains(x, y)) {
@@ -232,6 +258,8 @@ public class Toolbar extends Bar {
 			bGrass.setMousePressed(true);
 		else if (bWind.getBounds().contains(x, y))
 			bWind.setMousePressed(true);
+		else if (bFlowatingIsland.getBounds().contains(x, y))
+			bFlowatingIsland.setMousePressed(true);
 		else {
 			for (MyButton b : map.keySet())
 				if (b.getBounds().contains(x, y)) {
@@ -248,6 +276,7 @@ public class Toolbar extends Bar {
 		bWater.resetBooleans();
 		bWind.resetBooleans();
 		bGomma.resetBooleans();
+		bFlowatingIsland.resetBooleans();
 		for (MyButton b : map.keySet())
 			b.resetBooleans();
 

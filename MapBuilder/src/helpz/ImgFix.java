@@ -1,11 +1,13 @@
 package helpz;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class ImgFix {
 
-	// Rotate
+	// Ruota l'immagine
 	public static BufferedImage getRotImg(BufferedImage img, int rotAngle) {
 
 		int w = img.getWidth();
@@ -22,7 +24,7 @@ public class ImgFix {
 
 	}
 
-	// Img build
+	// Sovrappone 2 immagini
 	public static BufferedImage buildImg(BufferedImage[] imgs) {
 		int w = imgs[0].getWidth();
 		int h = imgs[0].getHeight();
@@ -39,7 +41,7 @@ public class ImgFix {
 
 	}
 
-	// Rotate Second img only
+	// Ruota l'immagine mantenendo l'immagine di background
 	public static BufferedImage getBuildRotImg(BufferedImage[] imgs, int rotAngle, int rotAtIndex) {
 		int w = imgs[0].getWidth();
 		int h = imgs[0].getHeight();
@@ -60,7 +62,7 @@ public class ImgFix {
 
 	}
 
-	// Rotate Second img only + animation
+	// Ruota l'immagine mantenendo l'animazione
 	public static BufferedImage[] getBuildRotImg(BufferedImage[] imgs, BufferedImage secondImage, int rotAngle) {
 		int w = imgs[0].getWidth();
 		int h = imgs[0].getHeight();
@@ -109,11 +111,11 @@ public class ImgFix {
 	
 	// Metodo per modificare l'immagine e incollare sopra un immagine trasparente
 	public static BufferedImage getTrasparentImage(BufferedImage img) {
-//
+
 //        // Ottieni un contesto grafico
 //        Graphics2D g2d = img.createGraphics();
 //
-//        // Imposta il colore di sfondo trasparente 
+//        // Imposta il colore di sfondo trasparente e lo applica all'immagine
 //        img = g2d.getDeviceConfiguration().createCompatibleImage(img.getWidth(), img.getHeight(), java.awt.Transparency.TRANSLUCENT);
 //        g2d.dispose();
 //        g2d = img.createGraphics();
@@ -124,17 +126,35 @@ public class ImgFix {
 	
 	public static BufferedImage[] getTrasparentImage(BufferedImage[] img) {
 
-        // Ottieni un contesto grafico
-		for(int i = 0; i < img.length; i++) {
-			BufferedImage image = img[i]; 
-	        Graphics2D g2d = image.createGraphics();
-	        // Imposta il colore di sfondo trasparente 
-	        image = g2d.getDeviceConfiguration().createCompatibleImage(image.getWidth(), image.getHeight(), java.awt.Transparency.TRANSLUCENT);
-	        g2d.dispose();
-	        g2d = image.createGraphics();
-	        img[i] = image;
-		}
+//        // Ottieni un contesto grafico
+//		for(int i = 0; i < img.length; i++) {
+//			BufferedImage image = img[i]; 
+//	        Graphics2D g2d = image.createGraphics();
+//	        // Imposta il colore di sfondo a trasparente 
+//	        image = g2d.getDeviceConfiguration().createCompatibleImage(image.getWidth(), image.getHeight(), java.awt.Transparency.TRANSLUCENT);
+//	        g2d.dispose();
+//	        g2d = image.createGraphics();
+//	        img[i] = image;
+//		}
         return img;
 	}
+	
+	public static BufferedImage getMirroredImage(BufferedImage img) {
+        int width = img.getWidth();
+        int height = img.getHeight();
+
+        // Crea una trasformazione orizzontale
+        AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+        tx.translate(-width, 0);
+
+        // Crea un operatore di trasformazione per eseguire la trasformazione
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+
+        // Applicare l'operatore di trasformazione all'immagine per specchiare l'immagine
+        BufferedImage mirroredImg = new BufferedImage(width, height, img.getType());
+        op.filter(img, mirroredImg);
+
+        return mirroredImg;
+    }
 
 }

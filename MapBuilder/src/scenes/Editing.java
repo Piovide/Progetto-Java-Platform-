@@ -3,6 +3,8 @@ package scenes;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
+
 import helpz.LoadSave;
 import main.Game;
 import objects.Tile;
@@ -13,24 +15,33 @@ public class Editing extends GameScene implements SceneMethods {
     private int[][] lvl;
     private Tile selectedTile;
     private int mouseX, mouseY;
-    private int lastTileX, lastTileY, lastTileId;
+    private LinkedList<Integer> lastTileX, lastTileY, lastTileId;
     private boolean drawSelect;
     private Toolbar toolbar;
     private Game game;
     private static final String LEVEL_SAVE_FILE = "level.dat";
     private static final int TILE_SIZE = 23;
 
-    private int offsetY = 0;
-
     public Editing(Game game) {
         super(game);
         this.game = game;
         loadDefaultLevel();
         toolbar = new Toolbar(0, game.getHeight(), 160, 160, this);
+        initLinkedList();
         loadSavedLevel();
     }
 
-    private void loadSavedLevel() {
+    private void initLinkedList() {
+    	lastTileX = new LinkedList<Integer>();
+    	lastTileY = new LinkedList<Integer>();
+    	lastTileId = new LinkedList<Integer>();
+    	
+    	lastTileX.add(-1);
+    	lastTileY.add(-1);
+    	lastTileId.add(-1);
+	}
+
+	private void loadSavedLevel() {
         lvl = LoadSave.LoadLevelData(LEVEL_SAVE_FILE);
         if (lvl == null) {
             loadDefaultLevel();
@@ -67,8 +78,7 @@ public class Editing extends GameScene implements SceneMethods {
     }
     
     private void drawLevel(Graphics g) {
-    	g.fillRect(0, 0, lastTileId, TILE_SIZE);
-        int screenWidth = game.getWidth();
+    	g.fillRect(0, 0, TILE_SIZE, TILE_SIZE);
         int screenHeight = game.getHeight();
         int levelWidth = lvl[0].length * TILE_SIZE;
         int levelHeight = lvl.length * TILE_SIZE;
@@ -127,13 +137,20 @@ public class Editing extends GameScene implements SceneMethods {
 
             if (tileX >= 0 && tileX < lvl[0].length && tileY >= 0 && tileY < lvl.length) {
                 if (selectedTile.getId() >= 0) {
-                    if (lastTileX == tileX && lastTileY == tileY && lastTileId == selectedTile.getId())
-                        return;
-
-                    lastTileX = tileX;
-                    lastTileY = tileY;
-                    lastTileId = selectedTile.getId();
-
+                    if (lastTileX.getLast() == tileX && lastTileY.getLast() == tileY && lastTileId.getLast() == selectedTile.getId())
+                    	return;
+                    if(lastTileId.getLast() == -1) {
+                    	lastTileX.removeLast();
+                        lastTileY.removeLast();
+                        lastTileId.removeLast();
+                    }
+                    lastTileX.add(tileX);
+                    lastTileY.add(tileY);
+                    lastTileId.add(selectedTile.getId());
+                    
+                    System.out.println(lastTileId);
+                    System.out.println(lastTileX);
+                    System.out.println(lastTileY);
                     lvl[tileY][tileX] = selectedTile.getId();
                 }
             }
@@ -179,14 +196,31 @@ public class Editing extends GameScene implements SceneMethods {
             changeTile(x, y);
         }
     }
-
+    
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_R) {
-            toolbar.rotateSprite();
-        }
+    	 switch (e.getKeyCode()) {
+         case KeyEvent.VK_R:
+        	 if(selectedTile != null)
+        		 toolbar.rotateSprite();
+             break;
+         case KeyEvent.VK_Z:
+             ctrlZ();
+             break;
+         default:
+             System.out.println("Key pressed: " + e.getKeyChar());
+             break;
+     }
     }
 
-    public Game getGame() {
+    private void ctrlZ() {
+	    if (!lastTileX.isEmpty() && !lastTileY.isEmpty() && lastTileId.isEmpty()) {
+	    	System.out.println("siumm");
+	    	lvl[lastTileY.getLast()][lastTileX.getLast()] = lastTileId.getLast();
+	    }
+    }
+
+
+	public Game getGame() {
         return game;
     }
 
