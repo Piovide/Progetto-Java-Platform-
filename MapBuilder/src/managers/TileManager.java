@@ -12,6 +12,7 @@ public class TileManager {
 
 	private int id = 0;
 	
+	private static final int TILE_SIZE = 32;
 	
 	public Tile SPROUT, 
 				GRASS_N_PEABBLES, 
@@ -37,7 +38,6 @@ public class TileManager {
 
 	private BufferedImage atlas;
 	
-	private static final int TILE_SIZE = 16;
 	
 	public ArrayList<Tile> tiles = new ArrayList<>();
 	

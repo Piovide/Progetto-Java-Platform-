@@ -22,6 +22,8 @@ public class Editing extends GameScene implements SceneMethods {
     private static final String LEVEL_SAVE_FILE = "level.dat";
     private static final int TILE_SIZE = 23;
 
+    private Graphics graphics = null;
+    
     public Editing(Game game) {
         super(game);
         this.game = game;
@@ -55,9 +57,11 @@ public class Editing extends GameScene implements SceneMethods {
     public void update() {
         updateTick();
     }
-
+    
     @Override
     public void render(Graphics g) {
+    	if(graphics == null)
+    		this.graphics = g;
     	drawLevelBackground(g);
         drawLevel(g);
         toolbar.draw(g);
@@ -84,10 +88,11 @@ public class Editing extends GameScene implements SceneMethods {
         int levelHeight = lvl.length * TILE_SIZE;
        
         // SETTA IL COLORE DI BACKGROUND
+//        int screenWidth = game.getWidth();
 //        g.setColor(new Color(219, 207, 117));
 //        g.setColor(Color.black);
-//        g.fillRect(0, 0, screenWidth, screenHeight);
-        
+//		g.fillRect(0, 0, screenWidth, screenHeight);
+//        
         int startX = 160;
         int startY = 50;
         for (int y = 0; y < lvl.length; y++) {
@@ -137,7 +142,7 @@ public class Editing extends GameScene implements SceneMethods {
 
             if (tileX >= 0 && tileX < lvl[0].length && tileY >= 0 && tileY < lvl.length) {
                 if (selectedTile.getId() >= 0) {
-                    if (lastTileX.getLast() == tileX && lastTileY.getLast() == tileY && lastTileId.getLast() == selectedTile.getId())
+                	if (lastTileX.getLast() == tileX && lastTileY.getLast() == tileY && lastTileId.getLast() == selectedTile.getId())
                     	return;
                     if(lastTileId.getLast() == -1) {
                     	lastTileX.removeLast();
@@ -148,9 +153,6 @@ public class Editing extends GameScene implements SceneMethods {
                     lastTileY.add(tileY);
                     lastTileId.add(selectedTile.getId());
                     
-                    System.out.println(lastTileId);
-                    System.out.println(lastTileX);
-                    System.out.println(lastTileY);
                     lvl[tileY][tileX] = selectedTile.getId();
                 }
             }
@@ -198,26 +200,17 @@ public class Editing extends GameScene implements SceneMethods {
     }
     
     public void keyPressed(KeyEvent e) {
-    	 switch (e.getKeyCode()) {
-         case KeyEvent.VK_R:
-        	 if(selectedTile != null)
-        		 toolbar.rotateSprite();
-             break;
-         case KeyEvent.VK_Z:
-             ctrlZ();
-             break;
-         default:
-             System.out.println("Key pressed: " + e.getKeyChar());
-             break;
-     }
+    	if(selectedTile != null)
+	    	switch (e.getKeyCode()) {
+		         case KeyEvent.VK_R:
+		        	 if(selectedTile != null)
+		        		 toolbar.rotateSprite();
+		             break;
+		         default:
+		             break;
+	    	}
     }
 
-    private void ctrlZ() {
-	    if (!lastTileX.isEmpty() && !lastTileY.isEmpty() && lastTileId.isEmpty()) {
-	    	System.out.println("siumm");
-	    	lvl[lastTileY.getLast()][lastTileX.getLast()] = lastTileId.getLast();
-	    }
-    }
 
 
 	public Game getGame() {

@@ -2,7 +2,6 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;

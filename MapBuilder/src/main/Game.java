@@ -128,6 +128,10 @@ public class Game extends JFrame implements Runnable {
 		return editing;
 	}
 
+	public GameScreen getGameScreen() {
+		return gameScreen;
+	}
+
 	public TileManager getTileManager() {
 		return tileManager;
 	}
