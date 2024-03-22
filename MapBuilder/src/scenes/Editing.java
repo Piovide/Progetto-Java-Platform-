@@ -1,6 +1,7 @@
 package scenes;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
@@ -118,9 +119,17 @@ public class Editing extends GameScene implements SceneMethods {
         	if(!selectedTile.isMultiple())
         		g.drawImage(selectedTile.getSprite(), mouseX - 1, mouseY+4, TILE_SIZE, TILE_SIZE, null);
         	else {
-        		for (int i = 0; i < selectedTile.getSpriteLenght(); i++) {
-            		g.drawImage(selectedTile.getSprite(i), mouseX - 1 - (TILE_SIZE * i), mouseY + 4, TILE_SIZE, TILE_SIZE, null);            		
-        		}
+        		Dimension dim = selectedTile.getmultipleBounds(selectedTile.getTileType());
+        		int height = (int) dim.getHeight();
+        		int width = (int) dim.getWidth();
+        		int c = 0;
+        		for (int h = 0; h < height; h++) {
+                	for (int w = 0; w < width; w++) {
+                		g.drawImage(selectedTile.getSprite(), mouseX - 1 + w*TILE_SIZE, mouseY + 4 + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+                		c++;
+                		toolbar.getnext(c);
+                	}
+				}
         	}
         		
         }
@@ -154,6 +163,33 @@ public class Editing extends GameScene implements SceneMethods {
                     lastTileId.add(selectedTile.getId());
                     
                     lvl[tileY][tileX] = selectedTile.getId();
+                }
+            }
+        }
+    }
+    
+    private void changeMultipleTile(int x, int y, int nx, int ny) {
+        if (selectedTile != null) {
+            int tileX = (x - 160) / TILE_SIZE;
+            int tileY = (y - 50) / TILE_SIZE;
+
+            if (tileX >= 0 && tileX < lvl[0].length && tileY >= 0 && tileY < lvl.length) {
+                if (selectedTile.getId() >= 0) {
+                	if (lastTileX.getLast() == tileX && lastTileY.getLast() == tileY && lastTileId.getLast() == selectedTile.getId())
+                    	return;
+                    if(lastTileId.getLast() == -1) {
+                    	lastTileX.removeLast();
+                        lastTileY.removeLast();
+                        lastTileId.removeLast();
+                    }
+                    lastTileX.add(tileX);
+                    lastTileY.add(tileY);
+                    lastTileId.add(selectedTile.getId());
+                    for (int h = 0; h < ny; h++) {
+                    	for (int w = 0; w < nx; w++) {
+                    		lvl[tileY+h][tileX+w] = selectedTile.getId();					
+                    	}
+					}
                 }
             }
         }
@@ -193,14 +229,17 @@ public class Editing extends GameScene implements SceneMethods {
 
     @Override
     public void mouseDragged(int x, int y) {
-        if (x <= 160) {
-        } else {
-            changeTile(x, y);
-        }
+        if (x >= 160)
+        	if(!selectedTile.isMultiple())
+        		changeTile(x, y);
+        	else {
+        		int w = (int) selectedTile.getmultipleBounds(selectedTile.getTileType()).getWidth();
+        		int h = (int) selectedTile.getmultipleBounds(selectedTile.getTileType()).getHeight();
+        		changeMultipleTile(x, y, w, h);
+        	}
     }
     
     public void keyPressed(KeyEvent e) {
-    	if(selectedTile != null)
 	    	switch (e.getKeyCode()) {
 		         case KeyEvent.VK_R:
 		        	 if(selectedTile != null)

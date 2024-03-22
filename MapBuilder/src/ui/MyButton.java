@@ -31,7 +31,6 @@ public class MyButton {
 		this.width = width;
 		this.height = height;
 		this.id = id;
-
 		initBounds();
 	}
 

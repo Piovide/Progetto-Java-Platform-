@@ -119,7 +119,7 @@ public class ImgFix {
 //        img = g2d.getDeviceConfiguration().createCompatibleImage(img.getWidth(), img.getHeight(), java.awt.Transparency.TRANSLUCENT);
 //        g2d.dispose();
 //        g2d = img.createGraphics();
-//        
+		
         return img;
         
 	}

@@ -1,5 +1,4 @@
 package managers;
-
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -98,9 +97,7 @@ public class TileManager {
 		
 		// Terrains
 		terrains.add(TERRAIN = new Tile(ImgFix.getTrasparentImage(getSprite(1, 5)), id++, TERRAIN_TILE));
-		terrains.add(TERRAIN = new Tile(ImgFix.getTrasparentImage(getSprite(2, 5)), id++, TERRAIN_TILE));
-		terrains.add(TERRAIN = new Tile(ImgFix.getTrasparentImage(getSprite(3, 5)), id++, TERRAIN_TILE));
-		
+
 		// Flawers
 	    for (int i = 0; i < 4; i++) {
 	        flawers.add(FLAWERS = new Tile(ImgFix.getTrasparentImage(getSprite(i, 7)), id++, FLAWERS_TILE));
@@ -112,13 +109,17 @@ public class TileManager {
 	    }
 	    
 	    // Spikes
-	    for (int i = 1; i < 2; i++) {
+	    for (int i = 1; i < 3; i++) {
 	    	spikes.add(SPIKES = new Tile(ImgFix.getTrasparentImage(getSprite(i,9)), id++, SPIKES_TILE));
 	    	spikes.add(SPIKES = new Tile(ImgFix.getMirroredImage(getSprite(i,9)), id++, SPIKES_TILE));
-	    }    
+	    }   
 	    
-		
-		
+	    // Sun
+	    for (int h = 0; h < 2; h++) {
+        	for (int w = 0; w < 4; w++) {
+        		sun.add(SUN = new Tile(getSprite(w,  22 + h), id++, SUN_TILE));
+        	}
+	    }
 		
 		tiles.addAll(grassNPeabbles);
 		tiles.addAll(ladders);
@@ -127,6 +128,7 @@ public class TileManager {
 		tiles.addAll(flawers);
 		tiles.addAll(other_terrains);
 		tiles.addAll(spikes);
+		tiles.addAll(sun);
 		
 		
 		tiles.add(new Tile(ImgFix.getTrasparentImage(getSprite(5, 0)), id++, id++));

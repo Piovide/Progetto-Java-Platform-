@@ -20,7 +20,8 @@ public class Toolbar extends Bar {
 	private MyButton bGrass,
 					 bWater,
 					 bWind,
-					 bFlowatingIsland;
+					 bFlowatingIsland,
+					 bSun;
 	//BOTTONI MAP
     private MyButton bTerrains,
 					 bGrassNPeabbles,
@@ -83,7 +84,10 @@ public class Toolbar extends Bar {
 
 		// Get spikes tiles
 		initMapButton(bSpikes, editing.getGame().getTileManager().getSpikes(), xStart, yStart, yOffset, w, h, i++);
-
+		
+		
+		initMapButton(bSun, editing.getGame().getTileManager().getSun(), xStart + (int) (w * 1.1f), yStart + (int) (w * 1.1f), 0, w, h, i++);
+	
 	}
 
 	private void initMapButton(MyButton b, ArrayList<Tile> list, int x, int y, int xOff, int w, int h, int id) {
@@ -208,6 +212,16 @@ public class Toolbar extends Bar {
 		}
 
 	}
+	public void getnext(int c) {
+		for (MyButton b : map.keySet())
+			if (b.getId() == selectedTile.getTileType()) {
+				selectedTile = map.get(b).get(c);
+				editing.setSelectedTile(selectedTile);
+				currentButton = b;
+				currentIndex = 0;
+				return;
+		}
+	}
 
 	public void mouseMoved(int x, int y) {
 		bSave.setMouseOver(false);
@@ -217,7 +231,7 @@ public class Toolbar extends Bar {
 		bGrass.setMouseOver(false);
 		bWind.setMouseOver(false);
 		bFlowatingIsland.setMouseOver(false);
-
+		
 		for (MyButton b : map.keySet())
 			b.setMouseOver(false);
 		if (bSave.getBounds().contains(x, y))

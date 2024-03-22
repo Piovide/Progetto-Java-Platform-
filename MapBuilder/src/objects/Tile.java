@@ -1,6 +1,9 @@
 package objects;
 
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+
+import static helpz.Constants.Tiles.*;
 
 public class Tile {
 
@@ -41,7 +44,30 @@ public class Tile {
 	
 	// DA CAMBIARE LE COSTANTI E METTERLE SOPRA IL VENTI
 	public boolean isMultiple() {
-		return tileType > 20;
+		return tileType == SUN_TILE
+			   || tileType == MOON_TILE 
+			   || tileType == BIG_TREES_TILE 
+			   || tileType == BIG_CLOUDS_TILE;
+	}
+	
+	public Dimension getmultipleBounds(int tileType) {
+		int w = 0;
+		int h = 0;
+		
+		if(tileType == SUN_TILE || tileType == MOON_TILE) {
+			w = 4;
+			h = 2;
+		}else if(tileType == BIG_TREES_TILE) {
+			w = 3;
+			h = 1;
+		}else if(tileType == BIG_CLOUDS_TILE) {
+			w = 2;
+			h = 1;
+		}
+		
+		
+		Dimension dim = new Dimension(w,h);
+		return dim;
 	}
 
 	public int getId() {
