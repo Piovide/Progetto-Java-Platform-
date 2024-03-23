@@ -6,6 +6,7 @@ import helpz.ImgFix;
 import helpz.LoadSave;
 import objects.Tile;
 import static helpz.Constants.Tiles.*;
+import static helpz.Constants.Buttons.*;
 
 public class TileManager {
 
@@ -117,10 +118,19 @@ public class TileManager {
 	    // Sun
 	    for (int h = 0; h < 2; h++) {
         	for (int w = 0; w < 4; w++) {
-        		sun.add(SUN = new Tile(getSprite(w,  22 + h), id++, SUN_TILE));
+        		SUN = new Tile(getSprite(w,  22 + h), id++, SUN_TILE);
+        		SUN.setBtnConst(BTN_SUN);
+        		sun.add(SUN);
         	}
 	    }
-		
+	    // Moon
+	    for (int h = 0; h < 2; h++) {
+	    	for (int w = 0; w < 4; w++) {
+	    		MOON = new Tile(getSprite(w,  24 + h), id++, MOON_TILE);
+	    		MOON.setBtnConst(BTN_MOON);
+	    		moon.add(MOON);
+	    	}
+	    }
 		tiles.addAll(grassNPeabbles);
 		tiles.addAll(ladders);
 		tiles.addAll(doors);
@@ -129,9 +139,11 @@ public class TileManager {
 		tiles.addAll(other_terrains);
 		tiles.addAll(spikes);
 		tiles.addAll(sun);
+		tiles.addAll(moon);
 		
-		
+		System.out.println(id);
 		tiles.add(new Tile(ImgFix.getTrasparentImage(getSprite(5, 0)), id++, id++));
+		
 		tiles.add(new Tile(getAniSprites(0, 28, 6), id+1, id+1));
 	}
 

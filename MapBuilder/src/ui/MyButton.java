@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 
 public class MyButton {
 
-	public int x, y, width, height, id;
+	public int x, y, width, height, id, btnConst;
 	private String text;
 	private Rectangle bounds;
 	private boolean mouseOver, mousePressed;
@@ -113,6 +113,14 @@ public class MyButton {
 
 	public int getId() {
 		return id;
+	}
+
+	public int getBtnConst() {
+		return btnConst;
+	}
+
+	public void setBtnConst(int btnConst) {
+		this.btnConst = btnConst;
 	}
 
 }

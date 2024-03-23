@@ -6,8 +6,11 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import helpz.LoadSave;
 import objects.Tile;
 import scenes.Editing;
+import static helpz.Constants.Buttons.*;
 
 public class Toolbar extends Bar {
 	private Editing editing;
@@ -21,7 +24,8 @@ public class Toolbar extends Bar {
 					 bWater,
 					 bWind,
 					 bFlowatingIsland,
-					 bSun;
+					 bSun,
+					 bMoon;
 	//BOTTONI MAP
     private MyButton bTerrains,
 					 bGrassNPeabbles,
@@ -85,13 +89,21 @@ public class Toolbar extends Bar {
 		// Get spikes tiles
 		initMapButton(bSpikes, editing.getGame().getTileManager().getSpikes(), xStart, yStart, yOffset, w, h, i++);
 		
+		// Get sun tiles
+		initMapButton(bSun, editing.getGame().getTileManager().getSun(), xStart + (int) (w * 1.1f), yStart + (int) (w * 1.1f), 0, w, h, i++, BTN_SUN);
 		
-		initMapButton(bSun, editing.getGame().getTileManager().getSun(), xStart + (int) (w * 1.1f), yStart + (int) (w * 1.1f), 0, w, h, i++);
-	
+		// Get moon tiles
+		initMapButton(bMoon, editing.getGame().getTileManager().getMoon(), xStart + (int) (w * 1.1f), yStart + (int) (w * 1.1f)*2, 0, w, h, i++, BTN_MOON);
+		
 	}
 
 	private void initMapButton(MyButton b, ArrayList<Tile> list, int x, int y, int xOff, int w, int h, int id) {
 		b = new MyButton("", x, y + xOff * (id-1), w, h, id);
+		map.put(b, list);
+	}
+	private void initMapButton(MyButton b, ArrayList<Tile> list, int x, int y, int xOff, int w, int h, int id, int CONST) {
+		b = new MyButton("", x, y + xOff * (id-1), w, h, id);
+		b.setBtnConst(CONST);
 		map.put(b, list);
 	}
 
@@ -142,8 +154,27 @@ public class Toolbar extends Bar {
 		for (Map.Entry<MyButton, ArrayList<Tile>> entry : map.entrySet()) {
 			MyButton b = entry.getKey();
 			BufferedImage img = entry.getValue().get(0).getSprite();
+			if(entry.getValue().get(0).isMultiple()) {
+				if(entry.getKey().getBtnConst() == BTN_SUN)
+					img = LoadSave.getSpriteAtlas().getSubimage(0, 22*32, 32*4, 32*2);
+				if(entry.getKey().getBtnConst() == BTN_MOON)
+					img = LoadSave.getSpriteAtlas().getSubimage(0, 24*32, 32*4, 32*2);
+			 	double scaleX = (double) b.width / img.getWidth();
+		        double scaleY = (double) b.height / img.getHeight();
 
-			g.drawImage(img, b.x, b.y, b.width, b.height, null);
+		        double scale = Math.min(scaleX, scaleY);
+
+		        int newWidth = (int) (img.getWidth() * scale);
+		        int newHeight = (int) (img.getHeight() * scale);
+
+		        int x = b.x + (b.width - newWidth) / 2;
+		        int y = b.y + (b.height - newHeight) / 2;
+
+		        g.drawImage(img, x, y, newWidth, newHeight, null);
+			}else {
+				img = entry.getValue().get(0).getSprite();
+				g.drawImage(img, b.x, b.y, b.width, b.height, null);
+			}
 			drawButtonFeedback(g, b);
 		}
 
@@ -152,15 +183,41 @@ public class Toolbar extends Bar {
 	
 
 	private void drawSelectedTile(Graphics g) {
-
+		int size = 130;
+		int xButton = 15;
+		int yButton = editing.getGame().getToolkit().getScreenSize().height -150;
 		if (selectedTile != null) {
-			if(!selectedTile.isAnimation()) {
-				g.drawImage(selectedTile.getSprite(), 15, editing.getGame().getToolkit().getScreenSize().height -150, 130, 130, null);
+			if(!selectedTile.isAnimation() && !selectedTile.isMultiple()) {
+				g.drawImage(selectedTile.getSprite(), xButton, yButton, size, size, null);
 				g.setColor(Color.black);
-				g.drawRect(15, editing.getGame().getToolkit().getScreenSize().height -150, 130, 130);
-			}else {
+				g.drawRect(xButton, yButton, size, size);
+				
+			}else if(selectedTile.isMultiple()) {
+				BufferedImage img = selectedTile.getSprite();
+				if(selectedTile.getBtnConst() == BTN_SUN) {
+					img = LoadSave.getSpriteAtlas().getSubimage(0, 22*32, 32*4, 32*2);
+				}
+				if(selectedTile.getBtnConst() == BTN_MOON) {
+					img = LoadSave.getSpriteAtlas().getSubimage(0, 24*32, 32*4, 32*2);
+				}
+			 	double scaleX = (double) size / img.getWidth();
+		        double scaleY = (double) size / img.getHeight();
+
+		        double scale = Math.min(scaleX, scaleY);
+
+		        int newWidth = (int) (img.getWidth() * scale);
+		        int newHeight = (int) (img.getHeight() * scale);
+
+		        int x = xButton + (size - newWidth) / 2;
+		        int y = yButton + (size - newHeight) / 2;
+
+		        g.drawImage(img, x, y, newWidth, newHeight, null);
+		        g.setColor(Color.black);
+				g.drawRect(xButton, yButton, size, size);
+				
+			}else if(selectedTile.isAnimation()){
 				try {
-					aniIndex = aniIndex >= selectedTile.getSpriteLenght() ? 0 : aniIndex+0.02;
+					aniIndex = aniIndex >= selectedTile.getSpriteLenght() ? 0 : aniIndex+0.012;
 					g.drawImage(selectedTile.getSprite((int) aniIndex), 15, editing.getGame().getToolkit().getScreenSize().height -150, 130, 130, null);
 					g.setColor(Color.black);
 					g.drawRect(15, editing.getGame().getToolkit().getScreenSize().height -150, 130, 130);
@@ -203,24 +260,43 @@ public class Toolbar extends Bar {
 		} else {
 			for (MyButton b : map.keySet())
 				if (b.getBounds().contains(x, y)) {
-					selectedTile = map.get(b).get(0);
-					editing.setSelectedTile(selectedTile);
-					currentButton = b;
-					currentIndex = 0;
-					return;
+					if(!map.get(b).get(0).isMultiple()) {
+						selectedTile = map.get(b).get(0);
+						editing.setSelectedTile(selectedTile);
+						currentButton = b;
+						currentIndex = 0;
+						return;
+					}else if(map.get(b).get(0).getBtnConst() == 0){
+						selectedTile = map.get(b).get(0);
+						editing.setSelectedTile(selectedTile);
+						currentButton = b;
+						currentIndex = 0;
+						return;
+					}else if(map.get(b).get(0).getBtnConst() == 1){
+						selectedTile = map.get(b).get(0);
+						editing.setSelectedTile(selectedTile);
+						currentButton = b;
+						currentIndex = 0;
+						return;
+					}
 				}
 		}
 
 	}
-	public void getnext(int c) {
+	public int getnext(int index, int size) {
 		for (MyButton b : map.keySet())
-			if (b.getId() == selectedTile.getTileType()) {
-				selectedTile = map.get(b).get(c);
-				editing.setSelectedTile(selectedTile);
-				currentButton = b;
-				currentIndex = 0;
-				return;
+			if (b.getBtnConst() == currentButton.getBtnConst() && map.get(b).get(0).isMultiple()) {
+				if (map.get(b).size() > index) {
+					currentButton = b;
+				    editing.setSelectedTile(map.get(currentButton).get(index));
+//				    System.out.println("currentIndex " + index + " size " + size);
+//				    System.out.println(selectedTile.getTileType());
+//				    System.out.println();
+				    index = index >= size ? 0 : index + 1;
+				    return index;
+				}
 		}
+		return 0;
 	}
 
 	public void mouseMoved(int x, int y) {
@@ -231,9 +307,9 @@ public class Toolbar extends Bar {
 		bGrass.setMouseOver(false);
 		bWind.setMouseOver(false);
 		bFlowatingIsland.setMouseOver(false);
-		
 		for (MyButton b : map.keySet())
 			b.setMouseOver(false);
+		
 		if (bSave.getBounds().contains(x, y))
 			bSave.setMouseOver(true);
 		else if (bExit.getBounds().contains(x, y))

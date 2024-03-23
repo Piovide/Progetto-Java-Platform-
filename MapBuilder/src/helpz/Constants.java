@@ -22,7 +22,11 @@ public class Constants {
 		public static final int BIG_CLOUDS_TILE = 17;
 		public static final int SMALL_CLOUDS_TILE = 18;
 		public static final int DOUBLE_CLOUDS_TILE = 19;
-		
+	}
+	
+	public static class Buttons {
+		public static final int BTN_SUN = 0;
+		public static final int BTN_MOON = 1;
 		
 	}
 
