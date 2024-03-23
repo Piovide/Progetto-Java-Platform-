@@ -22,17 +22,16 @@ public class KeyboardListener implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-	    System.out.println("Key pressed: " + e.getKeyCode());
-	    if (GameStates.gameState == EDIT) {
-	        System.out.println("Sending key event to editor" + game.getEditor());
-	        game.getEditor().keyPressed(e);
-	    }
+//	    if (GameStates.gameState == EDIT) {
+//	        game.getEditor().keyPressed(e);
+//	    }
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+		if (GameStates.gameState == EDIT) {
+	        game.getEditor().keyPressed(e);
+	    }
 	}
 
 }

@@ -67,8 +67,7 @@ public class Editing extends GameScene implements SceneMethods {
         drawLevel(g);
         toolbar.draw(g);
         drawSelectedTile(g);
-        if(selectedTile != null)
-        	System.out.println(selectedTile.getBtnConst());
+
     }
     
     // SETTA IL BACKGROND CON I TILE GIALLI A RIGHR

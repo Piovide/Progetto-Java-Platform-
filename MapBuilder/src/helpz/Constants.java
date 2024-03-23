@@ -19,14 +19,15 @@ public class Constants {
 		public static final int BIG_TREES_TILE = 14;
 		public static final int MOON_TILE = 15;
 		public static final int SUN_TILE = 16;
-		public static final int BIG_CLOUDS_TILE = 17;
-		public static final int SMALL_CLOUDS_TILE = 18;
-		public static final int DOUBLE_CLOUDS_TILE = 19;
+		public static final int CLOUDS_TILE = 17;
+		public static final int DOUBLE_CLOUDS_TILE = 18;
 	}
 	
 	public static class Buttons {
 		public static final int BTN_SUN = 0;
 		public static final int BTN_MOON = 1;
+		public static final int BTN_CLOUDS = 2;
+		public static final int BTN_DOUBLE_CLOUDS = 3;
 		
 	}
 

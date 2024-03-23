@@ -19,13 +19,17 @@ public class Toolbar extends Bar {
 	
 	//BOTTONI FUNZIONI
 	private MyButton bExit, bSave, bGomma;
+	
 	//BOTTONI SINGOLI
 	private MyButton bGrass,
 					 bWater,
 					 bWind,
 					 bFlowatingIsland,
 					 bSun,
-					 bMoon;
+					 bMoon,
+					 bCloud,
+					 bDoubleCloud;
+	
 	//BOTTONI MAP
     private MyButton bTerrains,
 					 bGrassNPeabbles,
@@ -34,6 +38,7 @@ public class Toolbar extends Bar {
 					 bSpikes,
 					 bDoors,
 					 bLadders;
+    
     //BOTTONE SELEZIONATO
 	private MyButton currentButton;
 	
@@ -95,6 +100,13 @@ public class Toolbar extends Bar {
 		// Get moon tiles
 		initMapButton(bMoon, editing.getGame().getTileManager().getMoon(), xStart + (int) (w * 1.1f), yStart + (int) (w * 1.1f)*2, 0, w, h, i++, BTN_MOON);
 		
+		// Get sun tiles
+		initMapButton(bCloud, editing.getGame().getTileManager().getClouds(), xStart + (int) (w * 1.1f), yStart + (int) (w * 1.1f)*3, 0, w, h, i++, BTN_CLOUDS);
+		
+		// Get moon tiles
+		initMapButton(bDoubleCloud, editing.getGame().getTileManager().getDouble_clouds(), xStart + (int) (w * 1.1f), yStart + (int) (w * 1.1f)*4, 0, w, h, i++, BTN_DOUBLE_CLOUDS);
+
+	
 	}
 
 	private void initMapButton(MyButton b, ArrayList<Tile> list, int x, int y, int xOff, int w, int h, int id) {
@@ -123,7 +135,7 @@ public class Toolbar extends Bar {
 	public void draw(Graphics g) {
 
 		// Background
-		g.setColor(new Color(220, 123, 15));
+		g.setColor(new Color(15, 123, 150));
 		g.fillRect(x, y, width, editing.getGame().getToolkit().getScreenSize().height);
 		
 		// Buttons
@@ -159,6 +171,12 @@ public class Toolbar extends Bar {
 					img = LoadSave.getSpriteAtlas().getSubimage(0, 22*32, 32*4, 32*2);
 				if(entry.getKey().getBtnConst() == BTN_MOON)
 					img = LoadSave.getSpriteAtlas().getSubimage(0, 24*32, 32*4, 32*2);
+				if(entry.getKey().getBtnConst() == BTN_CLOUDS)
+					img = LoadSave.getSpriteAtlas().getSubimage(0, 20*32, 32*2, 32);
+				if(entry.getKey().getBtnConst() == BTN_DOUBLE_CLOUDS)
+					img = LoadSave.getSpriteAtlas().getSubimage(0, 26*32, 32*3, 32);
+				
+				
 			 	double scaleX = (double) b.width / img.getWidth();
 		        double scaleY = (double) b.height / img.getHeight();
 
@@ -217,7 +235,7 @@ public class Toolbar extends Bar {
 				
 			}else if(selectedTile.isAnimation()){
 				try {
-					aniIndex = aniIndex >= selectedTile.getSpriteLenght() ? 0 : aniIndex+0.012;
+					aniIndex = aniIndex >= selectedTile.getSpriteLenght() ? 0 : aniIndex+0.014;
 					g.drawImage(selectedTile.getSprite((int) aniIndex), 15, editing.getGame().getToolkit().getScreenSize().height -150, 130, 130, null);
 					g.setColor(Color.black);
 					g.drawRect(15, editing.getGame().getToolkit().getScreenSize().height -150, 130, 130);

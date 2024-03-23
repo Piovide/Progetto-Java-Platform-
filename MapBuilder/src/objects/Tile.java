@@ -47,7 +47,8 @@ public class Tile {
 		return tileType == SUN_TILE
 			   || tileType == MOON_TILE 
 			   || tileType == BIG_TREES_TILE 
-			   || tileType == BIG_CLOUDS_TILE;
+			   || tileType == CLOUDS_TILE
+			   || tileType == DOUBLE_CLOUDS_TILE;
 	}
 	
 	public Dimension getmultipleBounds(int tileType) {
@@ -58,10 +59,13 @@ public class Tile {
 			w = 4;
 			h = 2;
 		}else if(tileType == BIG_TREES_TILE) {
-			w = 3;
-			h = 1;
-		}else if(tileType == BIG_CLOUDS_TILE) {
+			w = 1;
+			h = 3;
+		}else if(tileType == CLOUDS_TILE) {
 			w = 2;
+			h = 1;
+		}else if(tileType == DOUBLE_CLOUDS_TILE) {
+			w = 3;
 			h = 1;
 		}
 		

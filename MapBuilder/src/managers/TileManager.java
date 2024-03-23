@@ -32,8 +32,7 @@ public class TileManager {
 				MOON,
 				SUN,
 				STARS,
-				BIG_CLOUDS,
-				SMALL_CLOUDS,
+				CLOUDS,
 				DOUBLE_CLOUDS;
 
 	private BufferedImage atlas;
@@ -53,8 +52,7 @@ public class TileManager {
 	public ArrayList<Tile> big_trees = new ArrayList<>();
 	public ArrayList<Tile> moon = new ArrayList<>();
 	public ArrayList<Tile> sun = new ArrayList<>();
-	public ArrayList<Tile> big_clouds = new ArrayList<>();
-	public ArrayList<Tile> small_clouds = new ArrayList<>();
+	public ArrayList<Tile> clouds = new ArrayList<>();
 	public ArrayList<Tile> double_clouds = new ArrayList<>();
 	
 
@@ -131,6 +129,25 @@ public class TileManager {
 	    		moon.add(MOON);
 	    	}
 	    }
+	    
+	    // CLOUDS
+	    for (int h = 0; h < 2; h++) {
+	    	for (int w = 0; w < 4; w++) {
+	    		CLOUDS = new Tile(getSprite(w,  20 + h), id++, CLOUDS_TILE);
+	    		CLOUDS.setBtnConst(BTN_CLOUDS);
+	    		double_clouds.add(CLOUDS);
+	    	}
+	    }
+	    
+	    // DOUBLE CLOUDS
+	    for (int h = 0; h < 2; h++) {
+	    	for (int w = 0; w < 3; w++) {
+	    		DOUBLE_CLOUDS = new Tile(getSprite(w,  26 + h), id++, DOUBLE_CLOUDS_TILE);
+	    		DOUBLE_CLOUDS.setBtnConst(BTN_DOUBLE_CLOUDS);
+	    		double_clouds.add(DOUBLE_CLOUDS);
+	    	}
+	    }
+	    
 		tiles.addAll(grassNPeabbles);
 		tiles.addAll(ladders);
 		tiles.addAll(doors);
@@ -140,8 +157,10 @@ public class TileManager {
 		tiles.addAll(spikes);
 		tiles.addAll(sun);
 		tiles.addAll(moon);
+		tiles.addAll(clouds);
+		tiles.addAll(double_clouds);
 		
-		System.out.println(id);
+		
 		tiles.add(new Tile(ImgFix.getTrasparentImage(getSprite(5, 0)), id++, id++));
 		
 		tiles.add(new Tile(getAniSprites(0, 28, 6), id+1, id+1));
@@ -248,10 +267,6 @@ public class TileManager {
 		return sun;
 	}
 
-	public ArrayList<Tile> getSmall_clouds() {
-		return small_clouds;
-	}
-
 	public ArrayList<Tile> getDouble_clouds() {
 		return double_clouds;
 	}
@@ -262,6 +277,10 @@ public class TileManager {
 
 	public int getTilesLenght() {
 		return tiles.size();
+	}
+
+	public ArrayList<Tile> getClouds() {
+		return clouds;
 	}
 
 
