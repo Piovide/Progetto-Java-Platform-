@@ -135,7 +135,7 @@ public class TileManager {
 	    	for (int w = 0; w < 4; w++) {
 	    		CLOUDS = new Tile(getSprite(w,  20 + h), id++, CLOUDS_TILE);
 	    		CLOUDS.setBtnConst(BTN_CLOUDS);
-	    		double_clouds.add(CLOUDS);
+	    		clouds.add(CLOUDS);
 	    	}
 	    }
 	    

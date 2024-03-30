@@ -16,33 +16,20 @@ public class Toolbar extends Bar {
 	private Editing editing;
 	private Tile selectedTile;
 	private Map<MyButton, ArrayList<Tile>> map = new HashMap<MyButton, ArrayList<Tile>>();
-	
-	//BOTTONI FUNZIONI
+
+	// BOTTONI FUNZIONI
 	private MyButton bExit, bSave, bGomma;
-	
-	//BOTTONI SINGOLI
-	private MyButton bGrass,
-					 bWater,
-					 bWind,
-					 bFlowatingIsland,
-					 bSun,
-					 bMoon,
-					 bCloud,
-					 bDoubleCloud;
-	
-	//BOTTONI MAP
-    private MyButton bTerrains,
-					 bGrassNPeabbles,
-					 bFlowers,
-					 bOtherTerrains,
-					 bSpikes,
-					 bDoors,
-					 bLadders;
-    
-    //BOTTONE SELEZIONATO
+
+	// BOTTONI SINGOLI
+	private MyButton bGrass, bWater, bWind, bFlowatingIsland, bSun, bMoon, bCloud, bDoubleCloud;
+
+	// BOTTONI MAP
+	private MyButton bTerrains, bGrassNPeabbles, bFlowers, bOtherTerrains, bSpikes, bDoors, bLadders;
+
+	// BOTTONE SELEZIONATO
 	private MyButton currentButton;
-	
-	//Varibili di servizio
+
+	// Varibili di servizio
 	private double aniIndex = 0;
 	private int currentIndex = 0;
 	private int y;
@@ -55,26 +42,26 @@ public class Toolbar extends Bar {
 	}
 
 	private void initButtons() {
-		
-		bExit = new MyButton("Esci", 2, y+20, 100, 30);
-		bSave = new MyButton("Save", 2, y+60, 100, 30);
-		bGomma = new MyButton("Gomma", 2, y+100, 100, 30);
+
+		bExit = new MyButton("Esci", 2, y + 20, 100, 30);
+		bSave = new MyButton("Save", 2, y + 60, 100, 30);
+		bGomma = new MyButton("Gomma", 2, y + 100, 100, 30);
 		int w = 50;
 		int h = 50;
 		int xStart = 10;
-		int yStart = y+140;
+		int yStart = y + 140;
 		int yOffset = (int) (w * 1.1f);
 		int xOffset = (int) (w * 1.1f);
 		int i = 0;
-		
+
 		bGrass = new MyButton("Sprout", xStart, yStart, w, h, i++);
 		bWind = new MyButton("Wind", xStart, yStart + yOffset, w, h, i++);
-		bWater = new MyButton("Water", xStart, yStart + yOffset*2, w, h, i++);
+		bWater = new MyButton("Water", xStart, yStart + yOffset * 2, w, h, i++);
 		bFlowatingIsland = new MyButton("Island", xStart + xOffset, yStart, w, h, i++);
-		
-		
+
 		// Get grassNPeabbles tiles
-		initMapButton(bGrassNPeabbles, editing.getGame().getTileManager().getGrassNPeabbles(), xStart, yStart, yOffset, w, h, i++);
+		initMapButton(bGrassNPeabbles, editing.getGame().getTileManager().getGrassNPeabbles(), xStart, yStart, yOffset,
+				w, h, i++);
 
 		// Get Terrains tiles
 		initMapButton(bTerrains, editing.getGame().getTileManager().getTerrains(), xStart, yStart, yOffset, w, h, i++);
@@ -89,32 +76,38 @@ public class Toolbar extends Bar {
 		initMapButton(bFlowers, editing.getGame().getTileManager().getFlawers(), xStart, yStart, yOffset, w, h, i++);
 
 		// Get other_terrains tiles
-		initMapButton(bOtherTerrains, editing.getGame().getTileManager().getOther_terrains(), xStart, yStart, yOffset, w, h, i++);
+		initMapButton(bOtherTerrains, editing.getGame().getTileManager().getOther_terrains(), xStart, yStart, yOffset,
+				w, h, i++);
 
 		// Get spikes tiles
 		initMapButton(bSpikes, editing.getGame().getTileManager().getSpikes(), xStart, yStart, yOffset, w, h, i++);
-		
-		// Get sun tiles
-		initMapButton(bSun, editing.getGame().getTileManager().getSun(), xStart + (int) (w * 1.1f), yStart + (int) (w * 1.1f), 0, w, h, i++, BTN_SUN);
-		
-		// Get moon tiles
-		initMapButton(bMoon, editing.getGame().getTileManager().getMoon(), xStart + (int) (w * 1.1f), yStart + (int) (w * 1.1f)*2, 0, w, h, i++, BTN_MOON);
-		
-		// Get sun tiles
-		initMapButton(bCloud, editing.getGame().getTileManager().getClouds(), xStart + (int) (w * 1.1f), yStart + (int) (w * 1.1f)*3, 0, w, h, i++, BTN_CLOUDS);
-		
-		// Get moon tiles
-		initMapButton(bDoubleCloud, editing.getGame().getTileManager().getDouble_clouds(), xStart + (int) (w * 1.1f), yStart + (int) (w * 1.1f)*4, 0, w, h, i++, BTN_DOUBLE_CLOUDS);
 
-	
+		// Get sun tiles
+		initMapButton(bSun, editing.getGame().getTileManager().getSun(), xStart + (int) (w * 1.1f),
+				yStart + (int) (w * 1.1f), 0, w, h, i++, BTN_SUN);
+
+		// Get moon tiles
+		initMapButton(bMoon, editing.getGame().getTileManager().getMoon(), xStart + (int) (w * 1.1f),
+				yStart + (int) (w * 1.1f) * 2, 0, w, h, i++, BTN_MOON);
+
+		// Get sun tiles
+		initMapButton(bCloud, editing.getGame().getTileManager().getClouds(), xStart + (int) (w * 1.1f),
+				yStart + (int) (w * 1.1f) * 3, 0, w, h, i++, BTN_CLOUDS);
+
+		// Get moon tiles
+		initMapButton(bDoubleCloud, editing.getGame().getTileManager().getDouble_clouds(), xStart + (int) (w * 1.1f),
+				yStart + (int) (w * 1.1f) * 4, 0, w, h, i++, BTN_DOUBLE_CLOUDS);
+
 	}
 
 	private void initMapButton(MyButton b, ArrayList<Tile> list, int x, int y, int xOff, int w, int h, int id) {
-		b = new MyButton("", x, y + xOff * (id-1), w, h, id);
+		b = new MyButton("", x, y + xOff * (id - 1), w, h, id);
 		map.put(b, list);
 	}
-	private void initMapButton(MyButton b, ArrayList<Tile> list, int x, int y, int xOff, int w, int h, int id, int CONST) {
-		b = new MyButton("", x, y + xOff * (id-1), w, h, id);
+
+	private void initMapButton(MyButton b, ArrayList<Tile> list, int x, int y, int xOff, int w, int h, int id,
+			int CONST) {
+		b = new MyButton("", x, y + xOff * (id - 1), w, h, id);
 		b.setBtnConst(CONST);
 		map.put(b, list);
 	}
@@ -137,7 +130,7 @@ public class Toolbar extends Bar {
 		// Background
 		g.setColor(new Color(15, 123, 150));
 		g.fillRect(x, y, width, editing.getGame().getToolkit().getScreenSize().height);
-		
+
 		// Buttons
 		drawButtons(g);
 		drawSelectedTile(g);
@@ -166,30 +159,30 @@ public class Toolbar extends Bar {
 		for (Map.Entry<MyButton, ArrayList<Tile>> entry : map.entrySet()) {
 			MyButton b = entry.getKey();
 			BufferedImage img = entry.getValue().get(0).getSprite();
-			if(entry.getValue().get(0).isMultiple()) {
-				if(entry.getKey().getBtnConst() == BTN_SUN)
-					img = LoadSave.getSpriteAtlas().getSubimage(0, 22*32, 32*4, 32*2);
-				if(entry.getKey().getBtnConst() == BTN_MOON)
-					img = LoadSave.getSpriteAtlas().getSubimage(0, 24*32, 32*4, 32*2);
-				if(entry.getKey().getBtnConst() == BTN_CLOUDS)
-					img = LoadSave.getSpriteAtlas().getSubimage(0, 20*32, 32*2, 32);
-				if(entry.getKey().getBtnConst() == BTN_DOUBLE_CLOUDS)
-					img = LoadSave.getSpriteAtlas().getSubimage(0, 26*32, 32*3, 32);
-				
-				
-			 	double scaleX = (double) b.width / img.getWidth();
-		        double scaleY = (double) b.height / img.getHeight();
+			if (entry.getValue().get(0).isMultiple()) {
+//				System.out.println(entry.getValue().size() + " " + entry.getKey().getBtnConst());
+				if (entry.getKey().getBtnConst() == BTN_CLOUDS)
+					img = LoadSave.getSpriteAtlas().getSubimage(0, 20 * 32, 32 * 2, 32); 
+				if (entry.getKey().getBtnConst() == BTN_SUN)
+					img = LoadSave.getSpriteAtlas().getSubimage(0, 22 * 32, 32 * 4, 32 * 2);
+				if (entry.getKey().getBtnConst() == BTN_MOON)
+					img = LoadSave.getSpriteAtlas().getSubimage(0, 24 * 32, 32 * 4, 32 * 2);
+				if (entry.getKey().getBtnConst() == BTN_DOUBLE_CLOUDS)
+					img = LoadSave.getSpriteAtlas().getSubimage(0, 26 * 32, 32 * 3, 32);
 
-		        double scale = Math.min(scaleX, scaleY);
+				double scaleX = (double) b.width / img.getWidth();
+				double scaleY = (double) b.height / img.getHeight();
 
-		        int newWidth = (int) (img.getWidth() * scale);
-		        int newHeight = (int) (img.getHeight() * scale);
+				double scale = Math.min(scaleX, scaleY);
 
-		        int x = b.x + (b.width - newWidth) / 2;
-		        int y = b.y + (b.height - newHeight) / 2;
+				int newWidth = (int) (img.getWidth() * scale);
+				int newHeight = (int) (img.getHeight() * scale);
 
-		        g.drawImage(img, x, y, newWidth, newHeight, null);
-			}else {
+				int x = b.x + (b.width - newWidth) / 2;
+				int y = b.y + (b.height - newHeight) / 2;
+
+				g.drawImage(img, x, y, newWidth, newHeight, null);
+			} else {
 				img = entry.getValue().get(0).getSprite();
 				g.drawImage(img, b.x, b.y, b.width, b.height, null);
 			}
@@ -198,47 +191,48 @@ public class Toolbar extends Bar {
 
 	}
 
-	
-
 	private void drawSelectedTile(Graphics g) {
 		int size = 130;
 		int xButton = 15;
-		int yButton = editing.getGame().getToolkit().getScreenSize().height -150;
+		int yButton = editing.getGame().getToolkit().getScreenSize().height - 150;
 		if (selectedTile != null) {
-			if(!selectedTile.isAnimation() && !selectedTile.isMultiple()) {
+			if (!selectedTile.isAnimation() && !selectedTile.isMultiple()) {
 				g.drawImage(selectedTile.getSprite(), xButton, yButton, size, size, null);
 				g.setColor(Color.black);
 				g.drawRect(xButton, yButton, size, size);
-				
-			}else if(selectedTile.isMultiple()) {
+
+			} else if (selectedTile.isMultiple()) {
 				BufferedImage img = selectedTile.getSprite();
-				if(selectedTile.getBtnConst() == BTN_SUN) {
-					img = LoadSave.getSpriteAtlas().getSubimage(0, 22*32, 32*4, 32*2);
-				}
-				if(selectedTile.getBtnConst() == BTN_MOON) {
-					img = LoadSave.getSpriteAtlas().getSubimage(0, 24*32, 32*4, 32*2);
-				}
-			 	double scaleX = (double) size / img.getWidth();
-		        double scaleY = (double) size / img.getHeight();
+				if (selectedTile.getBtnConst() == BTN_CLOUDS)
+					img = LoadSave.getSpriteAtlas().getSubimage(0, (20 + currentIndex) * 32, 32 * 2, 32);
+				if (selectedTile.getBtnConst() == BTN_SUN)
+					img = LoadSave.getSpriteAtlas().getSubimage(0, 22 * 32, 32 * 4, 32 * 2);
+				if (selectedTile.getBtnConst() == BTN_MOON)
+					img = LoadSave.getSpriteAtlas().getSubimage(0, 24 * 32, 32 * 4, 32 * 2);
+				if (selectedTile.getBtnConst() == BTN_DOUBLE_CLOUDS)
+					img = LoadSave.getSpriteAtlas().getSubimage(0, (26 + currentIndex)%2 * 32, 32 * 3, 32);
+				double scaleX = (double) size / img.getWidth();
+				double scaleY = (double) size / img.getHeight();
 
-		        double scale = Math.min(scaleX, scaleY);
+				double scale = Math.min(scaleX, scaleY);
 
-		        int newWidth = (int) (img.getWidth() * scale);
-		        int newHeight = (int) (img.getHeight() * scale);
+				int newWidth = (int) (img.getWidth() * scale);
+				int newHeight = (int) (img.getHeight() * scale);
 
-		        int x = xButton + (size - newWidth) / 2;
-		        int y = yButton + (size - newHeight) / 2;
+				int x = xButton + (size - newWidth) / 2;
+				int y = yButton + (size - newHeight) / 2;
 
-		        g.drawImage(img, x, y, newWidth, newHeight, null);
-		        g.setColor(Color.black);
+				g.drawImage(img, x, y, newWidth, newHeight, null);
+				g.setColor(Color.black);
 				g.drawRect(xButton, yButton, size, size);
-				
-			}else if(selectedTile.isAnimation()){
+
+			} else if (selectedTile.isAnimation()) {
 				try {
-					aniIndex = aniIndex >= selectedTile.getSpriteLenght() ? 0 : aniIndex+0.014;
-					g.drawImage(selectedTile.getSprite((int) aniIndex), 15, editing.getGame().getToolkit().getScreenSize().height -150, 130, 130, null);
+					aniIndex = aniIndex >= selectedTile.getSpriteLenght() ? 0 : aniIndex + 0.014;
+					g.drawImage(selectedTile.getSprite((int) aniIndex), 15,
+							editing.getGame().getToolkit().getScreenSize().height - 150, 130, 130, null);
 					g.setColor(Color.black);
-					g.drawRect(15, editing.getGame().getToolkit().getScreenSize().height -150, 130, 130);
+					g.drawRect(15, editing.getGame().getToolkit().getScreenSize().height - 150, 130, 130);
 				} catch (ArrayIndexOutOfBoundsException e) {
 				}
 			}
@@ -259,7 +253,7 @@ public class Toolbar extends Bar {
 			selectedTile = editing.getGame().getTileManager().getGomma();
 			editing.setSelectedTile(selectedTile);
 			return;
-		}else if (bWater.getBounds().contains(x, y)) {
+		} else if (bWater.getBounds().contains(x, y)) {
 			selectedTile = editing.getGame().getTileManager().getTile(bWater.getId());
 			editing.setSelectedTile(selectedTile);
 			return;
@@ -278,19 +272,31 @@ public class Toolbar extends Bar {
 		} else {
 			for (MyButton b : map.keySet())
 				if (b.getBounds().contains(x, y)) {
-					if(!map.get(b).get(0).isMultiple()) {
+					if (!map.get(b).get(0).isMultiple()) {
 						selectedTile = map.get(b).get(0);
 						editing.setSelectedTile(selectedTile);
 						currentButton = b;
 						currentIndex = 0;
 						return;
-					}else if(map.get(b).get(0).getBtnConst() == 0){
+					} else if (map.get(b).get(0).getBtnConst() == BTN_SUN) {
 						selectedTile = map.get(b).get(0);
 						editing.setSelectedTile(selectedTile);
 						currentButton = b;
 						currentIndex = 0;
 						return;
-					}else if(map.get(b).get(0).getBtnConst() == 1){
+					} else if (map.get(b).get(0).getBtnConst() == BTN_MOON) {
+						selectedTile = map.get(b).get(0);
+						editing.setSelectedTile(selectedTile);
+						currentButton = b;
+						currentIndex = 0;
+						return;
+					} else if (map.get(b).get(0).getBtnConst() == BTN_CLOUDS) {
+						selectedTile = map.get(b).get(0);
+						editing.setSelectedTile(selectedTile);
+						currentButton = b;
+						currentIndex = 0;
+						return;
+					} else if (map.get(b).get(0).getBtnConst() == BTN_DOUBLE_CLOUDS) {
 						selectedTile = map.get(b).get(0);
 						editing.setSelectedTile(selectedTile);
 						currentButton = b;
@@ -299,21 +305,21 @@ public class Toolbar extends Bar {
 					}
 				}
 		}
-
 	}
+
 	public int getnext(int index, int size) {
 		for (MyButton b : map.keySet())
 			if (b.getBtnConst() == currentButton.getBtnConst() && map.get(b).get(0).isMultiple()) {
 				if (map.get(b).size() > index) {
 					currentButton = b;
-				    editing.setSelectedTile(map.get(currentButton).get(index));
+					editing.setSelectedTile(map.get(currentButton).get(index));
 //				    System.out.println("currentIndex " + index + " size " + size);
 //				    System.out.println(selectedTile.getTileType());
 //				    System.out.println();
-				    index = index >= size ? 0 : index + 1;
-				    return index;
+					index = index >= size ? 0 : index + 1;
+					return index;
 				}
-		}
+			}
 		return 0;
 	}
 
@@ -327,7 +333,7 @@ public class Toolbar extends Bar {
 		bFlowatingIsland.setMouseOver(false);
 		for (MyButton b : map.keySet())
 			b.setMouseOver(false);
-		
+
 		if (bSave.getBounds().contains(x, y))
 			bSave.setMouseOver(true);
 		else if (bExit.getBounds().contains(x, y))

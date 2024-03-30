@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
-
+import static helpz.Constants.Buttons.*;
 import helpz.LoadSave;
 import main.Game;
 import objects.Tile;
@@ -263,7 +263,8 @@ public class Editing extends GameScene implements SceneMethods {
     
     public void keyPressed(KeyEvent e) {
 	    	if(e.getKeyCode() == KeyEvent.VK_R) {
-	        	 if(selectedTile != null && !drawMultiple) {
+	        	 if((selectedTile != null && !drawMultiple) ||
+	        	    (selectedTile != null && (selectedTile.getBtnConst() == BTN_CLOUDS || selectedTile.getBtnConst() == BTN_DOUBLE_CLOUDS))) {
 	        		 toolbar.rotateSprite();
 	        	 }
 	    	}
