@@ -120,6 +120,9 @@ public class Toolbar extends Bar {
 		currentIndex++;
 		if (currentIndex >= map.get(currentButton).size())
 			currentIndex = 0;
+		if(map.get(currentButton).get(0).getBtnConst() == BTN_CLOUDS || map.get(currentButton).get(0).getBtnConst() == BTN_DOUBLE_CLOUDS)
+			if(currentIndex > 1)
+				currentIndex = 0;
 		selectedTile = map.get(currentButton).get(currentIndex);
 		editing.setSelectedTile(selectedTile);
 
@@ -210,7 +213,7 @@ public class Toolbar extends Bar {
 				if (selectedTile.getBtnConst() == BTN_MOON)
 					img = LoadSave.getSpriteAtlas().getSubimage(0, 24 * 32, 32 * 4, 32 * 2);
 				if (selectedTile.getBtnConst() == BTN_DOUBLE_CLOUDS)
-					img = LoadSave.getSpriteAtlas().getSubimage(0, (26 + currentIndex)%2 * 32, 32 * 3, 32);
+					img = LoadSave.getSpriteAtlas().getSubimage(0, (26 + currentIndex) * 32, 32 * 3, 32);
 				double scaleX = (double) size / img.getWidth();
 				double scaleY = (double) size / img.getHeight();
 
@@ -316,7 +319,7 @@ public class Toolbar extends Bar {
 //				    System.out.println("currentIndex " + index + " size " + size);
 //				    System.out.println(selectedTile.getTileType());
 //				    System.out.println();
-					index = index >= size ? 0 : index + 1;
+					index = index > size ? 0 : index + 1;
 					return index;
 				}
 			}

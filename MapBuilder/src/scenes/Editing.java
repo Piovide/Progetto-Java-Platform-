@@ -127,6 +127,7 @@ public class Editing extends GameScene implements SceneMethods {
         		Dimension dim = selectedTile.getmultipleBounds(selectedTile.getTileType());
         		int height = (int) dim.getHeight();
         		int width = (int) dim.getWidth();
+
         		int i = 0;
         		for (int h = 0; h < height; h++) {
                 	for (int w = 0; w < width; w++) {

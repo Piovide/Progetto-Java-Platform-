@@ -46,7 +46,7 @@ public class Tile {
 	public boolean isMultiple() {
 		return tileType == SUN_TILE
 			   || tileType == MOON_TILE 
-			   || tileType == BIG_TREES_TILE 
+			   || tileType == TREES_TILE 
 			   || tileType == CLOUDS_TILE
 			   || tileType == DOUBLE_CLOUDS_TILE;
 	}
@@ -58,7 +58,7 @@ public class Tile {
 		if(tileType == SUN_TILE || tileType == MOON_TILE) {
 			w = 4;
 			h = 2;
-		}else if(tileType == BIG_TREES_TILE) {
+		}else if(tileType == TREES_TILE) {
 			w = 1;
 			h = 3;
 		}else if(tileType == CLOUDS_TILE) {

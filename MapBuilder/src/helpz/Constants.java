@@ -16,7 +16,7 @@ public class Constants {
 		public static final int SPIKES_TILE = 11;
 		public static final int INFO_TILE = 12;
 		public static final int ARROWS_TILE = 13;
-		public static final int BIG_TREES_TILE = 14;
+		public static final int TREES_TILE = 14;
 		public static final int MOON_TILE = 15;
 		public static final int SUN_TILE = 16;
 		public static final int CLOUDS_TILE = 17;
