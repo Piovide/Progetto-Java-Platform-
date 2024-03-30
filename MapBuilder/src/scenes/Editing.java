@@ -133,7 +133,7 @@ public class Editing extends GameScene implements SceneMethods {
                 	for (int w = 0; w < width; w++) {
                 		i = toolbar.getnext(i, height*width);
                 		g.drawImage(selectedTile.getSprite(), mouseX - 1 + w * TILE_SIZE, mouseY + 4 + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
-                		
+                		System.out.println(selectedTile.getId());
                 	}
 				}
         	}

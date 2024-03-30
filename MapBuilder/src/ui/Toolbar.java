@@ -120,9 +120,12 @@ public class Toolbar extends Bar {
 		currentIndex++;
 		if (currentIndex >= map.get(currentButton).size())
 			currentIndex = 0;
-		if(map.get(currentButton).get(0).getBtnConst() == BTN_CLOUDS || map.get(currentButton).get(0).getBtnConst() == BTN_DOUBLE_CLOUDS)
+		if(map.get(currentButton).get(0).getBtnConst() == BTN_CLOUDS || map.get(currentButton).get(0).getBtnConst() == BTN_DOUBLE_CLOUDS) {
 			if(currentIndex > 1)
 				currentIndex = 0;
+			selectedTile = map.get(currentButton).get(currentIndex);
+			editing.setSelectedTile(selectedTile);
+		}
 		selectedTile = map.get(currentButton).get(currentIndex);
 		editing.setSelectedTile(selectedTile);
 
@@ -228,7 +231,7 @@ public class Toolbar extends Bar {
 				g.drawImage(img, x, y, newWidth, newHeight, null);
 				g.setColor(Color.black);
 				g.drawRect(xButton, yButton, size, size);
-
+				System.out.println(selectedTile.getId());
 			} else if (selectedTile.isAnimation()) {
 				try {
 					aniIndex = aniIndex >= selectedTile.getSpriteLenght() ? 0 : aniIndex + 0.014;
@@ -398,4 +401,8 @@ public class Toolbar extends Bar {
 
 	}
 
+	public int getCurrentIndex() {
+		return currentIndex;
+	}
+	
 }
