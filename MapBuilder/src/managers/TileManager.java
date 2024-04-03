@@ -39,7 +39,6 @@ public class TileManager {
 	
 	
 	public ArrayList<Tile> tiles = new ArrayList<>();
-	
 	public ArrayList<Tile> winds = new ArrayList<>();
 	public ArrayList<Tile> grassNPeabbles = new ArrayList<>();
 	public ArrayList<Tile> ladders = new ArrayList<>();
@@ -148,6 +147,15 @@ public class TileManager {
 	    	}
 	    }
 	    
+	    // BIG TREE
+	    for (int w = 0; w < 4; w++) {
+	    	for (int h = 0; h < 3; h++) {
+	    		BIG_TREE = new Tile(getSprite(w,  12 + h), id++, TREES_TILE);
+	    		BIG_TREE.setBtnConst(BTN_BIG_TREE);
+	    		big_trees.add(BIG_TREE);
+	    	}
+	    }
+	    
 		tiles.addAll(grassNPeabbles);
 		tiles.addAll(ladders);
 		tiles.addAll(doors);
@@ -159,11 +167,13 @@ public class TileManager {
 		tiles.addAll(moon);
 		tiles.addAll(clouds);
 		tiles.addAll(double_clouds);
+		tiles.addAll(big_trees);
 		
 		
 		tiles.add(new Tile(ImgFix.getTrasparentImage(getSprite(5, 0)), id++, id++));
 		
 		tiles.add(new Tile(getAniSprites(0, 28, 6), id+1, id+1));
+		System.out.println("Tiles created: " + id);
 	}
 
 	private void loadAtalas() {
@@ -171,7 +181,7 @@ public class TileManager {
 	}
 	
 	public Tile getGomma() {
-		return tiles.get(id-2);
+		return tiles.get(tiles.size()-2);
 	}
 	
 	public Tile getTile(int id) {

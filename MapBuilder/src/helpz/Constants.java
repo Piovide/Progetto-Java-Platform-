@@ -28,6 +28,7 @@ public class Constants {
 		public static final int BTN_MOON = 1;
 		public static final int BTN_CLOUDS = 2;
 		public static final int BTN_DOUBLE_CLOUDS = 3;
+		public static final int BTN_BIG_TREE = 4;
 		
 	}
 

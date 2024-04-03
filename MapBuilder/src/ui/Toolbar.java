@@ -97,7 +97,10 @@ public class Toolbar extends Bar {
 		// Get moon tiles
 		initMapButton(bDoubleCloud, editing.getGame().getTileManager().getDouble_clouds(), xStart + (int) (w * 1.1f),
 				yStart + (int) (w * 1.1f) * 4, 0, w, h, i++, BTN_DOUBLE_CLOUDS);
-
+		
+		// Get big tree tiles
+		initMapButton(bDoubleCloud, editing.getGame().getTileManager().getBig_trees(), xStart + (int) (w * 1.1f),
+				yStart + (int) (w * 1.1f) * 5, 0, w, h, i++, BTN_BIG_TREE);
 	}
 
 	private void initMapButton(MyButton b, ArrayList<Tile> list, int x, int y, int xOff, int w, int h, int id) {
@@ -167,6 +170,8 @@ public class Toolbar extends Bar {
 			BufferedImage img = entry.getValue().get(0).getSprite();
 			if (entry.getValue().get(0).isMultiple()) {
 //				System.out.println(entry.getValue().size() + " " + entry.getKey().getBtnConst());
+				if (entry.getKey().getBtnConst() == BTN_BIG_TREE)
+					img = LoadSave.getSpriteAtlas().getSubimage(0, 12 * 32, 32, 32 * 3);
 				if (entry.getKey().getBtnConst() == BTN_CLOUDS)
 					img = LoadSave.getSpriteAtlas().getSubimage(0, 20 * 32, 32 * 2, 32); 
 				if (entry.getKey().getBtnConst() == BTN_SUN)
@@ -209,6 +214,8 @@ public class Toolbar extends Bar {
 
 			} else if (selectedTile.isMultiple()) {
 				BufferedImage img = selectedTile.getSprite();
+				if (selectedTile.getBtnConst() == BTN_BIG_TREE)
+					img = LoadSave.getSpriteAtlas().getSubimage(0 + currentIndex * 32, 12 * 32, 32, 32 * 3);
 				if (selectedTile.getBtnConst() == BTN_CLOUDS)
 					img = LoadSave.getSpriteAtlas().getSubimage(0, (20 + currentIndex) * 32, 32 * 2, 32);
 				if (selectedTile.getBtnConst() == BTN_SUN)
@@ -231,7 +238,7 @@ public class Toolbar extends Bar {
 				g.drawImage(img, x, y, newWidth, newHeight, null);
 				g.setColor(Color.black);
 				g.drawRect(xButton, yButton, size, size);
-				System.out.println(selectedTile.getId());
+//				System.out.println(selectedTile.getId());
 			} else if (selectedTile.isAnimation()) {
 				try {
 					aniIndex = aniIndex >= selectedTile.getSpriteLenght() ? 0 : aniIndex + 0.014;
@@ -284,25 +291,11 @@ public class Toolbar extends Bar {
 						currentButton = b;
 						currentIndex = 0;
 						return;
-					} else if (map.get(b).get(0).getBtnConst() == BTN_SUN) {
-						selectedTile = map.get(b).get(0);
-						editing.setSelectedTile(selectedTile);
-						currentButton = b;
-						currentIndex = 0;
-						return;
-					} else if (map.get(b).get(0).getBtnConst() == BTN_MOON) {
-						selectedTile = map.get(b).get(0);
-						editing.setSelectedTile(selectedTile);
-						currentButton = b;
-						currentIndex = 0;
-						return;
-					} else if (map.get(b).get(0).getBtnConst() == BTN_CLOUDS) {
-						selectedTile = map.get(b).get(0);
-						editing.setSelectedTile(selectedTile);
-						currentButton = b;
-						currentIndex = 0;
-						return;
-					} else if (map.get(b).get(0).getBtnConst() == BTN_DOUBLE_CLOUDS) {
+					} else if (map.get(b).get(0).getBtnConst() == BTN_SUN 
+							|| map.get(b).get(0).getBtnConst() == BTN_MOON
+                            || map.get(b).get(0).getBtnConst() == BTN_CLOUDS
+                            || map.get(b).get(0).getBtnConst() == BTN_DOUBLE_CLOUDS
+                            || map.get(b).get(0).getBtnConst() == BTN_BIG_TREE) {
 						selectedTile = map.get(b).get(0);
 						editing.setSelectedTile(selectedTile);
 						currentButton = b;

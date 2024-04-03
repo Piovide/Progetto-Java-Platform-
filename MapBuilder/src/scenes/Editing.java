@@ -102,7 +102,7 @@ public class Editing extends GameScene implements SceneMethods {
                 int id = lvl[y][x];
                 
                 //TOGLIERE IL COMMENTO SOTTO PER RESETTARE LA TELA POI SALVA E RIAVVIA RIMETTENDO IL COMMENTO
-//                lvl[y][x] = getGame().getTileManager().getGomma().getId();
+//              lvl[y][x] = getGame().getTileManager().getGomma().getId();
                 
                 int drawX = startX + x * TILE_SIZE;
                 int drawY = startY + y * TILE_SIZE;
@@ -127,13 +127,12 @@ public class Editing extends GameScene implements SceneMethods {
         		Dimension dim = selectedTile.getmultipleBounds(selectedTile.getTileType());
         		int height = (int) dim.getHeight();
         		int width = (int) dim.getWidth();
-
         		int i = 0;
         		for (int h = 0; h < height; h++) {
                 	for (int w = 0; w < width; w++) {
                 		i = toolbar.getnext(i, height*width);
                 		g.drawImage(selectedTile.getSprite(), mouseX - 1 + w * TILE_SIZE, mouseY + 4 + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
-                		System.out.println(selectedTile.getId());
+                		//System.out.println(selectedTile.getId());
                 	}
 				}
         	}
