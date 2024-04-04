@@ -21,7 +21,7 @@ public class Toolbar extends Bar {
 	private MyButton bExit, bSave, bGomma;
 
 	// BOTTONI SINGOLI
-	private MyButton bGrass, bWater, bWind, bFlowatingIsland, bSun, bMoon, bCloud, bDoubleCloud;
+	private MyButton bGrass, bWater, bWind, bFlowatingIsland, bSun, bMoon, bCloud, bDoubleCloud, bTrees;
 
 	// BOTTONI MAP
 	private MyButton bTerrains, bGrassNPeabbles, bFlowers, bOtherTerrains, bSpikes, bDoors, bLadders;
@@ -99,7 +99,7 @@ public class Toolbar extends Bar {
 				yStart + (int) (w * 1.1f) * 4, 0, w, h, i++, BTN_DOUBLE_CLOUDS);
 		
 		// Get big tree tiles
-		initMapButton(bDoubleCloud, editing.getGame().getTileManager().getBig_trees(), xStart + (int) (w * 1.1f),
+		initMapButton(bTrees, editing.getGame().getTileManager().getBig_trees(), xStart + (int) (w * 1.1f),
 				yStart + (int) (w * 1.1f) * 5, 0, w, h, i++, BTN_BIG_TREE);
 	}
 
@@ -132,22 +132,6 @@ public class Toolbar extends Bar {
 		
 		selectedTile = map.get(currentButton).get(currentIndex);
 		editing.setSelectedTile(selectedTile);
-
-	}
-	public void rotateMultipleSprite() {
-		if(map.get(currentButton).get(0).getBtnConst() == BTN_CLOUDS || map.get(currentButton).get(0).getBtnConst() == BTN_DOUBLE_CLOUDS) {
-			if(currentIndex > 1)
-				currentIndex = 0;
-			selectedTile = map.get(currentButton).get(currentIndex * 2);
-			editing.setSelectedTile(selectedTile);
-		}
-		if(map.get(currentButton).get(0).getBtnConst() == BTN_BIG_TREE) {
-			if(currentIndex > 3)
-				currentIndex = 0;
-		
-		selectedTile = map.get(currentButton).get(currentIndex * 3);
-		editing.setSelectedTile(selectedTile);
-		}
 
 	}
 
@@ -312,7 +296,7 @@ public class Toolbar extends Bar {
                             || map.get(b).get(0).getBtnConst() == BTN_CLOUDS
                             || map.get(b).get(0).getBtnConst() == BTN_DOUBLE_CLOUDS
                             || map.get(b).get(0).getBtnConst() == BTN_BIG_TREE) {
-						selectedTile = map.get(b).get(0);
+						selectedTile = map.get(b).get(currentIndex);
 						editing.setSelectedTile(selectedTile);
 						currentButton = b;
 						currentIndex = 0;
@@ -327,9 +311,29 @@ public class Toolbar extends Bar {
 			if (b.getBtnConst() == currentButton.getBtnConst() && map.get(b).get(0).isMultiple()) {
 				if (map.get(b).size() > index) {
 					currentButton = b;
+					if (map.get(b).get(0).getBtnConst() == BTN_BIG_TREE) {
+						switch (currentIndex) {
+							case 1:
+								index = 3;
+								size = 6;
+								break;
+							case 2:
+								index = 6;
+								size = 9;
+								break;
+							case 3:
+								index = 9;
+								size = 12;
+								break;
+						}
+						editing.setSelectedTile(map.get(currentButton).get(index));
+						System.out.println(index);
+						index = index > size ? 0 : index + 1;
+						return index;
+					}
 					editing.setSelectedTile(map.get(currentButton).get(index));
-					index = index > size ? 0 : index + 1;
 					System.out.println(index);
+					index = index > size ? 0 : index + 1;
 					return index;
 				}
 			}

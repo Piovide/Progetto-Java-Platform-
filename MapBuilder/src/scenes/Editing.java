@@ -73,8 +73,8 @@ public class Editing extends GameScene implements SceneMethods {
     // SETTA IL BACKGROND CON I TILE GIALLI A RIGHR
     private void drawLevelBackground(Graphics g) {
     	int startX = 160;
-        for (int y = 0; y < game.getHeight()/29; y++) {
-            for (int x = 0; x < game.getWidth()/32; x++) {
+        for (int y = 0; y < game.getHeight()/20; y++) {
+            for (int x = 0; x < game.getWidth()/25; x++) {
                 int id = game.getTileManager().getTilesLenght();
                 int drawX = startX + x * TILE_SIZE;
                 int drawY = y * TILE_SIZE;
@@ -127,10 +127,24 @@ public class Editing extends GameScene implements SceneMethods {
         		Dimension dim = selectedTile.getmultipleBounds(selectedTile.getTileType());
         		int height = (int) dim.getHeight();
         		int width = (int) dim.getWidth();
+        		int size = height * width;
         		int i = 0;
+        		if(selectedTile.getBtnConst() == BTN_BIG_TREE ) {
+        					switch (toolbar.getCurrentIndex()) {
+								case 1:
+									i = 3;
+									break;
+								case 2:
+									i = 6;
+								    break;
+								case 3:
+									i = 9;
+									break;
+        					}
+                    	}
         		for (int h = 0; h < height; h++) {
                 	for (int w = 0; w < width; w++) {
-                		i = toolbar.getnext(i, height*width);
+                		i = toolbar.getnext(i, size);
                 		g.drawImage(selectedTile.getSprite(), mouseX - 1 + w * TILE_SIZE, mouseY + 4 + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
                 		//System.out.println(selectedTile.getId());
                 	}
