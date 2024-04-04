@@ -155,7 +155,6 @@ public class TileManager {
 	    		big_trees.add(BIG_TREE);
 	    	}
 	    }
-	    
 		tiles.addAll(grassNPeabbles);
 		tiles.addAll(ladders);
 		tiles.addAll(doors);

@@ -263,8 +263,10 @@ public class Editing extends GameScene implements SceneMethods {
     
     public void keyPressed(KeyEvent e) {
 	    	if(e.getKeyCode() == KeyEvent.VK_R) {
-	        	 if((selectedTile != null && !drawMultiple) ||
-	        	    (selectedTile != null && (selectedTile.getBtnConst() == BTN_CLOUDS || selectedTile.getBtnConst() == BTN_DOUBLE_CLOUDS))) {
+	        	 if((selectedTile != null && !drawMultiple) 
+	        	     || (selectedTile != null && (selectedTile.getBtnConst() == BTN_CLOUDS 
+								        	     	|| selectedTile.getBtnConst() == BTN_DOUBLE_CLOUDS) 
+								        	     	|| selectedTile.getBtnConst() == BTN_BIG_TREE)) {
 	        		 toolbar.rotateSprite();
 	        	 }
 	    	}

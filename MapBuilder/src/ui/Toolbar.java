@@ -123,14 +123,31 @@ public class Toolbar extends Bar {
 		currentIndex++;
 		if (currentIndex >= map.get(currentButton).size())
 			currentIndex = 0;
+		if(map.get(currentButton).get(0).getBtnConst() == BTN_CLOUDS || map.get(currentButton).get(0).getBtnConst() == BTN_DOUBLE_CLOUDS)
+			if(currentIndex > 1)
+				currentIndex = 0;
+		if(map.get(currentButton).get(0).getBtnConst() == BTN_BIG_TREE)
+			if(currentIndex > 3)
+				currentIndex = 0;
+		
+		selectedTile = map.get(currentButton).get(currentIndex);
+		editing.setSelectedTile(selectedTile);
+
+	}
+	public void rotateMultipleSprite() {
 		if(map.get(currentButton).get(0).getBtnConst() == BTN_CLOUDS || map.get(currentButton).get(0).getBtnConst() == BTN_DOUBLE_CLOUDS) {
 			if(currentIndex > 1)
 				currentIndex = 0;
-			selectedTile = map.get(currentButton).get(currentIndex);
+			selectedTile = map.get(currentButton).get(currentIndex * 2);
 			editing.setSelectedTile(selectedTile);
 		}
-		selectedTile = map.get(currentButton).get(currentIndex);
+		if(map.get(currentButton).get(0).getBtnConst() == BTN_BIG_TREE) {
+			if(currentIndex > 3)
+				currentIndex = 0;
+		
+		selectedTile = map.get(currentButton).get(currentIndex * 3);
 		editing.setSelectedTile(selectedTile);
+		}
 
 	}
 
@@ -171,7 +188,7 @@ public class Toolbar extends Bar {
 			if (entry.getValue().get(0).isMultiple()) {
 //				System.out.println(entry.getValue().size() + " " + entry.getKey().getBtnConst());
 				if (entry.getKey().getBtnConst() == BTN_BIG_TREE)
-					img = LoadSave.getSpriteAtlas().getSubimage(0, 12 * 32, 32, 32 * 3);
+					img = LoadSave.getSpriteAtlas().getSubimage(0, 12 * 32, 32, 70);
 				if (entry.getKey().getBtnConst() == BTN_CLOUDS)
 					img = LoadSave.getSpriteAtlas().getSubimage(0, 20 * 32, 32 * 2, 32); 
 				if (entry.getKey().getBtnConst() == BTN_SUN)
@@ -185,7 +202,6 @@ public class Toolbar extends Bar {
 				double scaleY = (double) b.height / img.getHeight();
 
 				double scale = Math.min(scaleX, scaleY);
-
 				int newWidth = (int) (img.getWidth() * scale);
 				int newHeight = (int) (img.getHeight() * scale);
 
@@ -214,9 +230,9 @@ public class Toolbar extends Bar {
 
 			} else if (selectedTile.isMultiple()) {
 				BufferedImage img = selectedTile.getSprite();
-				if (selectedTile.getBtnConst() == BTN_BIG_TREE)
-					img = LoadSave.getSpriteAtlas().getSubimage(0 + currentIndex * 32, 12 * 32, 32, 32 * 3);
-				if (selectedTile.getBtnConst() == BTN_CLOUDS)
+				if (selectedTile.getBtnConst() == BTN_BIG_TREE) {
+					img = LoadSave.getSpriteAtlas().getSubimage(0 + currentIndex * 32, 12 * 32, 32, 70);
+				}if (selectedTile.getBtnConst() == BTN_CLOUDS)
 					img = LoadSave.getSpriteAtlas().getSubimage(0, (20 + currentIndex) * 32, 32 * 2, 32);
 				if (selectedTile.getBtnConst() == BTN_SUN)
 					img = LoadSave.getSpriteAtlas().getSubimage(0, 22 * 32, 32 * 4, 32 * 2);
@@ -312,10 +328,8 @@ public class Toolbar extends Bar {
 				if (map.get(b).size() > index) {
 					currentButton = b;
 					editing.setSelectedTile(map.get(currentButton).get(index));
-//				    System.out.println("currentIndex " + index + " size " + size);
-//				    System.out.println(selectedTile.getTileType());
-//				    System.out.println();
 					index = index > size ? 0 : index + 1;
+					System.out.println(index);
 					return index;
 				}
 			}
