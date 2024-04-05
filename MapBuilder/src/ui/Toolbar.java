@@ -314,29 +314,45 @@ public class Toolbar extends Bar {
 					if (map.get(b).get(0).getBtnConst() == BTN_BIG_TREE) {
 						switch (currentIndex) {
 							case 1:
-								index = 3;
 								size = 6;
 								break;
 							case 2:
-								index = 6;
 								size = 9;
 								break;
 							case 3:
-								index = 9;
 								size = 12;
 								break;
 						}
 						editing.setSelectedTile(map.get(currentButton).get(index));
 						System.out.println(index);
-						index = index > size ? 0 : index + 1;
+						index = index >= size ? 0 : index + 1;
 						return index;
-					}
+					}else if (map.get(b).get(0).getBtnConst() == BTN_CLOUDS) {
+						if(currentIndex > 0)
+                            size = 6;
+						editing.setSelectedTile(map.get(currentButton).get(index));
+						System.out.println(index);
+						index = index >= size ? 0 : index + 1;
+						return index;
+					}else if (map.get(b).get(0).getBtnConst() == BTN_DOUBLE_CLOUDS) {
+                        if(currentIndex > 0)
+                            size = 6;
+                        editing.setSelectedTile(map.get(currentButton).get(index));
+						System.out.println(index);
+						index = index >= size ? 0 : index + 1;
+						return index;
+                    }
+					
+					editing.setSelectedTile(map.get(currentButton).get(index));
+					System.out.println(index);
+					index = index >= size ? 0 : index + 1;
+					return index;
+				}
 					editing.setSelectedTile(map.get(currentButton).get(index));
 					System.out.println(index);
 					index = index > size ? 0 : index + 1;
 					return index;
 				}
-			}
 		return 0;
 	}
 

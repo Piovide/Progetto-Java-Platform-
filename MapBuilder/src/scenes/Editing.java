@@ -22,7 +22,7 @@ public class Editing extends GameScene implements SceneMethods {
     private Game game;
     private static final String LEVEL_SAVE_FILE = "level.dat";
     private static final int TILE_SIZE = 23;
-
+    private int multiTileIndex;
     private Graphics graphics = null;
     
     public Editing(Game game) {
@@ -128,27 +128,65 @@ public class Editing extends GameScene implements SceneMethods {
         		int height = (int) dim.getHeight();
         		int width = (int) dim.getWidth();
         		int size = height * width;
-        		int i = 0;
+        		multiTileIndex = 0;
         		if(selectedTile.getBtnConst() == BTN_BIG_TREE ) {
         					switch (toolbar.getCurrentIndex()) {
 								case 1:
-									i = 3;
+									multiTileIndex = 3;
 									break;
 								case 2:
-									i = 6;
+									multiTileIndex = 6;
 								    break;
 								case 3:
-									i = 9;
+									multiTileIndex = 9;
 									break;
         					}
+	        		for (int h = 0; h < height; h++) {
+	                	for (int w = 0; w < width; w++) {
+	                		multiTileIndex = toolbar.getnext(multiTileIndex, size);
+	                		g.drawImage(selectedTile.getSprite(), mouseX - 1 + w * TILE_SIZE, mouseY + 4 + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+	                		//System.out.println(selectedTile.getId());
+	                	}
+					}
+        		}else if(selectedTile.getBtnConst() == BTN_CLOUDS) {
+        			switch (toolbar.getCurrentIndex()) {
+						case 1:
+							multiTileIndex = 4;
+							break;
+        			}
+        			
+        			for (int h = 0; h < height; h++) {
+                    	for (int w = 0; w < width; w++) {
+                    		multiTileIndex = toolbar.getnext(multiTileIndex, size);
+                    		g.drawImage(selectedTile.getSprite(), mouseX - 1 + w * TILE_SIZE, mouseY + 4 + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+                    		//System.out.println(selectedTile.getId());
                     	}
-        		for (int h = 0; h < height; h++) {
-                	for (int w = 0; w < width; w++) {
-                		i = toolbar.getnext(i, size);
-                		g.drawImage(selectedTile.getSprite(), mouseX - 1 + w * TILE_SIZE, mouseY + 4 + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
-                		//System.out.println(selectedTile.getId());
-                	}
-				}
+        			
+        			}
+        		}else if(selectedTile.getBtnConst() == BTN_DOUBLE_CLOUDS) {
+        			switch (toolbar.getCurrentIndex()) {
+						case 1:
+							multiTileIndex = 3;
+							break;
+        			}
+        			
+        			for (int h = 0; h < height; h++) {
+                    	for (int w = 0; w < width; w++) {
+                    		multiTileIndex = toolbar.getnext(multiTileIndex, size);
+                    		g.drawImage(selectedTile.getSprite(), mouseX - 1 + w * TILE_SIZE, mouseY + 4 + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+                    		//System.out.println(selectedTile.getId());
+                    	}
+        			
+        			}
+        		}else{
+        			for (int h = 0; h < height; h++) {
+	                	for (int w = 0; w < width; w++) {
+	                		multiTileIndex = toolbar.getnext(multiTileIndex, size);
+	                		g.drawImage(selectedTile.getSprite(), mouseX - 1 + w * TILE_SIZE, mouseY + 4 + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+	                		//System.out.println(selectedTile.getId());
+	                	}
+					}
+        		}
         	}
         		
         }
