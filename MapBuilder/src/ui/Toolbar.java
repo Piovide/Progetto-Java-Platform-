@@ -24,7 +24,7 @@ public class Toolbar extends Bar {
 	private MyButton bGrass, bWater, bWind, bFlowatingIsland, bSun, bMoon, bCloud, bDoubleCloud, bTrees;
 
 	// BOTTONI MAP
-	private MyButton bTerrains, bGrassNPeabbles, bFlowers, bOtherTerrains, bSpikes, bDoors, bLadders;
+	private MyButton bTerrains, bGrassNPeabbles, bFlowers, bOtherTerrains, bSpikes, bDoors, bLadders, bArrows;
 
 	// BOTTONE SELEZIONATO
 	private MyButton currentButton;
@@ -43,9 +43,9 @@ public class Toolbar extends Bar {
 
 	private void initButtons() {
 
-		bExit = new MyButton("Esci", 2, y + 20, 100, 30);
-		bSave = new MyButton("Save", 2, y + 60, 100, 30);
-		bGomma = new MyButton("Gomma", 2, y + 100, 100, 30);
+		bExit = new MyButton("Esci", 12, y + 20, 100, 30);
+		bSave = new MyButton("Salva", 12, y + 60, 100, 30);
+		bGomma = new MyButton("Gomma", 12, y + 100, 100, 30);
 		int w = 50;
 		int h = 50;
 		int xStart = 10;
@@ -73,7 +73,7 @@ public class Toolbar extends Bar {
 		initMapButton(bDoors, editing.getGame().getTileManager().getDoors(), xStart, yStart, yOffset, w, h, i++);
 
 		// Get flowers tiles
-		initMapButton(bFlowers, editing.getGame().getTileManager().getFlawers(), xStart, yStart, yOffset, w, h, i++);
+		initMapButton(bFlowers, editing.getGame().getTileManager().getFlowers(), xStart, yStart, yOffset, w, h, i++);
 
 		// Get other_terrains tiles
 		initMapButton(bOtherTerrains, editing.getGame().getTileManager().getOther_terrains(), xStart, yStart, yOffset,
@@ -101,6 +101,10 @@ public class Toolbar extends Bar {
 		// Get big tree tiles
 		initMapButton(bTrees, editing.getGame().getTileManager().getBig_trees(), xStart + (int) (w * 1.1f),
 				yStart + (int) (w * 1.1f) * 5, 0, w, h, i++, BTN_BIG_TREE);
+		// Get arrows tiles
+		initMapButton(bArrows, editing.getGame().getTileManager().getArrows(), xStart + (int) (w * 1.1f),
+				yStart + (int) (w * 1.1f) * 6, 0, w, h, i++);
+		
 	}
 
 	private void initMapButton(MyButton b, ArrayList<Tile> list, int x, int y, int xOff, int w, int h, int id) {

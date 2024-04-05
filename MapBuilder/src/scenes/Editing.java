@@ -21,7 +21,7 @@ public class Editing extends GameScene implements SceneMethods {
     private Toolbar toolbar;
     private Game game;
     private static final String LEVEL_SAVE_FILE = "level.dat";
-    private static final int TILE_SIZE = 23;
+    private int TILE_SIZE = 23;
     private int multiTileIndex;
     private Graphics graphics = null;
     
@@ -29,11 +29,16 @@ public class Editing extends GameScene implements SceneMethods {
         super(game);
         this.game = game;
         loadDefaultLevel();
-        toolbar = new Toolbar(0, game.getHeight(), 160, 160, this);
+        toolbar = new Toolbar(0, 0, 160, 160, this);
+        initTileSize();
         initLinkedList();
         loadSavedLevel();
     }
 
+	private void initTileSize() {
+		TILE_SIZE = (game.getToolkit().getScreenSize().width-160) / 60;
+		System.out.println((float)TILE_SIZE/32);
+    }
     private void initLinkedList() {
     	lastTileX = new LinkedList<Integer>();
     	lastTileY = new LinkedList<Integer>();
@@ -95,7 +100,7 @@ public class Editing extends GameScene implements SceneMethods {
 //        g.setColor(Color.black);
 //		g.fillRect(0, 0, screenWidth, screenHeight);
 //        
-        int startX = 160;
+        int startX = 170;
         int startY = 50;
         for (int y = 0; y < lvl.length; y++) {
             for (int x = 0; x < lvl[y].length; x++) {
@@ -122,7 +127,7 @@ public class Editing extends GameScene implements SceneMethods {
     private void drawSelectedTile(Graphics g) {
         if (selectedTile != null) {
         	if(!selectedTile.isMultiple() && drawSelect) {
-        		g.drawImage(selectedTile.getSprite(), mouseX - 1, mouseY+4, TILE_SIZE, TILE_SIZE, null);
+        		g.drawImage(selectedTile.getSprite(), mouseX - 1, mouseY + 4, TILE_SIZE, TILE_SIZE, null);
         	} else if(drawMultiple){
         		Dimension dim = selectedTile.getmultipleBounds(selectedTile.getTileType());
         		int height = (int) dim.getHeight();

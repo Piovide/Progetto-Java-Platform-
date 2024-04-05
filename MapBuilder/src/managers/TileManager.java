@@ -44,7 +44,7 @@ public class TileManager {
 	public ArrayList<Tile> ladders = new ArrayList<>();
 	public ArrayList<Tile> doors = new ArrayList<>();
 	public ArrayList<Tile> terrains = new ArrayList<>();
-	public ArrayList<Tile> flawers = new ArrayList<>();
+	public ArrayList<Tile> flowers = new ArrayList<>();
 	public ArrayList<Tile> other_terrains = new ArrayList<>();
 	public ArrayList<Tile> spikes = new ArrayList<>();
 	public ArrayList<Tile> arrows = new ArrayList<>();
@@ -75,10 +75,6 @@ public class TileManager {
 	    //Floating island
 	    tiles.add(FLOATING_ISLAND = new Tile(getSprite(0,9), id++, FLOATING_ISLAND_TILE));
 	    
-	    // Wind White animation
-//	    tiles.add(WIND_WHITE = new Tile(ImgFix.getTrasparentImage(getAniSprites(0, 4, 5)), id++, WIND_WHITE_TILE));
-	    
-	    
 	    // Grass and pebbles
 	    for (int i = 0; i < 6; i++) {
 	        grassNPeabbles.add(new Tile(ImgFix.getTrasparentImage(getSprite(i, 1)), id++, GRASS_N_PEABBLES_TILE));
@@ -96,9 +92,9 @@ public class TileManager {
 		// Terrains
 		terrains.add(TERRAIN = new Tile(ImgFix.getTrasparentImage(getSprite(1, 5)), id++, TERRAIN_TILE));
 
-		// Flawers
+		// Flowers
 	    for (int i = 0; i < 4; i++) {
-	        flawers.add(FLAWERS = new Tile(ImgFix.getTrasparentImage(getSprite(i, 7)), id++, FLAWERS_TILE));
+	        flowers.add(FLAWERS = new Tile(ImgFix.getTrasparentImage(getSprite(i, 7)), id++, FLAWERS_TILE));
 	    }
 		
 	    // Other terrains
@@ -155,11 +151,18 @@ public class TileManager {
 	    		big_trees.add(BIG_TREE);
 	    	}
 	    }
+	    // ARROWS
+	    for (int h = 0; h < 2; h++) {
+	    	for (int w = 0; w < 4; w++) {
+	    		arrows.add(ARROWS = new Tile(ImgFix.getTrasparentImage(getSprite(w, 10 + h)), id++, ARROWS_TILE));
+	    	}
+	    }
+	    
 		tiles.addAll(grassNPeabbles);
 		tiles.addAll(ladders);
 		tiles.addAll(doors);
 		tiles.addAll(terrains);
-		tiles.addAll(flawers);
+		tiles.addAll(flowers);
 		tiles.addAll(other_terrains);
 		tiles.addAll(spikes);
 		tiles.addAll(sun);
@@ -167,6 +170,7 @@ public class TileManager {
 		tiles.addAll(clouds);
 		tiles.addAll(double_clouds);
 		tiles.addAll(big_trees);
+		tiles.addAll(arrows);
 		
 		
 		tiles.add(new Tile(ImgFix.getTrasparentImage(getSprite(5, 0)), id++, id++));
@@ -248,8 +252,8 @@ public class TileManager {
 		return terrains;
 	}
 
-	public ArrayList<Tile> getFlawers() {
-		return flawers;
+	public ArrayList<Tile> getFlowers() {
+		return flowers;
 	}
 
 	public ArrayList<Tile> getOther_terrains() {
