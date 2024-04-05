@@ -2,10 +2,7 @@ package main;
 
 import java.awt.Color;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import helpz.LoadSave;
 import managers.TileManager;

@@ -17,7 +17,7 @@ public class Editing extends GameScene implements SceneMethods {
     private Tile selectedTile;
     private int mouseX, mouseY;
     private LinkedList<Integer> lastTileX, lastTileY, lastTileId;
-    private boolean drawSelect, drawMultiple;
+    private boolean drawSelect, drawMultiple, drawGrid = true;
     private Toolbar toolbar;
     private Game game;
     private static final String LEVEL_SAVE_FILE = "level.dat";
@@ -117,17 +117,25 @@ public class Editing extends GameScene implements SceneMethods {
 	                    } else {
 	                        g.drawImage(getSprite(id), drawX, drawY, TILE_SIZE, TILE_SIZE, null);
 	                    }
+	                    if(drawGrid)
+	                    	g.drawRect(drawX, drawY, TILE_SIZE, TILE_SIZE);
                 }
             }
         }
         g.setColor(Color.black);
-        g.drawRect(startX, startY, levelWidth-5, levelHeight);
+        g.drawRect(startX, startY, levelWidth, levelHeight);
     }
 
     private void drawSelectedTile(Graphics g) {
+    	int modX = 4;
+    	int modY = 8;
         if (selectedTile != null) {
-        	if(!selectedTile.isMultiple() && drawSelect) {
-        		g.drawImage(selectedTile.getSprite(), mouseX - 1, mouseY + 4, TILE_SIZE, TILE_SIZE, null);
+        	if(selectedTile.getId() == game.getTileManager().getGomma().getId()) {
+        		g.drawRect(mouseX - modX, mouseY - modY, TILE_SIZE, TILE_SIZE);
+        		g.drawRect(mouseX - modX, mouseY - modY, TILE_SIZE-1, TILE_SIZE-1);
+        		g.drawRect(mouseX - modX -1, mouseY - modY-1, TILE_SIZE-1, TILE_SIZE-1);
+        	}else if(!selectedTile.isMultiple() && drawSelect) {
+        		g.drawImage(selectedTile.getSprite(), mouseX - modX, mouseY - modY, TILE_SIZE, TILE_SIZE, null);
         	} else if(drawMultiple){
         		Dimension dim = selectedTile.getmultipleBounds(selectedTile.getTileType());
         		int height = (int) dim.getHeight();
@@ -149,7 +157,7 @@ public class Editing extends GameScene implements SceneMethods {
 	        		for (int h = 0; h < height; h++) {
 	                	for (int w = 0; w < width; w++) {
 	                		multiTileIndex = toolbar.getnext(multiTileIndex, size);
-	                		g.drawImage(selectedTile.getSprite(), mouseX - 1 + w * TILE_SIZE, mouseY + 4 + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+	                		g.drawImage(selectedTile.getSprite(), mouseX - modX + w * TILE_SIZE, mouseY - modY + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
 	                		//System.out.println(selectedTile.getId());
 	                	}
 					}
@@ -163,7 +171,7 @@ public class Editing extends GameScene implements SceneMethods {
         			for (int h = 0; h < height; h++) {
                     	for (int w = 0; w < width; w++) {
                     		multiTileIndex = toolbar.getnext(multiTileIndex, size);
-                    		g.drawImage(selectedTile.getSprite(), mouseX - 1 + w * TILE_SIZE, mouseY + 4 + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+                    		g.drawImage(selectedTile.getSprite(), mouseX - modX + w * TILE_SIZE, mouseY - modY + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
                     		//System.out.println(selectedTile.getId());
                     	}
         			
@@ -178,7 +186,7 @@ public class Editing extends GameScene implements SceneMethods {
         			for (int h = 0; h < height; h++) {
                     	for (int w = 0; w < width; w++) {
                     		multiTileIndex = toolbar.getnext(multiTileIndex, size);
-                    		g.drawImage(selectedTile.getSprite(), mouseX - 1 + w * TILE_SIZE, mouseY + 4 + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+                    		g.drawImage(selectedTile.getSprite(), mouseX - modX + w * TILE_SIZE, mouseY - modY + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
                     		//System.out.println(selectedTile.getId());
                     	}
         			
@@ -187,7 +195,7 @@ public class Editing extends GameScene implements SceneMethods {
         			for (int h = 0; h < height; h++) {
 	                	for (int w = 0; w < width; w++) {
 	                		multiTileIndex = toolbar.getnext(multiTileIndex, size);
-	                		g.drawImage(selectedTile.getSprite(), mouseX - 1 + w * TILE_SIZE, mouseY + 4 + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+	                		g.drawImage(selectedTile.getSprite(), mouseX - modX + w * TILE_SIZE, mouseY - modY + h*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
 	                		//System.out.println(selectedTile.getId());
 	                	}
 					}
@@ -291,9 +299,10 @@ public class Editing extends GameScene implements SceneMethods {
 		            mouseY = y / TILE_SIZE * TILE_SIZE;
 	        	}
 	        }
-        } else {
+        } else if(x <= 160){
         	drawSelect = false;
         	drawMultiple = false;
+        	toolbar.mouseMoved(x, y);
         }
     }
 
@@ -307,19 +316,21 @@ public class Editing extends GameScene implements SceneMethods {
     @Override
     public void mouseReleased(int x, int y) {
         toolbar.mouseReleased(x, y);
-    }
+    } 
 
     @Override
     public void mouseDragged(int x, int y) {
         if (x >= 160) {
         	if(drawSelect && !selectedTile.isMultiple()){
         		changeTile(x, y);
+        		mouseX = x / TILE_SIZE * TILE_SIZE;
+	            mouseY = y / TILE_SIZE * TILE_SIZE;
         	}
         }
     }
     
     public void keyPressed(KeyEvent e) {
-	    	if(e.getKeyCode() == KeyEvent.VK_R) {
+	    	if(e.getKeyCode() == KeyEvent.VK_R) { 
 	        	 if((selectedTile != null && !drawMultiple) 
 	        	     || (selectedTile != null && (selectedTile.getBtnConst() == BTN_CLOUDS 
 								        	     	|| selectedTile.getBtnConst() == BTN_DOUBLE_CLOUDS) 
@@ -329,10 +340,13 @@ public class Editing extends GameScene implements SceneMethods {
 	    	}
     }
 
-
-
 	public Game getGame() {
         return game;
     }
 
+	public void setDrawGrid() {
+		this.drawGrid = !drawGrid;
+	}
+
+	
 }
