@@ -59,17 +59,12 @@ public class Toolbar extends Bar {
 		int i = 0;
 
 		bGrass = new MyButton("Sprout", xStart, yStart, w, h, i++);
-		buttons.add(bGrass);
 		bWind = new MyButton("Wind", xStart, yStart + yOffset, w, h, i++);
-		buttons.add(bWind);
 		bWater = new MyButton("Water", xStart, yStart + yOffset * 2, w, h, i++);
-		buttons.add(bWater);
 		bFlowatingIsland = new MyButton("Island", xStart + xOffset, yStart, w, h, i++);
-		buttons.add(bFlowatingIsland);
 
 		// Get grassNPeabbles tiles
-		initMapButton(bGrassNPeabbles, editing.getGame().getTileManager().getGrassNPeabbles(), xStart, yStart, yOffset,
-				w, h, i++);
+		initMapButton(bGrassNPeabbles, editing.getGame().getTileManager().getGrassNPeabbles(), xStart, yStart, yOffset, w, h, i++);
 		buttons.add(bGrassNPeabbles);
 		
 		// Get Terrains tiles
@@ -89,8 +84,7 @@ public class Toolbar extends Bar {
 		buttons.add(bFlowers);
 		
 		// Get other_terrains tiles
-		initMapButton(bOtherTerrains, editing.getGame().getTileManager().getOther_terrains(), xStart, yStart, yOffset,
-				w, h, i++);
+		initMapButton(bOtherTerrains, editing.getGame().getTileManager().getOther_terrains(), xStart, yStart, yOffset, w, h, i++);
 		buttons.add(bOtherTerrains);
 		
 		// Get spikes tiles
@@ -364,32 +358,27 @@ public class Toolbar extends Bar {
 								break;
 						}
 						editing.setSelectedTile(map.get(currentButton).get(index));
-						System.out.println(index);
 						index = index >= size ? 0 : index + 1;
 						return index;
 					}else if (map.get(b).get(0).getBtnConst() == BTN_CLOUDS) {
 						if(currentIndex > 0)
                             size = 6;
 						editing.setSelectedTile(map.get(currentButton).get(index));
-						System.out.println(index);
 						index = index >= size ? 0 : index + 1;
 						return index;
 					}else if (map.get(b).get(0).getBtnConst() == BTN_DOUBLE_CLOUDS) {
                         if(currentIndex > 0)
                             size = 6;
                         editing.setSelectedTile(map.get(currentButton).get(index));
-						System.out.println(index);
 						index = index >= size ? 0 : index + 1;
 						return index;
                     }
 					
 					editing.setSelectedTile(map.get(currentButton).get(index));
-					System.out.println(index);
 					index = index >= size ? 0 : index + 1;
 					return index;
 				}
 					editing.setSelectedTile(map.get(currentButton).get(index));
-					System.out.println(index);
 					index = index > size ? 0 : index + 1;
 					return index;
 				}
@@ -401,13 +390,7 @@ public class Toolbar extends Bar {
 		bExit.setMouseOver(false);
 		bGomma.setMouseOver(false);
 		bGrid.setMouseOver(false);
-		bWater.setMouseOver(false);
-		bGrass.setMouseOver(false);
-		bWind.setMouseOver(false);
-		bFlowatingIsland.setMouseOver(false);
-		for (MyButton b : map.keySet())
-			b.setMouseOver(false);
-
+		
 		if (bSave.getBounds().contains(x, y))
 			bSave.setMouseOver(true);
 		else if (bExit.getBounds().contains(x, y))
@@ -416,22 +399,7 @@ public class Toolbar extends Bar {
 			bGomma.setMouseOver(true);
 		else if (bGrid.getBounds().contains(x, y))
 			bGrid.setMouseOver(true);
-		else if (bWater.getBounds().contains(x, y))
-			bWater.setMouseOver(true);
-		else if (bGrass.getBounds().contains(x, y))
-			bGrass.setMouseOver(true);
-		else if (bWind.getBounds().contains(x, y))
-			bWind.setMouseOver(true);
-		else if (bFlowatingIsland.getBounds().contains(x, y))
-			bFlowatingIsland.setMouseOver(true);
-		else {
-			for (MyButton b : map.keySet())
-				if (b.getBounds().contains(x, y)) {
-					b.setMouseOver(true);
-					return;
-				}
-		}
-
+		
 	}
 
 	public void mousePressed(int x, int y) {
