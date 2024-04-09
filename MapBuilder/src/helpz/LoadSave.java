@@ -1,16 +1,16 @@
 package helpz;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -29,27 +29,72 @@ public class LoadSave {
 			folder.mkdir();
 	}
 	public static void SaveLevel(int[][] levelData, String fileName) {
-        try (FileOutputStream fileOut = new FileOutputStream(fileName);
-             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
-            
-            objectOut.writeObject(levelData);
-            System.out.println("Livello salvato con successo!");
+//        try (FileOutputStream fileOut = new FileOutputStream(fileName);
+//             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
+//            
+//            objectOut.writeObject(levelData);
+//            System.out.println("Livello salvato con successo!");
+//
+//        } catch (IOException e) {
+//            System.out.println("Errore durante il salvataggio del livello: " + e.getMessage());
+//        }
+		int width = levelData[0].length;
+		int height = levelData.length;
 
-        } catch (IOException e) {
-            System.out.println("Errore durante il salvataggio del livello: " + e.getMessage());
-        }
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+		Color[][] matrix = new Color[width][height];
+		HashMap<Integer, Color> colorMap = Constants.IdColori.numeriColori;
+		for (int i = 0; i < height; i++) {
+		    for (int j = 0; j < width; j++) {
+		        matrix[j][i] = colorMap.get(levelData[i][j]); // Corretta l'assegnazione di coordinate
+		    }
+		}
+
+		// Imposta i colori della BufferedImage utilizzando i valori della matrice
+		for (int i = 0; i < height; i++) {
+		    for (int j = 0; j < width; j++) {
+		        image.setRGB(j, i, matrix[j][i].getRGB()); // Corretta l'assegnazione di coordinate
+		    }
+		}
+
+		// Salva l'immagine su disco
+		File outputFile = new File("level.bmp");
+		try {
+		    ImageIO.write(image, "bmp", outputFile);
+		    System.out.println("Immagine salvata con successo.");
+		} catch (IOException e) {
+		    System.out.println("Errore durante il salvataggio dell'immagine: " + e.getMessage());
+		}
+
     }
 	public static int[][] LoadLevelData(String fileName) {
-        int[][] levelData = null;
-        try (FileInputStream fileIn = new FileInputStream(fileName);
-             ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
+		int[][] levelData = null;
+	    try {
+	        File file = new File(fileName);
+	        BufferedImage image = ImageIO.read(file);
+	        
+	        int width = image.getWidth();
+	        int height = image.getHeight();
 
-            levelData = (int[][]) objectIn.readObject(); // Carica il livello da file
-
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Errore durante il caricamento del livello: " + e.getMessage());
-        }
-        return levelData;
+			HashMap<Integer, Color> colorMap = Constants.IdColori.numeriColori;
+	        levelData = new int[height][width];
+	        
+	        for (int y = 0; y < height; y++) {
+	            for (int x = 0; x < width; x++) {
+	                int rgb = image.getRGB(x, y);
+	                levelData[y][x] = colorMap.entrySet().stream()
+                            .filter(entry -> entry.getValue().getRGB() == rgb)
+                            .map(entry -> entry.getKey())
+                            .findFirst()
+                            .orElse(0);
+	            }
+	        }
+	        
+	    } catch (IOException e) {
+	        System.out.println("Errore durante il caricamento del livello da BMP: " + e.getMessage());
+	    }
+	    return levelData;
     }
 
 	public static BufferedImage getSpriteAtlas() {
@@ -63,7 +108,7 @@ public class LoadSave {
 		}
 		return img;
 	}
-
+ 
 	public static void CreateLevel(int[] idArr) {
 		if (lvlFile.exists()) {
 			System.out.println("File: " + lvlFile + " already exists!");

@@ -70,6 +70,16 @@ public class MyButton {
 		g.fillRect(x, y, width, height);
 
 	}
+	
+	public int mouseOver(int x, int y) {
+		if (bounds.contains(x, y)) {
+			mouseOver = true;
+			return this.id;
+		} else {
+			mouseOver = false;
+		}
+		return -1;
+	}
 
 	@Override
 	public String toString() {

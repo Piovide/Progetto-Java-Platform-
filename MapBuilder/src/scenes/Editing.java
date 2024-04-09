@@ -20,7 +20,7 @@ public class Editing extends GameScene implements SceneMethods {
 	private boolean drawSelect, drawMultiple, drawGrid;
 	private Toolbar toolbar;
 	private Game game;
-	private static final String LEVEL_SAVE_FILE = "level.dat";
+	private static final String LEVEL_SAVE_FILE = "level.bmp";
 	private int TILE_SIZE = 23;
 	private int multiTileIndex, multiPrintTileIndex;
 	private Graphics graphics = null;
