@@ -10,7 +10,7 @@ import scenes.Editing;
 @SuppressWarnings("serial")
 public class Game extends JFrame implements Runnable {
 
-	private GameScreen gameScreen;
+	protected GameScreen gameScreen;
 	private Thread gameThread;
 
 	private final double FPS_SET = 120.0;
@@ -43,7 +43,7 @@ public class Game extends JFrame implements Runnable {
 		editing = new Editing(this);
 	}
 
-	private void start() {
+	protected void start() {
 		gameThread = new Thread(this) {
 		};
 
@@ -58,14 +58,6 @@ public class Game extends JFrame implements Runnable {
 		default:
 			break;
 		}
-	}
-
-	public static void main(String[] args) {
-
-		Game game = new Game();
-		game.gameScreen.initInputs();
-		game.start();
-
 	}
 
 	@SuppressWarnings("unused")
