@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 public class Constants {
 	public static class Tiles {
+		public static final int GOMMA = 83;
 		public static final int SPROUT_TILE = 0;
 		public static final int GRASS_N_PEABBLES_TILE = 1;
 		public static final int WIND_GRAY_TILE = 2;

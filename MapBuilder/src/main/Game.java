@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 
-import helpz.LoadSave;
 import managers.TileManager;
 import scenes.Editing;
 
@@ -24,10 +23,6 @@ public class Game extends JFrame implements Runnable {
 	private TileManager tileManager;
 
 	public Game() {
-
-		LoadSave.CreateFolder();
-
-		createDefaultLevel();
 		initClasses();		
 		setBounds(getToolkit().getScreenSize().width/2 - 1920/2, getToolkit().getScreenSize().height/2 - 1080/2, getToolkit().getScreenSize().width, getToolkit().getScreenSize().height);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -39,15 +34,6 @@ public class Game extends JFrame implements Runnable {
 		add(gameScreen);
 		pack();
 		setVisible(true);
-	}
-
-	private void createDefaultLevel() {
-		int[] arr = new int[300];
-		for (int i = 0; i < arr.length; i++)
-			arr[i] = 1;
-
-		LoadSave.CreateLevel(arr);
-
 	}
 
 	private void initClasses() {

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import helpz.LoadSave;
 import objects.Tile;
 import scenes.Editing;
@@ -20,7 +22,7 @@ public class Toolbar extends Bar {
 	private ArrayList<MyButton> buttons = new ArrayList<MyButton>();
 	
 	// BOTTONI FUNZIONI
-	private MyButton bExit, bSave, bGomma, bGrid;
+	private MyButton bExit, bSave, bGomma, bGrid, bDelete;
 
 	// BOTTONI SINGOLI
 	private MyButton bGrass, bWater, bWind, bFlowatingIsland, bSun, bMoon, bCloud, bDoubleCloud, bTrees;
@@ -49,11 +51,12 @@ public class Toolbar extends Bar {
 		bSave = new MyButton("Salva", 12, y + 60, 100, 30);
 		bGomma = new MyButton("Gomma", 12, y + 100, 100, 30);
 		bGrid = new MyButton("Griglia", 12, y + 140, 100, 30);
+		bDelete = new MyButton("Reset", 12, y + 180, 100, 30);
 		
 		int w = 50;
 		int h = 50;
 		int xStart = 10;
-		int yStart = y + 180;
+		int yStart = y + 220;
 		int yOffset = (int) (w * 1.1f);
 		int xOffset = (int) (w * 1.1f);
 		int i = 0;
@@ -175,6 +178,8 @@ public class Toolbar extends Bar {
 		g.drawRect(bGomma.x, bGomma.y, bGomma.width - 1, bGomma.height- 1);
 		bGrid.draw(g);
 		g.drawRect(bGrid.x, bGrid.y, bGrid.width - 1, bGrid.height- 1);
+		bDelete.draw(g);
+		g.drawRect(bDelete.x, bDelete.y, bDelete.width - 1, bDelete.height- 1);
 		drawNormalButton(g, bGrass);
 		drawNormalButton(g, bWind);
 		drawNormalButton(g, bFlowatingIsland);
@@ -300,6 +305,11 @@ public class Toolbar extends Bar {
 		} else if (bGrid.getBounds().contains(x, y)) {
 			editing.setDrawGrid();
 			return;
+		} else if (bDelete.getBounds().contains(x, y)) {
+			int scelta = JOptionPane.showConfirmDialog(null, "Sei Sicuro di voler cancellare tutto", "Reset", JOptionPane.CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+			if(scelta == 0)
+				editing.deleteAll();
+			return;
 		}else if (bWater.getBounds().contains(x, y)) {
 			selectedTile = editing.getGame().getTileManager().getTile(bWater.getId());
 			editing.setSelectedTile(selectedTile);
@@ -340,7 +350,7 @@ public class Toolbar extends Bar {
 		}
 	}
 
-	public int getnext(int index, int size) {
+	public int getNext(int index, int size) {
 		for (MyButton b : map.keySet())
 			if (b.getBtnConst() == currentButton.getBtnConst() && map.get(b).get(0).isMultiple()) {
 				if (map.get(b).size() > index) {
@@ -390,6 +400,7 @@ public class Toolbar extends Bar {
 		bExit.setMouseOver(false);
 		bGomma.setMouseOver(false);
 		bGrid.setMouseOver(false);
+		bDelete.setMouseOver(false);
 		
 		if (bSave.getBounds().contains(x, y))
 			bSave.setMouseOver(true);
@@ -399,6 +410,8 @@ public class Toolbar extends Bar {
 			bGomma.setMouseOver(true);
 		else if (bGrid.getBounds().contains(x, y))
 			bGrid.setMouseOver(true);
+		else if (bDelete.getBounds().contains(x, y))
+			bDelete.setMouseOver(true);
 		
 	}
 
@@ -411,6 +424,8 @@ public class Toolbar extends Bar {
 			bGomma.setMousePressed(true);
 		}else if (bGrid.getBounds().contains(x, y)) {
 			bGrid.setMousePressed(true);
+		}else if (bDelete.getBounds().contains(x, y)) {
+			bDelete.setMousePressed(true);
 		}else if (bWater.getBounds().contains(x, y)) {
 			bWater.setMousePressed(true);
 		}else if (bGrass.getBounds().contains(x, y)) {
@@ -436,6 +451,7 @@ public class Toolbar extends Bar {
 		bWind.resetBooleans();
 		bGomma.resetBooleans();
 		bGrid.resetBooleans();
+		bDelete.resetBooleans();
 		bFlowatingIsland.resetBooleans();
 		for (MyButton b : map.keySet())
 			b.resetBooleans();

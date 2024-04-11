@@ -176,7 +176,7 @@ public class TileManager {
 		tiles.add(new Tile(ImgFix.getTrasparentImage(getSprite(5, 0)), id++, id++));
 		
 		tiles.add(new Tile(getAniSprites(0, 28, 6), id+1, id+1));
-		System.out.println("Tiles created: " + id);
+//		System.out.println("Tiles created: " + id);
 	}
 
 	private void loadAtalas() {
@@ -218,7 +218,7 @@ public class TileManager {
 	}
 
 	public int[][] getTypeArr() {
-		int[][] idArr = LoadSave.GetLevelData();
+		int[][] idArr = LoadSave.LoadLevelData();
 		int[][] typeArr = new int[idArr.length][idArr[0].length];
 
 		for (int j = 0; j < idArr.length; j++) {
