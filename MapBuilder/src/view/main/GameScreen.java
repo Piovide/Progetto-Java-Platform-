@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import controller.inputs.KeyboardListener;
+import controller.inputs.MyKeyboardListener;
 import controller.inputs.MyMouseListener;
 
 @SuppressWarnings("serial")
@@ -15,22 +15,20 @@ public class GameScreen extends JPanel {
 	private Dimension size;
 
 	private MyMouseListener myMouseListener;
-	private KeyboardListener keyboardListener;
+	private MyKeyboardListener keyboardListener;
 
 	public GameScreen(Game game) {
 		this.game = game;
-
 		setPanelSize();
-
 	}
 
-	public void initInputs() {
+	public void initInputs(Game game) {
 		myMouseListener = new MyMouseListener(game);
-		keyboardListener = new KeyboardListener(game);
+		keyboardListener = new MyKeyboardListener(game);
 
+		addKeyListener(keyboardListener);
 		addMouseListener(myMouseListener);
 		addMouseMotionListener(myMouseListener);
-		addKeyListener(keyboardListener);
 
 		requestFocus();
 	}
@@ -50,5 +48,9 @@ public class GameScreen extends JPanel {
 		game.getRender().render(g);
 
 	}
+	public MyKeyboardListener getKeyboardListener() {
+		return keyboardListener;
+	}
+
 
 }

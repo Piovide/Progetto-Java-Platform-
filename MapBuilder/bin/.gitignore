@@ -1,16 +1,3 @@
-<<<<<<< Updated upstream
-/Tiles.png
-/helpz/
-/inputs/
-/main/
-/managers/
-/objects/
-/scenes/
-/ui/
-=======
-/controller/
-/toolbar.png
 /view/
-/editing.png
+/controller/
 /model/
->>>>>>> Stashed changes

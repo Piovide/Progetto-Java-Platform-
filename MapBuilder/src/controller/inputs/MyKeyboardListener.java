@@ -8,30 +8,35 @@ import java.awt.event.KeyListener;
 import view.main.Game;
 import view.main.GameStates;
 
-public class KeyboardListener implements KeyListener {
+public class MyKeyboardListener implements KeyListener {
 	private Game game;
 
-	public KeyboardListener(Game game) {
+	public MyKeyboardListener(Game game) {
 		this.game = game;
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-//	    if (GameStates.gameState == EDIT) {
-//	        game.getEditor().keyPressed(e);
-//	    }
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			game.dispose();
+		}
+		if (GameStates.gameState == EDIT) {
+			game.getEditing().keyPressed(e);
+		}
+		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (GameStates.gameState == EDIT) {
-	        game.getEditor().keyPressed(e);
-	    }
+		// TODO Auto-generated method stub
+		
 	}
 
+	
 }

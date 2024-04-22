@@ -311,7 +311,7 @@ public class Toolbar extends Bar {
 		}
 	}
 
-	public int getnext(int index, int size) {
+	public int getNext(int index, int size) {
 		for (MyButton b : map.keySet())
 			if (map.get(b).get(0).gettileBtnConst() == map.get(currentButton).get(0).gettileBtnConst() && map.get(b).get(0).isMultiple()) {
 				if (map.get(b).size() > index) {

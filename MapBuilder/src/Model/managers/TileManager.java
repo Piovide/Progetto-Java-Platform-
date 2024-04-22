@@ -190,21 +190,6 @@ public class TileManager {
 		return tiles.get(spriteID).isAnimation();
 	}
 
-	public int[][] getTypeArr() {
-		int[][] idArr = LoadSave.GetLevelData();
-		int[][] typeArr = new int[idArr.length][idArr[0].length];
-
-		for (int j = 0; j < idArr.length; j++) {
-			for (int i = 0; i < idArr[j].length; i++) {
-				int id = idArr[j][i];
-				typeArr[j][i] = tiles.get(id).getTileType();
-			}
-		}
-
-		return typeArr;
-
-	}
-
 	public ArrayList<Tile> getTiles() {
 		return tiles;
 	}

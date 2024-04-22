@@ -22,31 +22,23 @@ public class Editing extends GameScene implements SceneMethods {
 	private boolean drawSelect, drawMultiple, drawGrid, deleteAll;
 	private Toolbar toolbar;
 	private Game game;
-<<<<<<<< Updated upstream:MapBuilder/src/Controller/scenes/Editing.java
-	private int TILE_SIZE = 23;
-========
-	private static final String LEVEL_SAVE_FILE = "level.bmp";
-	private int TILE_SIZE = 32;
->>>>>>>> Stashed changes:MapBuilder/src/view/scenes/Editing.java
+
+	private int TILE_SIZE = 48;
+
 	private int multiTileIndex, multiPrintTileIndex;
 	private Graphics graphics = null;
 
 	public Editing(Game game) {
 		super(game);
 		this.game = game;
-<<<<<<<< Updated upstream:MapBuilder/src/Controller/scenes/Editing.java
-		toolbar = new Toolbar(0, 0, 160, 160, this);
-========
-		loadDefaultLevel();
 		toolbar = new Toolbar(0, 10, 160, 160, this);
->>>>>>>> Stashed changes:MapBuilder/src/view/scenes/Editing.java
+		loadSavedLevel();
 		initTileSize();
 		initLinkedList();
-		loadSavedLevel();
 	}
 
 	private void initTileSize() {
-		TILE_SIZE = (game.getToolkit().getScreenSize().width - 160) / 60;
+//		TILE_SIZE = (game.getToolkit().getScreenSize().width - 160) / 60;
 	}
 
 	private void initLinkedList() {
@@ -71,10 +63,10 @@ public class Editing extends GameScene implements SceneMethods {
 	public void render(Graphics g) {
 		if (graphics == null)
 			this.graphics = g;
-		drawLevelBackground(g);
 		drawLevel(g);
 		toolbar.draw(g);
 		drawSelectedTile(g);
+		drawLevelBackground(g);
 
 	}
 
@@ -96,15 +88,16 @@ public class Editing extends GameScene implements SceneMethods {
 //        g.setColor(Color.black);
 //		g.fillRect(0, 0, screenWidth, screenHeight);
 //        
-		int startX = 170;
-		int startY = 50;
+		int startX = 175;
+		int startY = screenHeight / 2 - levelHeight / 2;
+
 		for (int y = 0; y < lvl.length; y++) {
 			for (int x = 0; x < lvl[y].length; x++) {
 				int id = lvl[y][x];
 
 				// TOGLIERE IL COMMENTO SOTTO PER RESETTARE LA TELA POI SALVA E RIAVVIA
 				// RIMETTENDO IL COMMENTO
-				if(deleteAll) {
+				if (deleteAll) {
 					lvl[y][x] = getGame().getTileManager().getGomma().getId();
 				}
 				int drawX = startX + x * TILE_SIZE;
@@ -120,14 +113,14 @@ public class Editing extends GameScene implements SceneMethods {
 				}
 			}
 		}
-		deleteAll=false;
+		deleteAll = false;
 		g.setColor(Color.black);
 		g.drawRect(startX, startY, levelWidth, levelHeight);
 	}
 
 	private void drawSelectedTile(Graphics g) {
-		int modX = 4;
-		int modY = 8;
+		int modX = 17;
+		int modY = -12;
 		if (selectedTile != null) {
 			if (selectedTile.getId() == game.getTileManager().getGomma().getId()) {
 				g.drawRect(mouseX - modX, mouseY - modY, TILE_SIZE, TILE_SIZE);
@@ -141,58 +134,17 @@ public class Editing extends GameScene implements SceneMethods {
 				int width = (int) dim.getWidth();
 				int size = height * width;
 				multiTileIndex = 0;
-<<<<<<<< Updated upstream:MapBuilder/src/Controller/scenes/Editing.java
-				if (selectedTile.getBtnConst() == BTN_BIG_TREE) {
-					switch (toolbar.getCurrentIndex()) {
-					case 1:
-						multiTileIndex = 3;
-						break;
-					case 2:
-						multiTileIndex = 6;
-						break;
-					case 3:
-						multiTileIndex = 9;
-						break;
-					}
-					for (int h = 0; h < height; h++) {
-						for (int w = 0; w < width; w++) {
-							multiTileIndex = toolbar.getNext(multiTileIndex, size);
-							g.drawImage(selectedTile.getSprite(), mouseX - modX + w * TILE_SIZE,
-									mouseY - modY + h * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
-							// System.out.println(selectedTile.getId());
-						}
-					}
-				} else if (selectedTile.getBtnConst() == BTN_CLOUDS) {
-========
 				if (selectedTile.gettileBtnConst() == BTN_TREE) {
->>>>>>>> Stashed changes:MapBuilder/src/view/scenes/Editing.java
+
 					switch (toolbar.getCurrentIndex()) {
 					case 1:
 						multiTileIndex = 4;
 						break;
-<<<<<<<< Updated upstream:MapBuilder/src/Controller/scenes/Editing.java
-					}
-
-					for (int h = 0; h < height; h++) {
-						for (int w = 0; w < width; w++) {
-							multiTileIndex = toolbar.getNext(multiTileIndex, size);
-							g.drawImage(selectedTile.getSprite(), mouseX - modX + w * TILE_SIZE,
-									mouseY - modY + h * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
-							// System.out.println(selectedTile.getId());
-						}
-
-					}
-				} else if (selectedTile.getBtnConst() == BTN_DOUBLE_CLOUDS) {
-					switch (toolbar.getCurrentIndex()) {
-					case 1:
-						multiTileIndex = 3;
-========
 					case 2:
 						multiTileIndex = 8;
 						break;
 					case 3:
 						multiTileIndex = 12;
->>>>>>>> Stashed changes:MapBuilder/src/view/scenes/Editing.java
 						break;
 					}
 					for (int h = 0; h < height; h++) {
@@ -203,7 +155,7 @@ public class Editing extends GameScene implements SceneMethods {
 							// System.out.println(selectedTile.getId());
 						}
 					}
-				}else if (selectedTile.gettileBtnConst() == BTN_SHIP) {
+				} else if (selectedTile.gettileBtnConst() == BTN_SHIP) {
 					multiTileIndex = 0;
 					for (int h = 0; h < height; h++) {
 						for (int w = 0; w < width; w++) {
@@ -220,7 +172,7 @@ public class Editing extends GameScene implements SceneMethods {
 	}
 
 	public void saveLevel() {
-		LoadSave.SaveLevel(lvl);
+		LoadSave.SaveLevel(lvl, "level.png");
 	}
 
 	public void setSelectedTile(Tile tile) {
@@ -233,8 +185,11 @@ public class Editing extends GameScene implements SceneMethods {
 
 	private void changeTile(int x, int y) {
 		if (selectedTile != null) {
+			int screenHeight = game.getHeight();
+			int levelHeight = lvl.length * TILE_SIZE;
+
 			int tileX = (x - 160) / TILE_SIZE;
-			int tileY = (y - 50) / TILE_SIZE;
+			int tileY = (y - (screenHeight / 2 - levelHeight / 2)) / TILE_SIZE;
 
 			if (tileX >= 0 && tileX < lvl[0].length && tileY >= 0 && tileY < lvl.length) {
 				if (selectedTile.getId() >= 0) {
@@ -258,8 +213,11 @@ public class Editing extends GameScene implements SceneMethods {
 
 	private void changeMultipleTile(int x, int y, int nx, int ny) {
 		if (selectedTile != null) {
+			int screenHeight = game.getHeight();
+			int levelHeight = lvl.length * TILE_SIZE;
+
 			int tileX = (x - 160) / TILE_SIZE;
-			int tileY = (y - 50) / TILE_SIZE;
+			int tileY = (y - (screenHeight / 2 - levelHeight / 2)) / TILE_SIZE;
 
 			if (tileX >= 0 && tileX < lvl[0].length && tileY >= 0 && tileY < lvl.length) {
 				if (selectedTile.getId() >= 0) {
@@ -278,55 +236,21 @@ public class Editing extends GameScene implements SceneMethods {
 					System.out.println(selectedTile.gettileBtnConst());
 					if (selectedTile.gettileBtnConst() == BTN_TREE) {
 						switch (toolbar.getCurrentIndex()) {
-							case 1:
-								multiPrintTileIndex = 3;
-								break;
-							case 2:
-								multiPrintTileIndex = 6;
-								break;
-							case 3:
-								multiPrintTileIndex = 9;
-								break;
-						}
-						for (int h = 0; h < ny; h++) {
-							for (int w = 0; w < nx; w++) {
-<<<<<<<< Updated upstream:MapBuilder/src/Controller/scenes/Editing.java
-								multiPrintTileIndex = toolbar.getNext(multiPrintTileIndex, ny * nx);
-                                lvl[tileY + h][tileX + w] = selectedTile.getId();
-							}
-						}
-					}else if (selectedTile.getBtnConst() == BTN_CLOUDS) {
-						switch (toolbar.getCurrentIndex()) {
-						case 1:
-							multiPrintTileIndex = 4;
-							break;
-						}
-
-						for (int h = 0; h < ny; h++) {
-							for (int w = 0; w < nx; w++) {
-								multiPrintTileIndex = toolbar.getNext(multiPrintTileIndex, ny*nx);
-								lvl[tileY + h][tileX + w] = selectedTile.getId();
-							}
-
-						}
-					} else if (selectedTile.getBtnConst() == BTN_DOUBLE_CLOUDS) {
-						switch (toolbar.getCurrentIndex()) {
 						case 1:
 							multiPrintTileIndex = 3;
 							break;
+						case 2:
+							multiPrintTileIndex = 6;
+							break;
+						case 3:
+							multiPrintTileIndex = 9;
+							break;
 						}
-
 						for (int h = 0; h < ny; h++) {
 							for (int w = 0; w < nx; w++) {
-								multiPrintTileIndex = toolbar.getNext(multiPrintTileIndex, nx*ny);
+								multiPrintTileIndex = toolbar.getNext(multiPrintTileIndex, ny * nx);
 								lvl[tileY + h][tileX + w] = selectedTile.getId();
 							}
-
-========
-								multiPrintTileIndex = toolbar.getnext(multiPrintTileIndex, ny * nx);
-								lvl[tileY + h][tileX + w] = selectedTile.getId();
-							}
->>>>>>>> Stashed changes:MapBuilder/src/view/scenes/Editing.java
 						}
 					} else {
 						for (int h = 0; h < ny; h++) {
@@ -347,11 +271,11 @@ public class Editing extends GameScene implements SceneMethods {
 			toolbar.mouseClicked(x, y);
 		} else {
 			if (drawSelect && !selectedTile.isMultiple()) {
-				changeTile(x, y);
+				changeTile(x -(TILE_SIZE/2), y);
 			} else if (drawMultiple && selectedTile.isMultiple()) {
 				int w = (int) selectedTile.getmultipleBounds(selectedTile.getTileType()).getWidth();
 				int h = (int) selectedTile.getmultipleBounds(selectedTile.getTileType()).getHeight();
-				changeMultipleTile(x, y, w, h);
+				changeMultipleTile(x-(TILE_SIZE/2), y, w, h);
 			}
 		}
 	}
@@ -360,15 +284,12 @@ public class Editing extends GameScene implements SceneMethods {
 	public void mouseMoved(int x, int y) {
 		if (x >= 160) {
 			if (selectedTile != null) {
-				if (selectedTile.isMultiple()) {
+				if (selectedTile.isMultiple())
 					drawMultiple = true;
-					mouseX = x / TILE_SIZE * TILE_SIZE;
-					mouseY = y / TILE_SIZE * TILE_SIZE;
-				} else {
+				else
 					drawSelect = true;
-					mouseX = x / TILE_SIZE * TILE_SIZE;
-					mouseY = y / TILE_SIZE * TILE_SIZE;
-				}
+				mouseX = x / TILE_SIZE * TILE_SIZE;
+				mouseY = y / TILE_SIZE * TILE_SIZE;
 			}
 		} else if (x <= 160) {
 			drawSelect = false;
@@ -416,7 +337,7 @@ public class Editing extends GameScene implements SceneMethods {
 	public void setDrawGrid() {
 		this.drawGrid = !drawGrid;
 	}
-	
+
 	public void deleteAll() {
 		this.deleteAll = true;
 	}

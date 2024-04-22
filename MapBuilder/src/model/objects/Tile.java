@@ -1,7 +1,8 @@
 package model.objects;
 
-import static controller.helpz.Constants.Tiles.*;
-import static controller.helpz.Constants.Buttons.*;
+import static controller.helpz.Constants.Buttons.BTN_SHIP;
+import static controller.helpz.Constants.Buttons.BTN_TREE;
+
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 

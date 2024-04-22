@@ -106,28 +106,6 @@ public class Constants {
 	}
 	
 	public static class Tiles {
-<<<<<<<< Updated upstream:MapBuilder/src/Controller/helpz/Constants.java
-		public static final int GOMMA = 83;
-		public static final int SPROUT_TILE = 0;
-		public static final int GRASS_N_PEABBLES_TILE = 1;
-		public static final int WIND_GRAY_TILE = 2;
-		public static final int LADDERS_TILE = 3;
-		public static final int WIND_WHITE_TILE = 4;
-		public static final int DOORS_TILE = 5;
-		public static final int TERRAIN_TILE = 6;
-		public static final int WATER_TILE = 7;
-		public static final int FLAWERS_TILE = 8;
-		public static final int OTHER_TERRAINS_TILE = 9;
-		public static final int FLOATING_ISLAND_TILE = 10;
-		public static final int SPIKES_TILE = 11;
-		public static final int INFO_TILE = 12;
-		public static final int ARROWS_TILE = 13;
-		public static final int TREES_TILE = 14;
-		public static final int MOON_TILE = 15;
-		public static final int SUN_TILE = 16;
-		public static final int CLOUDS_TILE = 17;
-		public static final int DOUBLE_CLOUDS_TILE = 18;
-========
 		
 		public static final int TILE_SIZE = 32;
 		
@@ -146,8 +124,6 @@ public class Constants {
 		public static final int TREES_TILE = 12;
 		public static final int GOMMA_TILE = -1;
 		
-		
->>>>>>>> Stashed changes:MapBuilder/src/controller/helpz/Constants.java
 	}
 
 	public static class Buttons {
@@ -161,16 +137,26 @@ public class Constants {
 		
 		static HashMap<Integer, Color> numeriColori = new HashMap<Integer, Color>() {
 			{
-				put(0, new Color(255, 0, 0)); // Rosso
-				put(1, new Color(0, 255, 0)); // Verde
-				put(2, new Color(0, 0, 255)); // Blu
-				put(3, new Color(255, 255, 0)); // Giallo
-				put(4, new Color(255, 0, 255)); // Magenta
-				put(5, new Color(0, 255, 255)); // Ciano
-				put(6, new Color(128, 0, 0)); // Rosso scuro
-				put(7, new Color(0, 128, 0)); // Verde scuro
-				put(8, new Color(0, 0, 128)); // Blu scuro
-				put(9, new Color(128, 128, 0)); // Giallo scuro
+//				public static final int RED_POTION = 0;
+//				public static final int BLUE_POTION = 1;
+//				public static final int BARREL = 2;
+//				public static final int BOX = 3;
+//				public static final int SPIKE = 4;
+//				public static final int CANNON_LEFT = 5;
+//				public static final int CANNON_RIGHT = 6;
+//				public static final int TREE_ONE = 7;
+//				public static final int TREE_TWO = 8;
+//				public static final int TREE_THREE = 9;
+				put(0, new Color(0, 0, 0)); // Red Pot
+				put(1, new Color(0, 0, 1)); // Blue Pot
+				put(2, new Color(0, 0, 2)); // Box
+				put(3, new Color(0, 0, 3)); // Barrel
+				put(4, new Color(0, 0, 4)); // Spike
+				put(5, new Color(0, 0, 5)); // Cannon Left
+				put(6, new Color(0, 0, 6)); // Cannon Right
+				put(7, new Color(0, 0, 7)); // Tree one
+				put(8, new Color(0, 0, 8)); // Tree two
+				put(9, new Color(0, 0, 9)); // Tree Three
 				put(10, new Color(128, 0, 128)); // Magenta scuro
 				put(11, new Color(0, 128, 128)); // Ciano scuro
 				put(12, new Color(255, 128, 0)); // Arancione
@@ -213,44 +199,6 @@ public class Constants {
 				put(49, new Color(152, 251, 152)); // Verde pallido
 				put(50, new Color(205, 92, 92)); // Rosso indiano
 				put(51, new Color(250, 128, 114)); // Rosso corallo
-				put(52, new Color(0, 255, 255)); // Azzurro
-				put(53, new Color(255, 20, 147)); // Rosa brillante
-				put(54, new Color(219, 112, 147)); // Rosa
-				put(55, new Color(65, 105, 225)); // Blu reale
-				put(56, new Color(238, 130, 238)); // Violetto
-				put(57, new Color(0, 255, 127)); // Verde primavera
-				put(58, new Color(127, 255, 212)); // Acqua marina
-				put(59, new Color(255, 228, 196)); // Carne
-				put(60, new Color(255, 250, 240)); // Cipria
-				put(61, new Color(244, 164, 96)); // Cachi
-				put(62, new Color(210, 180, 140)); // Tan
-				put(63, new Color(188, 143, 143)); // Marrone chiaro
-				put(64, new Color(240, 230, 140)); // Khaki
-				put(65, new Color(245, 245, 220)); // Beige
-				put(66, new Color(255, 239, 213)); // PapayaWhip
-				put(67, new Color(245, 255, 250)); // MintCream
-				put(68, new Color(255, 228, 225)); // MistyRose
-				put(69, new Color(240, 255, 255)); // Azure
-				put(70, new Color(255, 255, 240)); // Ivory
-				put(71, new Color(245, 245, 245)); // WhiteSmoke
-				put(72, new Color(250, 240, 230)); // Linen
-				put(73, new Color(253, 245, 230)); // OldLace
-				put(74, new Color(255, 250, 250)); // Snow
-				put(75, new Color(250, 235, 215)); // AntiqueWhite
-				put(76, new Color(255, 250, 205)); // LemonChiffon
-				put(77, new Color(255, 255, 224)); // LightGoldenRodYellow
-				put(78, new Color(255, 228, 181)); // Moccasin
-				put(79, new Color(255, 222, 173)); // NavajoWhite
-				put(80, new Color(255, 248, 220)); // Cornsilk
-				put(81, new Color(255, 228, 196)); // Bisque
-				put(82, new Color(255, 239, 213)); // PapayaWhip
-				put(83, new Color(245, 222, 179)); // Wheat
-				put(84, new Color(244, 164, 96)); // SandyBrown
-				put(85, new Color(210, 105, 30)); // Chocolate
-				put(86, new Color(178, 34, 34)); // Firebrick
-				put(87, new Color(165, 42, 42)); // Brown
-				put(88, new Color(139, 69, 19)); // SaddleBrown
-				put(89, new Color(128, 0, 0)); // Maroon
 			}
 		};
 

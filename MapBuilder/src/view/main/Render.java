@@ -13,7 +13,7 @@ public class Render {
 	public void render(Graphics g) {
 		switch (GameStates.gameState) {
 		case EDIT:
-			game.getEditor().render(g);
+			game.getEditing().render(g);
 			break;
 		default:
 			break;

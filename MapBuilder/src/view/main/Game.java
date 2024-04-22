@@ -4,14 +4,8 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 
-<<<<<<<< Updated upstream:MapBuilder/src/View/game/Game.java
-import managers.TileManager;
-import scenes.Editing;
-========
-import controller.helpz.LoadSave;
 import model.managers.TileManager;
 import view.scenes.Editing;
->>>>>>>> Stashed changes:MapBuilder/src/view/main/Game.java
 
 @SuppressWarnings("serial")
 public class Game extends JFrame implements Runnable {
@@ -32,7 +26,8 @@ public class Game extends JFrame implements Runnable {
 	private TileManager tileManager;
 
 	public Game() {
-		initClasses();		
+		initClasses();
+		gameScreen.initInputs(this);
 		setBounds(getToolkit().getScreenSize().width/2 - 1920/2, getToolkit().getScreenSize().height/2 - 1080/2, getToolkit().getScreenSize().width, getToolkit().getScreenSize().height);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUndecorated(true);
@@ -41,6 +36,7 @@ public class Game extends JFrame implements Runnable {
 		setLocationRelativeTo(null);
 		setTitle("LevelBuilder");
 		add(gameScreen);
+		addKeyListener(gameScreen.getKeyboardListener());
 		pack();
 		setVisible(true);
 	}
@@ -52,7 +48,7 @@ public class Game extends JFrame implements Runnable {
 		editing = new Editing(this);
 	}
 
-	protected void start() {
+	public void start() {
 		gameThread = new Thread(this) {
 		};
 
@@ -111,7 +107,7 @@ public class Game extends JFrame implements Runnable {
 		return render;
 	}
 
-	public Editing getEditor() {
+	public Editing getEditing() {
 		return editing;
 	}
 
@@ -130,5 +126,7 @@ public class Game extends JFrame implements Runnable {
 	public static int getSCALE() {
 		return SCALE;
 	}
+	
+	
 
 }
