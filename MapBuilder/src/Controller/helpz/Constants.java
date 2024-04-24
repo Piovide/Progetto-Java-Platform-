@@ -122,6 +122,10 @@ public class Constants {
 		public static final int OUTSIDE_FLOWTING_TILE = 10;
 		public static final int SHIP_TILE = 11;
 		public static final int TREES_TILE = 12;
+		public static final int CRABBY_TILE = 13;
+		public static final int PINKSTAR_TILE = 14;
+		public static final int SHARK_TILE = 15;
+		public static final int PLAYER_TILE = 16;
 		public static final int GOMMA_TILE = -1;
 		
 	}
@@ -137,68 +141,125 @@ public class Constants {
 		
 		static HashMap<Integer, Color> numeriColori = new HashMap<Integer, Color>() {
 			{
-//				public static final int RED_POTION = 0;
-//				public static final int BLUE_POTION = 1;
-//				public static final int BARREL = 2;
-//				public static final int BOX = 3;
-//				public static final int SPIKE = 4;
-//				public static final int CANNON_LEFT = 5;
-//				public static final int CANNON_RIGHT = 6;
-//				public static final int TREE_ONE = 7;
-//				public static final int TREE_TWO = 8;
-//				public static final int TREE_THREE = 9;
-				put(0, new Color(0, 0, 0)); // Red Pot
-				put(1, new Color(0, 0, 1)); // Blue Pot
-				put(2, new Color(0, 0, 2)); // Box
-				put(3, new Color(0, 0, 3)); // Barrel
-				put(4, new Color(0, 0, 4)); // Spike
-				put(5, new Color(0, 0, 5)); // Cannon Left
-				put(6, new Color(0, 0, 6)); // Cannon Right
-				put(7, new Color(0, 0, 7)); // Tree one
-				put(8, new Color(0, 0, 8)); // Tree two
-				put(9, new Color(0, 0, 9)); // Tree Three
-				put(10, new Color(128, 0, 128)); // Magenta scuro
-				put(11, new Color(0, 128, 128)); // Ciano scuro
-				put(12, new Color(255, 128, 0)); // Arancione
-				put(13, new Color(255, 0, 128)); // Rosa
-				put(14, new Color(128, 255, 0)); // Verde chiaro
-				put(15, new Color(0, 255, 128)); // Verde acqua
-				put(16, new Color(0, 128, 255)); // Blu chiaro
-				put(17, new Color(128, 0, 255)); // Viola
-				put(18, new Color(255, 128, 128)); // Rosa chiaro
-				put(19, new Color(128, 255, 128)); // Verde pallido
-				put(20, new Color(128, 128, 255)); // Blu pallido
-				put(21, new Color(255, 255, 128)); // Giallo pallido
-				put(22, new Color(255, 128, 255)); // Rosa pallido
-				put(23, new Color(128, 255, 255)); // Azzurro
-				put(24, new Color(255, 255, 255)); // Bianco
-				put(25, new Color(192, 192, 192)); // Grigio chiaro
-				put(26, new Color(128, 128, 128)); // Grigio medio
-				put(27, new Color(64, 64, 64)); // Grigio scuro
-				put(28, new Color(255, 215, 0)); // Oro
-				put(29, new Color(255, 192, 203)); // Rosa chiaro
-				put(30, new Color(0, 0, 0)); // Nero
-				put(31, new Color(255, 165, 0)); // Arancione scuro
-				put(32, new Color(218, 112, 214)); // Viola chiaro
-				put(33, new Color(0, 0, 139)); // Blu scuro
-				put(34, new Color(0, 128, 0)); // Verde scuro
-				put(35, new Color(255, 105, 180)); // Rosa pallido
-				put(36, new Color(46, 139, 87)); // Verde mare
-				put(37, new Color(139, 69, 19)); // Marrone
-				put(38, new Color(189, 183, 107)); // Cachi
-				put(39, new Color(106, 90, 205)); // Blu reale
-				put(40, new Color(255, 20, 147)); // Rosa brillante
-				put(41, new Color(255, 69, 0)); // Arancione
-				put(42, new Color(75, 0, 130)); // Indaco
-				put(43, new Color(255, 182, 193)); // Rosa chiaro
-				put(44, new Color(154, 205, 50)); // Verde primavera
-				put(45, new Color(139, 0, 139)); // Viola
-				put(46, new Color(255, 127, 80)); // Rosso corallo
-				put(47, new Color(240, 255, 240)); // Verde pallido
-				put(48, new Color(240, 248, 255)); // Azzurro pallido
-				put(49, new Color(152, 251, 152)); // Verde pallido
-				put(50, new Color(205, 92, 92)); // Rosso indiano
-				put(51, new Color(250, 128, 114)); // Rosso corallo
+//				// Water bottom
+//				water_bottom.add(WATER_BOTTOM = new Tile(getSprite(0, 0, LoadSave.WATER_BOTTOM), id++, WATER_BOTTOM_TILE));
+//
+//				// Water top
+//				water_top.add(WATER_TOP = new Tile(getAniSprites(0, 0, 4, LoadSave.WATER_TOP), id++, WATER_TOP_TILE));
+//
+//				// Grass
+//				for (int x = 0; x < 3; x++)
+//					grass.add(GRASS = new Tile(getSprite(x, 0, LoadSave.GRASS_ATLAS, 21, 32), id++, GRASS_TILE));
+//
+//				// Cannon Right
+//				cannon.add(CANNON = new Tile(ImgFix.getMirroredImage(getSprite(0, 0, LoadSave.CANNON_ATLAS, 40, 26)), id++,
+//						CANNON_TILE));
+//
+//				// Cannon Left
+//				cannon.add(CANNON = new Tile(getSprite(0, 0, LoadSave.CANNON_ATLAS, 40, 26), id++, CANNON_TILE));
+//
+//				// Spikes
+//				spikes.add(SPIKES = new Tile(getSprite(0, 0, LoadSave.TRAP_ATLAS), id++, SPIKES_TILE));
+//
+//				// Barrels
+//				barrels.add(BARRELS = new Tile(getSprite(0, 0, LoadSave.CONTAINER_ATLAS, 35, 30), id++, BARRELS_TILE));
+//
+//				// box
+//				barrels.add(BOX = new Tile(getSprite(0, 1, LoadSave.CONTAINER_ATLAS, 35, 30), id++, BARRELS_TILE));
+//
+//				// Potions blue
+//				potions.add(POTION_BLUE = new Tile(getAniSprites(0, 0, 7, LoadSave.POTION_ATLAS, 12, 16), id++, POTIONS_TILE));
+//
+//				// Potions red
+//				potions.add(POTION_RED = new Tile(getAniSprites(0, 1, 7, LoadSave.POTION_ATLAS, 12, 16), id++, POTIONS_TILE));
+//				
+//				// Outside terrain
+//				for (int x = 0; x < 3; x++)
+//					for (int y = 0; y < 3; y++)
+//						outside_terrain.add(
+//								OUTSIDE_TERRAIN = new Tile(getSprite(x, y, LoadSave.LEVEL_ATLAS), id++, OUTSIDE_TERRAIN_TILE));
+//
+//				// Outside pillar
+//				for (int x = 3; x < 4; x++)
+//					for (int y = 0; y < 3; y++)
+//						outside_pillar.add(
+//								OUTSIDE_PILLAR = new Tile(getSprite(x, y, LoadSave.LEVEL_ATLAS), id++, OUTSIDE_PILLAR_TILE));
+//
+//				// Outside corner
+//				for (int x = 4; x < 12; x++)
+//					for (int y = 0; y < 4; y++)
+//						if (x != 11 && y == 0)
+//							outside_corner.add(OUTSIDE_CORNER = new Tile(getSprite(x, y, LoadSave.LEVEL_ATLAS), id++,
+//									OUTSIDE_CORNER_TILE));
+//
+//				// Outside floating
+//				for (int x = 0; x < 4; x++)
+//					for (int y = 0; y < 2; y++)
+//						outside_floating.add(OUTSIDE_FLOWTING = new Tile(getSprite(x, y, LoadSave.LEVEL_ATLAS), id++,
+//								OUTSIDE_FLOWTING_TILE));
+//
+//				// Ship
+//				for (int y = 0; y < 2; y++)
+//					for (int x = 0; x < 2; x++)
+//						ship.add(SHIP = new Tile(getSprite(x, y, LoadSave.SHIP, 39, 36), id++, SHIP_TILE));
+//
+//				// Trees
+//				for (int y = 0; y < 4; y++)
+//					for (int x = 0; x < 2; x++)
+//						trees.add(TREES = new Tile(getSprite(x, y, LoadSave.TREE_ONE_ATLAS, 20, 23), id++, TREES_TILE));
+//
+//				for (int y = 0; y < 2; y++)
+//					for (int x = 0; x < 2; x++)
+//						trees.add(TREES = new Tile(getSprite(x, y, LoadSave.TREE_TWO_ATLAS, 31, 27), id++, TREES_TILE));
+//
+//				// Crabbies
+//				entities.add(CRABBY = new Tile(getAniSprites(0, 0, 9, LoadSave.CRABBY_SPRITE, 72, 32), id++, CRABBY_TILE));
+//
+//				// Pinkstars
+//				entities.add(PINKSTAR = new Tile(getAniSprites(0, 0, 8, LoadSave.PINKSTAR_ATLAS, 34, 30), id++, PINKSTAR_TILE));
+//
+//				// Sharks
+//				entities.add(SHARK = new Tile(getAniSprites(0, 0, 8, LoadSave.SHARK_ATLAS, 34, 30), id++, SHARK_TILE));
+//				
+//				// Player
+//				entities.add(PLAYER = new Tile(getAniSprites(0, 0, 5, LoadSave.PLAYER_ATLAS, 60, 40), id++, PLAYER_TILE));
+				
+				put(0, new Color(48, 0, 0)); // water bottom
+				put(1, new Color(11, 0, 0)); // water top
+				
+				//Objects
+				put(2, new Color(0, 0, 0)); // grass
+				put(3, new Color(0, 0, 6)); // cannon right
+				put(4, new Color(0, 0, 5)); // cannon left
+				put(5, new Color(0, 0, 4)); // spike
+				put(6, new Color(0, 0, 2)); // barrel
+				put(7, new Color(0, 0, 3)); // box
+				put(8, new Color(0, 0, 1)); // potion blue
+				put(9, new Color(0, 0, 0)); // potion red
+				
+				//Block 1
+				put(10, new Color(0, 0, 0)); // outside terrain 1
+				put(11, new Color(1, 0, 0)); // outside terrain 2
+				put(12, new Color(2, 0, 0)); // outside terrain 3
+				put(13, new Color(12, 0, 0)); // outside terrain 4
+				put(14, new Color(13, 0, 0)); // outside terrain 5
+				put(15, new Color(14, 0, 0)); // outside terrain 6
+				put(16, new Color(24, 0, 0)); // outside terrain 7
+				put(17, new Color(25, 0, 0)); // outside terrain 8
+				put(18, new Color(26, 0, 0)); // outside terrain 9
+				
+				//Block 2
+				put(20, new Color(3, 0, 0)); // outside pillar 1
+				put(21, new Color(15, 0, 0)); // outside pillar 2
+				put(22, new Color(27, 0, 0)); // outside pillar 3
+				
+				//Block 3
+				
+				put(23, new Color(36, 0, 0)); // outside corner 1
+				put(24, new Color(37, 0, 0)); // outside corner 2
+				put(25, new Color(38, 0, 0)); // outside corner 3
+				put(26, new Color(39, 0, 0)); // outside corner single
+				
 			}
 		};
 

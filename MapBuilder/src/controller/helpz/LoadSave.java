@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
 
+import view.scenes.Editing;
+
 public class LoadSave {
 
 	public static final String PLAYER_ATLAS = "player_sprites.png";
@@ -45,7 +47,7 @@ public class LoadSave {
 	public static final String WATER_TOP = "water_atlas_animation.png";
 	public static final String WATER_BOTTOM = "water.png";
 	public static final String SHIP = "ship.png";
-	
+
 	private static final String fileName = "level.png";
 
 	public static void SaveLevel(int[][] levelData, String fileName) {
@@ -80,42 +82,62 @@ public class LoadSave {
 
 	}
 
-	public static int[][] LoadLevelData() {
-		int[][] levelData = null;
+	public static void LoadLevelData(int[][] RED, int[][] GREEN, int[][] BLUE, Editing editing) {
+		int[][] RedData = RED;
+		int[][] GreenData = GREEN;
+		int[][] BlueData = BLUE;
+
 		try {
 			File file = new File(fileName);
 			if (!file.exists()) {
-				levelData = new int[14][60];
+				RedData = new int[14][90];
 				System.out.println("File Creato: level.png");
-				for (int y = 0; y < levelData.length; y++) {
-					for (int x = 0; x < levelData[0].length; x++) {
-						levelData[y][x] = 51;
+				for (int y = 0; y < RedData.length; y++) {
+					for (int x = 0; x < RedData[0].length; x++) {
+						RedData[y][x] = 255;
+						GreenData[y][x] = 255;
+						BlueData[y][x] = 255;
 					}
 				}
-
-				return levelData;
 
 			} else {
 				BufferedImage image = ImageIO.read(file);
 
 				int width = image.getWidth();
-				int height = image.getHeight();	
-				levelData = new int[height][width];
+				int height = image.getHeight();
+				RedData = new int[height][width];
+				GreenData = new int[height][width];
+				BlueData = new int[height][width];
 				HashMap<Integer, Color> colorMap = Constants.IdColori.numeriColori;
 
 				for (int y = 0; y < height; y++) {
 					for (int x = 0; x < width; x++) {
-						int rgb = image.getRGB(x, y);
-						levelData[y][x] = colorMap.entrySet().stream().filter(entry -> entry.getValue().getRGB() == rgb)
+						Color c = new Color(image.getRGB(x, y));
+						int red = c.getRed();
+						int green = c.getGreen();
+						int blue = c.getBlue();
+						
+						RedData[y][x] = colorMap.entrySet().stream()
+								.filter(entry -> entry.getValue().getRed() == red)
+								.map(entry -> entry.getKey()).findFirst().orElse(0);
+						
+						GreenData[y][x] = colorMap.entrySet().stream()
+								.filter(entry -> entry.getValue().getGreen() == green)
+								.map(entry -> entry.getKey()).findFirst().orElse(0);
+						
+						BlueData[y][x] = colorMap.entrySet().stream()
+								.filter(entry -> entry.getValue().getBlue() == blue)
 								.map(entry -> entry.getKey()).findFirst().orElse(0);
 					}
 				}
 			}
+			editing.setLvlBlocks(RedData);
+			editing.setLvlEntities(GreenData);
+			editing.setLvlObjects(BlueData);
 
 		} catch (IOException e) {
 			System.out.println("Errore durante il caricamento del livello da BMP: " + e.getMessage());
 		}
-		return levelData;
 	}
 
 	public static BufferedImage getSpriteAtlas(String path) {
