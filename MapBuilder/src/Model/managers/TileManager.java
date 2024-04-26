@@ -71,7 +71,7 @@ public class TileManager {
 
 		// Potions blue 10
 		potions.add(POTION_BLUE = new Tile(getAniSprites(0, 0, 7, LoadSave.POTION_ATLAS, 12, 16), id++, POTIONS_TILE));
-
+		
 		// Potions red 11
 		potions.add(POTION_RED = new Tile(getAniSprites(0, 1, 7, LoadSave.POTION_ATLAS, 12, 16), id++, POTIONS_TILE));
 
@@ -94,7 +94,7 @@ public class TileManager {
 			for (int y = 0; y < 2; y++)
 				outside_floating.add(OUTSIDE_FLOWTING = new Tile(getSprite(x, y, LoadSave.LEVEL_ATLAS), id++,
 						OUTSIDE_FLOWTING_TILE));
-
+		
 		// Ship 32-35
 		for (int y = 0; y < 2; y++)
 			for (int x = 0; x < 2; x++)
@@ -105,7 +105,7 @@ public class TileManager {
 		for (int y = 0; y < 4; y++)
 			for (int x = 0; x < 2; x++)
 				trees.add(TREES = new Tile(getSprite(x, y, LoadSave.TREE_ONE_ATLAS, 20, 23), id++, TREES_TILE));
-		System.out.println(id);
+		
 		//44-47
 		for (int y = 0; y < 2; y++)
 			for (int x = 0; x < 2; x++)

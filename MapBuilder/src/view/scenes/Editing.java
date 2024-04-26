@@ -45,6 +45,10 @@ public class Editing extends GameScene implements SceneMethods {
 		lastTileX.add(-1);
 		lastTileY.add(-1);
 		lastTileId.add(-1);
+		
+		lvlBlocks = new int[14][90];
+		lvlEntities = new int[14][90];
+		lvlObjects = new int[14][90];
 	}
 
 	private void loadSavedLevel() {
@@ -60,17 +64,18 @@ public class Editing extends GameScene implements SceneMethods {
 	public void render(Graphics g) {
 		if (graphics == null)
 			this.graphics = g;
+		drawLevelBackground(g);
 		drawLevel(g);
 		toolbar.draw(g);
 		drawSelectedTile(g);
-		drawLevelBackground(g);
 
 	}
 
 	// SETTA IL BACKGROND CON I TILE GIALLI A RIGHR
 	private void drawLevelBackground(Graphics g) {
 		int startX = 160;
-		g.drawImage(LoadSave.getSpriteAtlas("editing.png"), startX, 0, 1760, 1080, null);
+		int startY = 92-24;
+		g.drawImage(LoadSave.getSpriteAtlas("editing.png"), startX, startY, 1760, 944, null);
 	}
 
 	private void drawLevel(Graphics g) { 
@@ -87,7 +92,96 @@ public class Editing extends GameScene implements SceneMethods {
 //        
 		int startX = 175;
 		int startY = screenHeight / 2 - levelHeight / 2;
+		System.out.println(startY);
 
+		for (int y = 0; y < lvlBlocks.length; y++) {
+			for (int x = 0; x < lvlBlocks[y].length; x++) {
+				int id = lvlObjects[y][x];
+
+				// TOGLIERE IL COMMENTO SOTTO PER RESETTARE LA TELA POI SALVA E RIAVVIA
+				// RIMETTENDO IL COMMENTO
+				if (deleteAll) {
+//					lvlBlocks[y][x] = getGame().getTileManager().getGomma().getId();
+//					lvlEntities[y][x] = getGame().getTileManager().getGomma().getId();
+					lvlObjects[y][x] = getGame().getTileManager().getGomma().getId();
+				}
+				int drawX = startX + x * TILE_SIZE;
+				int drawY = startY + y * TILE_SIZE;
+				if (drawY + TILE_SIZE >= 0 && drawY < screenHeight) {
+					BufferedImage img = getSprite(id);
+					if ((img.getWidth() != TILE_SIZE || img.getHeight() != TILE_SIZE) && id != 10 && id != 11) {
+
+						double scaleX = (double) TILE_SIZE / img.getWidth();
+						double scaleY = (double) TILE_SIZE / img.getHeight();
+
+						double scale = Math.max(scaleX, scaleY);
+
+						int newWidth = (int) (img.getWidth() * scale);
+						int newHeight = (int) (img.getHeight() * scale);
+
+						int newX = drawX + (TILE_SIZE - newWidth) / 2;
+						int newY = drawY + (TILE_SIZE - newHeight) / 2;
+						if (isAnimation(id)) {
+							g.drawImage(getSprite(id, animationIndex), newX, newY, newWidth, newHeight, null);
+						} else {
+							g.drawImage(getSprite(id), newX, newY, newWidth, newHeight, null);
+						}
+					} else {
+						if (isAnimation(id)) {
+							g.drawImage(getSprite(id, animationIndex), drawX, drawY, TILE_SIZE, TILE_SIZE, null);
+						} else {
+							g.drawImage(getSprite(id), drawX, drawY, TILE_SIZE, TILE_SIZE, null);
+						}
+					}
+					if (drawGrid)
+						g.drawRect(drawX, drawY, TILE_SIZE, TILE_SIZE);
+				}
+			}
+		}
+		for (int y = 0; y < lvlBlocks.length; y++) {
+			for (int x = 0; x < lvlBlocks[y].length; x++) {
+				int id = lvlEntities[y][x];
+
+				// TOGLIERE IL COMMENTO SOTTO PER RESETTARE LA TELA POI SALVA E RIAVVIA
+				// RIMETTENDO IL COMMENTO
+				if (deleteAll) {
+//					lvlBlocks[y][x] = getGame().getTileManager().getGomma().getId();
+					lvlEntities[y][x] = getGame().getTileManager().getGomma().getId();
+//					lvlObjects[y][x] = getGame().getTileManager().getGomma().getId();
+				}
+				int drawX = startX + x * TILE_SIZE;
+				int drawY = startY + y * TILE_SIZE;
+				if (drawY + TILE_SIZE >= 0 && drawY < screenHeight) {
+					BufferedImage img = getSprite(id);
+					if ((img.getWidth() != TILE_SIZE || img.getHeight() != TILE_SIZE) && id != 10 && id != 11) {
+
+						double scaleX = (double) TILE_SIZE / img.getWidth();
+						double scaleY = (double) TILE_SIZE / img.getHeight();
+
+						double scale = Math.max(scaleX, scaleY);
+
+						int newWidth = (int) (img.getWidth() * scale);
+						int newHeight = (int) (img.getHeight() * scale);
+
+						int newX = drawX + (TILE_SIZE - newWidth) / 2;
+						int newY = drawY + (TILE_SIZE - newHeight) / 2;
+						if (isAnimation(id)) {
+							g.drawImage(getSprite(id, animationIndex), newX, newY, newWidth, newHeight, null);
+						} else {
+							g.drawImage(getSprite(id), newX, newY, newWidth, newHeight, null);
+						}
+					} else {
+						if (isAnimation(id)) {
+							g.drawImage(getSprite(id, animationIndex), drawX, drawY, TILE_SIZE, TILE_SIZE, null);
+						} else {
+							g.drawImage(getSprite(id), drawX, drawY, TILE_SIZE, TILE_SIZE, null);
+						}
+					}
+					if (drawGrid)
+						g.drawRect(drawX, drawY, TILE_SIZE, TILE_SIZE);
+				}
+			}
+		}
 		for (int y = 0; y < lvlBlocks.length; y++) {
 			for (int x = 0; x < lvlBlocks[y].length; x++) {
 				int id = lvlBlocks[y][x];
@@ -96,8 +190,8 @@ public class Editing extends GameScene implements SceneMethods {
 				// RIMETTENDO IL COMMENTO
 				if (deleteAll) {
 					lvlBlocks[y][x] = getGame().getTileManager().getGomma().getId();
-					lvlEntities[y][x] = getGame().getTileManager().getGomma().getId();
-					lvlObjects[y][x] = getGame().getTileManager().getGomma().getId();
+//					lvlEntities[y][x] = getGame().getTileManager().getGomma().getId();
+//					lvlObjects[y][x] = getGame().getTileManager().getGomma().getId();
 				}
 				int drawX = startX + x * TILE_SIZE;
 				int drawY = startY + y * TILE_SIZE;
@@ -203,7 +297,7 @@ public class Editing extends GameScene implements SceneMethods {
 	}
 
 	public void saveLevel() {
-		LoadSave.SaveLevel(lvlBlocks, "level.png");
+		LoadSave.SaveLevel(lvlBlocks, lvlEntities, lvlObjects, "level.png");
 	}
 
 	public void setSelectedTile(Tile tile) {

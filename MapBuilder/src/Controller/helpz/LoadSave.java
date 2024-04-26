@@ -50,9 +50,9 @@ public class LoadSave {
 
 	private static final String fileName = "level.png";
 
-	public static void SaveLevel(int[][] levelData, String fileName) {
-		int width = levelData[0].length;
-		int height = levelData.length;
+	public static void SaveLevel(int[][] lvlBlocks, int[][] lvlEntities, int[][] lvlObjects, String fileName) {
+		int width = lvlBlocks[0].length;
+		int height = lvlBlocks.length;
 
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
@@ -60,7 +60,13 @@ public class LoadSave {
 		HashMap<Integer, Color> colorMap = Constants.IdColori.numeriColori;
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				matrix[j][i] = colorMap.get(levelData[i][j]); // Corretta l'assegnazione di coordinate
+				if(colorMap.get(lvlBlocks[i][j]) != null && colorMap.get(lvlEntities[i][j]) != null && colorMap.get(lvlObjects[i][j]) != null) {
+					int r = colorMap.get(lvlBlocks[i][j]).getRed();
+					int g = colorMap.get(lvlEntities[i][j]).getGreen();
+					int b = colorMap.get(lvlObjects[i][j]).getBlue();
+					matrix[j][i] = new Color(r, g, b);// Corretta l'assegnazione di coordinate
+				}
+				
 			}
 		}
 
@@ -95,12 +101,14 @@ public class LoadSave {
 			File file = new File(fileName);
 			if (!file.exists()) {
 				RedData = new int[14][90];
+				GreenData = new int[14][90];
+				BlueData = new int[14][90];
 				System.out.println("File Creato: level.png");
 				for (int y = 0; y < RedData.length; y++) {
 					for (int x = 0; x < RedData[0].length; x++) {
-						RedData[y][x] = 255;
-						GreenData[y][x] = 255;
-						BlueData[y][x] = 255;
+						RedData[y][x] = 52;
+						GreenData[y][x] = 52;
+						BlueData[y][x] = 52;
 					}
 				}
 

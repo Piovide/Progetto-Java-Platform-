@@ -267,6 +267,7 @@ public class Constants {
 				put(25, new Color(38, 0, 0)); // outside corner 3
 				put(26, new Color(39, 0, 0)); // outside corner single
 				
+				//
 				
 				
 				//Entities
@@ -274,6 +275,9 @@ public class Constants {
 				put(48, new Color(0,1,0));//stella
 				put(49, new Color(0,2,0));//bestia di satana 
 				put(50, new Color(0,100,0));//giocatore
+				
+				//Gomma
+				put(52, new Color(52, 52, 52));
 				
 			}
 		};
