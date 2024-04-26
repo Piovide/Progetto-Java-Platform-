@@ -43,79 +43,84 @@ public class TileManager {
 
 	private void createTiles() {
 
-		// Water bottom
+		// Water bottom 0
 		water_bottom.add(WATER_BOTTOM = new Tile(getSprite(0, 0, LoadSave.WATER_BOTTOM), id++, WATER_BOTTOM_TILE));
 
-		// Water top
+		// Water top 1
 		water_top.add(WATER_TOP = new Tile(getAniSprites(0, 0, 4, LoadSave.WATER_TOP), id++, WATER_TOP_TILE));
 
-		// Grass
+		// Grass 2-4
 		for (int x = 0; x < 3; x++)
 			grass.add(GRASS = new Tile(getSprite(x, 0, LoadSave.GRASS_ATLAS, 21, 32), id++, GRASS_TILE));
 
-		// Cannon Right
+		// Cannon Right 5
 		cannon.add(CANNON = new Tile(ImgFix.getMirroredImage(getSprite(0, 0, LoadSave.CANNON_ATLAS, 40, 26)), id++,
 				CANNON_TILE));
 
-		// Cannon Left
+		// Cannon Left 6
 		cannon.add(CANNON = new Tile(getSprite(0, 0, LoadSave.CANNON_ATLAS, 40, 26), id++, CANNON_TILE));
 
-		// Spikes
+		// Spikes 7
 		spikes.add(SPIKES = new Tile(getSprite(0, 0, LoadSave.TRAP_ATLAS), id++, SPIKES_TILE));
 
-		// Barrels
+		// Barrels 8
 		barrels.add(BARRELS = new Tile(getSprite(0, 0, LoadSave.CONTAINER_ATLAS, 35, 30), id++, BARRELS_TILE));
 
-		// box
+		// box 9
 		barrels.add(BOX = new Tile(getSprite(0, 1, LoadSave.CONTAINER_ATLAS, 35, 30), id++, BARRELS_TILE));
 
-		// Potions blue
+		// Potions blue 10
 		potions.add(POTION_BLUE = new Tile(getAniSprites(0, 0, 7, LoadSave.POTION_ATLAS, 12, 16), id++, POTIONS_TILE));
 
-		// Potions red
+		// Potions red 11
 		potions.add(POTION_RED = new Tile(getAniSprites(0, 1, 7, LoadSave.POTION_ATLAS, 12, 16), id++, POTIONS_TILE));
 
-		// Outside terrain
+
+		// Outside terrain 12_20
 		for (int y = 0; y < 3; y++)
 			for (int x = 0; x < 3; x++)
 				outside_terrain.add(
 						OUTSIDE_TERRAIN = new Tile(getSprite(x, y, LoadSave.LEVEL_ATLAS), id++, OUTSIDE_TERRAIN_TILE));
 
-		// Outside pillar
+		// Outside pillar 21-23
+
 		for (int y = 0; y < 3; y++)
 			outside_pillar
 					.add(OUTSIDE_PILLAR = new Tile(getSprite(3, y, LoadSave.LEVEL_ATLAS), id++, OUTSIDE_PILLAR_TILE));
+		
 
-		// Outside floating
+		// Outside floating 24-31
 		for (int x = 0; x < 4; x++)
 			for (int y = 0; y < 2; y++)
 				outside_floating.add(OUTSIDE_FLOWTING = new Tile(getSprite(x, y, LoadSave.LEVEL_ATLAS), id++,
 						OUTSIDE_FLOWTING_TILE));
 
-		// Ship
+		// Ship 32-35
 		for (int y = 0; y < 2; y++)
 			for (int x = 0; x < 2; x++)
 				ship.add(SHIP = new Tile(getSprite(x, y, LoadSave.SHIP, 39, 36), id++, SHIP_TILE));
 
-		// Trees
+		
+		// Trees 36-43
 		for (int y = 0; y < 4; y++)
 			for (int x = 0; x < 2; x++)
 				trees.add(TREES = new Tile(getSprite(x, y, LoadSave.TREE_ONE_ATLAS, 20, 23), id++, TREES_TILE));
-
+		System.out.println(id);
+		//44-47
 		for (int y = 0; y < 2; y++)
 			for (int x = 0; x < 2; x++)
 				trees.add(TREES = new Tile(getSprite(x, y, LoadSave.TREE_TWO_ATLAS, 31, 27), id++, TREES_TILE));
 
-		// Crabbies
+		// Crabbies 47
 		entities.add(CRABBY = new Tile(getAniSprites(0, 0, 9, LoadSave.CRABBY_SPRITE, 72, 32), id++, CRABBY_TILE));
 
-		// Pinkstars
+		// Pinkstars 48
 		entities.add(PINKSTAR = new Tile(getAniSprites(0, 0, 8, LoadSave.PINKSTAR_ATLAS, 34, 30), id++, PINKSTAR_TILE));
 
-		// Sharks
+		// Sharks 49
 		entities.add(SHARK = new Tile(getAniSprites(0, 0, 8, LoadSave.SHARK_ATLAS, 34, 30), id++, SHARK_TILE));
 
-		// Player
+		// Player 50
 		entities.add(PLAYER = new Tile(getAniSprites(0, 0, 5, LoadSave.PLAYER_ATLAS, 60, 40), id++, PLAYER_TILE));
 
 		tiles.addAll(water_bottom);

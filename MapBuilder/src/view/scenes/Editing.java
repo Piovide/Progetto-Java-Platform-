@@ -73,7 +73,7 @@ public class Editing extends GameScene implements SceneMethods {
 		g.drawImage(LoadSave.getSpriteAtlas("editing.png"), startX, 0, 1760, 1080, null);
 	}
 
-	private void drawLevel(Graphics g) {
+	private void drawLevel(Graphics g) { 
 		g.fillRect(0, 0, TILE_SIZE, TILE_SIZE);
 		int screenHeight = game.getHeight();
 		int levelWidth = lvlBlocks[0].length * TILE_SIZE;
@@ -235,8 +235,8 @@ public class Editing extends GameScene implements SceneMethods {
 					lastTileX.add(tileX);
 					lastTileY.add(tileY);
 					lastTileId.add(selectedTile.getId());
-
 					lvlBlocks[tileY][tileX] = selectedTile.getId();
+					//System.out.println(selectedTile.getId());
 				}
 			}
 		}

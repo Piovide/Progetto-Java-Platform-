@@ -224,6 +224,9 @@ public class Constants {
 //				// Player
 //				entities.add(PLAYER = new Tile(getAniSprites(0, 0, 5, LoadSave.PLAYER_ATLAS, 60, 40), id++, PLAYER_TILE));
 				
+				
+
+				
 				put(0, new Color(48, 0, 0)); // water bottom
 				put(1, new Color(11, 0, 0)); // water top
 				
@@ -237,14 +240,18 @@ public class Constants {
 				put(8, new Color(0, 0, 1)); // potion blue
 				put(9, new Color(0, 0, 0)); // potion red
 				
+				put(27, new Color(0,0,7));//albero dritto 
+				put(28, new Color(0,0,8)); //albero piegato verso destra
+				put(29, new Color(0,0,9)); //albero piegato verso sinistra
+				
 				//Block 1
-				put(10, new Color(0, 0, 0)); // outside terrain 1
-				put(11, new Color(1, 0, 0)); // outside terrain 2
-				put(12, new Color(2, 0, 0)); // outside terrain 3
-				put(13, new Color(12, 0, 0)); // outside terrain 4
-				put(14, new Color(13, 0, 0)); // outside terrain 5
-				put(15, new Color(14, 0, 0)); // outside terrain 6
-				put(16, new Color(24, 0, 0)); // outside terrain 7
+				put(10, new Color(0, 0, 0)); // outside terrain 1 
+				put(11, new Color(1, 0, 0)); // outside terrain 2 
+				put(12, new Color(2, 0, 0)); // outside terrain 3 
+				put(13, new Color(12, 0, 0)); // outside terrain 4  
+				put(14, new Color(13, 0, 0)); // outside terrain 5 
+				put(15, new Color(14, 0, 0)); // outside terrain 6  
+				put(16, new Color(24, 0, 0)); // outside terrain 7 
 				put(17, new Color(25, 0, 0)); // outside terrain 8
 				put(18, new Color(26, 0, 0)); // outside terrain 9
 				
@@ -259,6 +266,14 @@ public class Constants {
 				put(24, new Color(37, 0, 0)); // outside corner 2
 				put(25, new Color(38, 0, 0)); // outside corner 3
 				put(26, new Color(39, 0, 0)); // outside corner single
+				
+				
+				
+				//Entities
+				put(47, new Color(0,0,0));//Granchietto
+				put(48, new Color(0,1,0));//stella
+				put(49, new Color(0,2,0));//bestia di satana 
+				put(50, new Color(0,100,0));//giocatore
 				
 			}
 		};

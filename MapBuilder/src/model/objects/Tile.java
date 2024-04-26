@@ -50,6 +50,10 @@ public class Tile {
 		return tileBtnConst == BTN_SHIP || tileBtnConst == BTN_TREE;
 	}
 	
+	/*public boolean isObject() {
+		
+	}*/
+	
 	public Dimension getmultipleBounds(int tileType) {
 		int w = 0;
 		int h = 0;
@@ -68,6 +72,7 @@ public class Tile {
 	}
 
 	public int getId() {
+		//System.out.println(id);
 		return id;
 	}
 

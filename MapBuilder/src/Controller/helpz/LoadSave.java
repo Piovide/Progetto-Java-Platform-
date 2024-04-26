@@ -67,7 +67,11 @@ public class LoadSave {
 		// Imposta i colori della BufferedImage utilizzando i valori della matrice
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				image.setRGB(j, i, matrix[j][i].getRGB()); // Corretta l'assegnazione di coordinate
+				try {
+					image.setRGB(j, i, matrix[j][i].getRGB()); // Corretta l'assegnazione di coordinate
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 			}
 		}
 
@@ -116,18 +120,12 @@ public class LoadSave {
 						int red = c.getRed();
 						int green = c.getGreen();
 						int blue = c.getBlue();
-						
-						RedData[y][x] = colorMap.entrySet().stream()
-								.filter(entry -> entry.getValue().getRed() == red)
-								.map(entry -> entry.getKey()).findFirst().orElse(0);
-						
-						GreenData[y][x] = colorMap.entrySet().stream()
-								.filter(entry -> entry.getValue().getGreen() == green)
-								.map(entry -> entry.getKey()).findFirst().orElse(0);
-						
-						BlueData[y][x] = colorMap.entrySet().stream()
-								.filter(entry -> entry.getValue().getBlue() == blue)
-								.map(entry -> entry.getKey()).findFirst().orElse(0);
+
+						RedData[y][x] = colorMap.entrySet().stream().filter(entry -> entry.getValue().getRed() == red).map(entry -> entry.getKey()).findFirst().orElse(0);
+
+						GreenData[y][x] = colorMap.entrySet().stream().filter(entry -> entry.getValue().getGreen() == green).map(entry -> entry.getKey()).findFirst().orElse(0);
+
+						BlueData[y][x] = colorMap.entrySet().stream().filter(entry -> entry.getValue().getBlue() == blue).map(entry -> entry.getKey()).findFirst().orElse(0);
 					}
 				}
 			}
