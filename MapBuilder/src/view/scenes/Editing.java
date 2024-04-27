@@ -92,12 +92,11 @@ public class Editing extends GameScene implements SceneMethods {
 //        
 		int startX = 175;
 		int startY = screenHeight / 2 - levelHeight / 2;
-		System.out.println(startY);
+
 
 		for (int y = 0; y < lvlBlocks.length; y++) {
 			for (int x = 0; x < lvlBlocks[y].length; x++) {
 				int id = lvlObjects[y][x];
-
 				// TOGLIERE IL COMMENTO SOTTO PER RESETTARE LA TELA POI SALVA E RIAVVIA
 				// RIMETTENDO IL COMMENTO
 				if (deleteAll) {
@@ -330,6 +329,7 @@ public class Editing extends GameScene implements SceneMethods {
 					lastTileY.add(tileY);
 					lastTileId.add(selectedTile.getId());
 					lvlBlocks[tileY][tileX] = selectedTile.getId();
+					System.out.println(selectedTile.getId());
 					//System.out.println(selectedTile.getId());
 				}
 			}

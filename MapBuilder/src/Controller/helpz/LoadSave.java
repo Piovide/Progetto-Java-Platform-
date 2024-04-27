@@ -80,7 +80,7 @@ public class LoadSave {
 				}
 			}
 		}
-
+		
 		// Salva l'immagine su disco
 		File outputFile = new File("level.png");
 		try {
