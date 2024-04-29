@@ -130,7 +130,6 @@ public class LoadSave {
 						int green = c.getGreen();
 						int blue = c.getBlue();
 						
-						
 							RedData[y][x] = colorMap.indexOf(new Color(red, 0, 0));
 							GreenData[y][x] = colorMap.indexOf(new Color(0, green, 0));
 							BlueData[y][x] = colorMap.indexOf(new Color(0, 0, blue));

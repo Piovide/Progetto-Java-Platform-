@@ -219,9 +219,10 @@ public class Constants {
 			numeriColori.add(new Color(48, 0, 0)); // water bottom 0
 			numeriColori.add(new Color(11, 0, 0)); // water top 1
 			// Objects
-			for (int i = 0; i < 3; i++) {
-				numeriColori.add(new Color(0, 0, i));// grass 2 3 4
-			}
+			numeriColori.add(new Color(0, 0, 0));// grass 2
+			numeriColori.add(new Color(0, 0, 1));// grass 3
+			numeriColori.add(new Color(0, 0, 6)); // grass 4
+			
 			numeriColori.add(new Color(0, 0, 6)); // cannon right 5
 			numeriColori.add(new Color(0, 0, 5)); // cannon left 6
 			numeriColori.add(new Color(0, 0, 4)); // spike 7

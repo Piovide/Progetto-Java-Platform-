@@ -53,7 +53,7 @@ public class Tile {
 			case 0,1,2,3,4,5,6,7,8,9,10,27,28,29,30:
 				return 1;
 			//Entities
-			case 47,48,49,50:
+			case 39,40,41,42:
 				return 2;
 		}
 		return -1;
