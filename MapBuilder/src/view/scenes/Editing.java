@@ -101,14 +101,14 @@ public class Editing extends GameScene implements SceneMethods {
 				// RIMETTENDO IL COMMENTO
 				if (deleteAll) {
 					lvlBlocks[y][x] = getGame().getTileManager().getGomma().getId();
-//					lvlEntities[y][x] = getGame().getTileManager().getGomma().getId();
-//					lvlObjects[y][x] = getGame().getTileManager().getGomma().getId();
+					lvlEntities[y][x] = getGame().getTileManager().getGomma().getId();
+					lvlObjects[y][x] = getGame().getTileManager().getGomma().getId();
 				}
 				int drawX = startX + x * TILE_SIZE;
 				int drawY = startY + y * TILE_SIZE;
 				if (drawY + TILE_SIZE >= 0 && drawY < screenHeight) {
 					BufferedImage img = getSprite(id);
-					if ((img.getWidth() != TILE_SIZE || img.getHeight() != TILE_SIZE) && id != 10 && id != 11) {
+					if (img.getWidth() != TILE_SIZE || img.getHeight() != TILE_SIZE) {
 
 						double scaleX = (double) TILE_SIZE / img.getWidth();
 						double scaleY = (double) TILE_SIZE / img.getHeight();
@@ -120,6 +120,7 @@ public class Editing extends GameScene implements SceneMethods {
 
 						int newX = drawX + (TILE_SIZE - newWidth) / 2;
 						int newY = drawY + (TILE_SIZE - newHeight) / 2;
+						
 						if (isAnimation(id)) {
 							g.drawImage(getSprite(id, animationIndex), newX, newY, newWidth, newHeight, null);
 						} else {
@@ -143,11 +144,6 @@ public class Editing extends GameScene implements SceneMethods {
 
 				// TOGLIERE IL COMMENTO SOTTO PER RESETTARE LA TELA POI SALVA E RIAVVIA
 				// RIMETTENDO IL COMMENTO
-				if (deleteAll) {
-//					lvlBlocks[y][x] = getGame().getTileManager().getGomma().getId();
-					lvlEntities[y][x] = getGame().getTileManager().getGomma().getId();
-//					lvlObjects[y][x] = getGame().getTileManager().getGomma().getId();
-				}
 				int drawX = startX + x * TILE_SIZE;
 				int drawY = startY + y * TILE_SIZE;
 				if (drawY + TILE_SIZE >= 0 && drawY < screenHeight) {
@@ -184,13 +180,7 @@ public class Editing extends GameScene implements SceneMethods {
 		for (int y = 0; y < lvlBlocks.length; y++) {
 			for (int x = 0; x < lvlBlocks[y].length; x++) {
 				int id = lvlObjects[y][x];
-				// TOGLIERE IL COMMENTO SOTTO PER RESETTARE LA TELA POI SALVA E RIAVVIA
-				// RIMETTENDO IL COMMENTO
-				if (deleteAll) {
-//					lvlBlocks[y][x] = getGame().getTileManager().getGomma().getId();
-//					lvlEntities[y][x] = getGame().getTileManager().getGomma().getId();
-					lvlObjects[y][x] = getGame().getTileManager().getGomma().getId();
-				}
+
 				int drawX = startX + x * TILE_SIZE;
 				int drawY = startY + y * TILE_SIZE;
 				if (drawY + TILE_SIZE >= 0 && drawY < screenHeight) {

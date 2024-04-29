@@ -7,13 +7,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Iterator;
 import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 
-import controller.ui.MyButton;
-import model.objects.Tile;
 import view.scenes.Editing;
 
 public class LoadSave {
@@ -63,7 +61,7 @@ public class LoadSave {
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
 		Color[][] matrix = new Color[width][height];
-		HashMap<Integer, Color> colorMap = Constants.IdColori.numeriColori;
+		ArrayList<Color> colorMap = Constants.IdColori.getIdColori();
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				int r = colorMap.get(lvlBlocks[i][j]).getRed();
@@ -79,11 +77,8 @@ public class LoadSave {
 		// Imposta i colori della BufferedImage utilizzando i valori della matrice
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				try {
 					image.setRGB(j, i, matrix[j][i].getRGB()); // Corretta l'assegnazione di coordinate
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
+			
 			}
 		}
 
@@ -112,9 +107,9 @@ public class LoadSave {
 				System.out.println("File Creato: level.png");
 				for (int y = 0; y < RedData.length; y++) {
 					for (int x = 0; x < RedData[0].length; x++) {
-						RedData[y][x] = 52;
-						GreenData[y][x] = 52;
-						BlueData[y][x] = 52;
+						RedData[y][x] = Constants.Tiles.GOMMA_TILE;
+						GreenData[y][x] = Constants.Tiles.GOMMA_TILE;
+						BlueData[y][x] = Constants.Tiles.GOMMA_TILE;
 					}
 				}
 
@@ -126,7 +121,7 @@ public class LoadSave {
 				RedData = new int[height][width];
 				GreenData = new int[height][width];
 				BlueData = new int[height][width];
-				HashMap<Integer, Color> colorMap = Constants.IdColori.numeriColori;
+				ArrayList<Color> colorMap = Constants.IdColori.getIdColori();
 
 				for (int y = 0; y < height; y++) {
 					for (int x = 0; x < width; x++) {
@@ -134,15 +129,21 @@ public class LoadSave {
 						int red = c.getRed();
 						int green = c.getGreen();
 						int blue = c.getBlue();
-						for (Entry<Integer, Color> entry : colorMap.entrySet()) {
-							if (entry.getKey() == red)
-								RedData[y][x] = red;
-							if (entry.getKey() == green)
-								GreenData[y][x] = green;
-							if (entry.getKey() == blue)
-								BlueData[y][x] = blue;
-//TODO DA MODIFICARE L'ASSEGNAZIONE DEI VALORI
-						}
+						
+						
+							RedData[y][x] = colorMap.indexOf(new Color(red, 0, 0));
+							GreenData[y][x] = colorMap.indexOf(new Color(0, green, 0));
+							BlueData[y][x] = colorMap.indexOf(new Color(0, 0, blue));
+							
+							if (RedData[y][x] == -1) {
+								RedData[y][x] = Constants.Tiles.GOMMA_TILE;
+							}
+							if (GreenData[y][x] == -1) {
+								GreenData[y][x] = Constants.Tiles.GOMMA_TILE;
+							}
+							if (BlueData[y][x] == -1) {
+								BlueData[y][x] = Constants.Tiles.GOMMA_TILE;
+							}
 						System.out.println("RedData: " + RedData[y][x] + " GreenData: " + GreenData[y][x]
 								+ " BlueData: " + BlueData[y][x]);
 						System.out.println("Red: " + red + " Green: " + green + " Blue: " + blue);

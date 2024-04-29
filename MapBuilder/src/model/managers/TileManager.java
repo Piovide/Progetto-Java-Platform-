@@ -89,38 +89,37 @@ public class TileManager {
 					.add(OUTSIDE_PILLAR = new Tile(getSprite(3, y, LoadSave.LEVEL_ATLAS), id++, OUTSIDE_PILLAR_TILE));
 		
 
-		// Outside floating 24-31
+		// Outside floating 24-27
 		for (int x = 0; x < 4; x++)
-			for (int y = 0; y < 2; y++)
-				outside_floating.add(OUTSIDE_FLOWTING = new Tile(getSprite(x, y, LoadSave.LEVEL_ATLAS), id++,
+				outside_floating.add(OUTSIDE_FLOWTING = new Tile(getSprite(x, 3, LoadSave.LEVEL_ATLAS), id++,
 						OUTSIDE_FLOWTING_TILE));
 		
-		// Ship 32-35
+		// Ship 28-31
 		for (int y = 0; y < 2; y++)
 			for (int x = 0; x < 2; x++)
 				ship.add(SHIP = new Tile(getSprite(x, y, LoadSave.SHIP, 39, 36), id++, SHIP_TILE));
 
 		
-		// Trees 36-43 
+		// Trees 32-34
 		for (int y = 0; y < 3; y++)
 			for (int x = 0; x < 1; x++)
 				trees.add(TREES = new Tile(getSprite(x, y, LoadSave.TREE_ONE_ATLAS, 39, 30), id++, TREES_TILE));
 		
-		//44-47
+		//35-38
 		for (int y = 0; y < 2; y++)
 			for (int x = 0; x < 2; x++)
 				trees.add(TREES = new Tile(getSprite(x, y, LoadSave.TREE_TWO_ATLAS, 31, 27), id++, TREES_TILE));
 
-		// Crabbies 47
+		// Crabbies 39
 		entities.add(CRABBY = new Tile(getAniSprites(0, 0, 9, LoadSave.CRABBY_SPRITE, 72, 32), id++, CRABBY_TILE));
 
-		// Pinkstars 48
+		// Pinkstars 40
 		entities.add(PINKSTAR = new Tile(getAniSprites(0, 0, 8, LoadSave.PINKSTAR_ATLAS, 34, 30), id++, PINKSTAR_TILE));
 
-		// Sharks 49
+		// Sharks 41
 		entities.add(SHARK = new Tile(getAniSprites(0, 0, 8, LoadSave.SHARK_ATLAS, 34, 30), id++, SHARK_TILE));
 
-		// Player 50
+		// Player 42
 		entities.add(PLAYER = new Tile(getAniSprites(0, 0, 5, LoadSave.PLAYER_ATLAS, 60, 40), id++, PLAYER_TILE));
 
 		tiles.addAll(water_bottom);

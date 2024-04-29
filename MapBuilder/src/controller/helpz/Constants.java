@@ -1,15 +1,13 @@
 package controller.helpz;
 
-import static controller.helpz.Constants.Tiles.SHIP_TILE;
-
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-import model.objects.Tile;
 import view.main.Game;
 
 public class Constants {
-	
+
 	public static class ObjectConstants {
 
 		public static final int RED_POTION = 0;
@@ -107,11 +105,11 @@ public class Constants {
 			return 0;
 		}
 	}
-	
+
 	public static class Tiles {
-		
+
 		public static final int TILE_SIZE = 32;
-		
+
 		public static final int WATER_BOTTOM_TILE = 0;
 		public static final int WATER_TOP_TILE = 1;
 		public static final int GRASS_TILE = 2;
@@ -129,8 +127,8 @@ public class Constants {
 		public static final int PINKSTAR_TILE = 14;
 		public static final int SHARK_TILE = 15;
 		public static final int PLAYER_TILE = 16;
-		public static final int GOMMA_TILE = -1;
-		
+		public static final int GOMMA_TILE = 43;
+
 	}
 
 	public static class Buttons {
@@ -141,165 +139,148 @@ public class Constants {
 
 	public static class IdColori {
 		@SuppressWarnings("serial")
-		
-		static HashMap<Integer, Color> numeriColori = new HashMap<Integer, Color>() {
-			{
-//				// Water bottom
-//				water_bottom.add(WATER_BOTTOM = new Tile(getSprite(0, 0, LoadSave.WATER_BOTTOM), id++, WATER_BOTTOM_TILE));
+
+//		protected static HashMap<Integer, Color> numeriColori = new HashMap<Integer, Color>() {
+//			{	
 //
-//				// Water top
-//				water_top.add(WATER_TOP = new Tile(getAniSprites(0, 0, 4, LoadSave.WATER_TOP), id++, WATER_TOP_TILE));
-//
-//				// Grass
-//				for (int x = 0; x < 3; x++)
-//					grass.add(GRASS = new Tile(getSprite(x, 0, LoadSave.GRASS_ATLAS, 21, 32), id++, GRASS_TILE));
-//
-//				// Cannon Right
-//				cannon.add(CANNON = new Tile(ImgFix.getMirroredImage(getSprite(0, 0, LoadSave.CANNON_ATLAS, 40, 26)), id++,
-//						CANNON_TILE));
-//
-//				// Cannon Left
-//				cannon.add(CANNON = new Tile(getSprite(0, 0, LoadSave.CANNON_ATLAS, 40, 26), id++, CANNON_TILE));
-//
-//				// Spikes
-//				spikes.add(SPIKES = new Tile(getSprite(0, 0, LoadSave.TRAP_ATLAS), id++, SPIKES_TILE));
-//
-//				// Barrels
-//				barrels.add(BARRELS = new Tile(getSprite(0, 0, LoadSave.CONTAINER_ATLAS, 35, 30), id++, BARRELS_TILE));
-//
-//				// box
-//				barrels.add(BOX = new Tile(getSprite(0, 1, LoadSave.CONTAINER_ATLAS, 35, 30), id++, BARRELS_TILE));
-//
-//				// Potions blue
-//				potions.add(POTION_BLUE = new Tile(getAniSprites(0, 0, 7, LoadSave.POTION_ATLAS, 12, 16), id++, POTIONS_TILE));
-//
-//				// Potions red
-//				potions.add(POTION_RED = new Tile(getAniSprites(0, 1, 7, LoadSave.POTION_ATLAS, 12, 16), id++, POTIONS_TILE));
+//				int id=0;
+//				put(id++, new Color(48, 0, 0)); // water bottom 0
+//				put(id++, new Color(11, 0, 0)); // water top 1
+//				//Objects
+//				for(int i=0;i<2;i++) {
+//					put(id++, new Color(0, 0, i));//grass 2 3
+//				}
+//				put(id++, new Color(0, 0, 6)); // cannon right 4 
+//				put(id++, new Color(0, 0, 5)); // cannon left 5
+//				put(id++, new Color(0, 0, 4)); // spike 6
+//				put(id++, new Color(0, 0, 2)); // barrel 7
+//				put(id++, new Color(0, 0, 3)); // box 8
+//				put(id++, new Color(0, 0, 1)); // potion blue 9
+//				put(id++, new Color(0, 0, 0)); // potion red 10
 //				
-//				// Outside terrain
-//				for (int x = 0; x < 3; x++)
-//					for (int y = 0; y < 3; y++)
-//						outside_terrain.add(
-//								OUTSIDE_TERRAIN = new Tile(getSprite(x, y, LoadSave.LEVEL_ATLAS), id++, OUTSIDE_TERRAIN_TILE));
-//
-//				// Outside pillar
-//				for (int x = 3; x < 4; x++)
-//					for (int y = 0; y < 3; y++)
-//						outside_pillar.add(
-//								OUTSIDE_PILLAR = new Tile(getSprite(x, y, LoadSave.LEVEL_ATLAS), id++, OUTSIDE_PILLAR_TILE));
-//
-//				// Outside corner
-//				for (int x = 4; x < 12; x++)
-//					for (int y = 0; y < 4; y++)
-//						if (x != 11 && y == 0)
-//							outside_corner.add(OUTSIDE_CORNER = new Tile(getSprite(x, y, LoadSave.LEVEL_ATLAS), id++,
-//									OUTSIDE_CORNER_TILE));
-//
-//				// Outside floating
-//				for (int x = 0; x < 4; x++)
-//					for (int y = 0; y < 2; y++)
-//						outside_floating.add(OUTSIDE_FLOWTING = new Tile(getSprite(x, y, LoadSave.LEVEL_ATLAS), id++,
-//								OUTSIDE_FLOWTING_TILE));
-//
-//				// Ship
+//				//Block 1
+//				put(id++, new Color(0, 0, 0)); // outside terrain 1 11
+//				put(id++, new Color(1, 0, 0)); // outside terrain 2 12
+//				put(id++, new Color(2, 0, 0)); // outside terrain 3 13
+//				put(id++, new Color(12, 0, 0)); // outside terrain 4 14
+//				put(id++, new Color(13, 0, 0)); // outside terrain 5 15
+//				put(id++, new Color(14, 0, 0)); // outside terrain 6 16
+//				put(id++, new Color(24, 0, 0)); // outside terrain 7 17
+//				put(id++, new Color(25, 0, 0)); // outside terrain 8 18
+//				put(id++, new Color(26, 0, 0)); // outside terrain 9 19
+//				
+//				//Block 2
+//				put(id++, new Color(3, 0, 0)); // outside pillar 1 20
+//				put(id++, new Color(15, 0, 0)); // outside pillar 2 21
+//				put(id++, new Color(27, 0, 0)); // outside pillar 3 22
+//				
+//				//Block 3
+//				
+//				put(id++, new Color(36, 0, 0)); // outside corner 1 23
+//				put(id++, new Color(37, 0, 0)); // outside corner 2 24
+//				put(id++, new Color(38, 0, 0)); // outside corner 3 25
+//				put(id++, new Color(39, 0, 0)); // outside corner single 26
+//				
+//				//ship
 //				for (int y = 0; y < 2; y++)
 //					for (int x = 0; x < 2; x++)
-//						ship.add(SHIP = new Tile(getSprite(x, y, LoadSave.SHIP, 39, 36), id++, SHIP_TILE));
-//
-//				// Trees
+//						put(id++, new Color(255,255,255)); // Barca 27 28 29 30
+//				
+//				
+//				//alberi
 //				for (int y = 0; y < 4; y++)
 //					for (int x = 0; x < 2; x++)
-//						trees.add(TREES = new Tile(getSprite(x, y, LoadSave.TREE_ONE_ATLAS, 20, 23), id++, TREES_TILE));
-//
-//				for (int y = 0; y < 2; y++)
+//						put(id++, new Color(0,0,7));//albero dritto 
+//				 
+//				for (int y = 0; y < 4; y++)
 //					for (int x = 0; x < 2; x++)
-//						trees.add(TREES = new Tile(getSprite(x, y, LoadSave.TREE_TWO_ATLAS, 31, 27), id++, TREES_TILE));
+//						put(id++, new Color(0,0,8)); //albero piegato verso destra
 //
-//				// Crabbies
-//				entities.add(CRABBY = new Tile(getAniSprites(0, 0, 9, LoadSave.CRABBY_SPRITE, 72, 32), id++, CRABBY_TILE));
-//
-//				// Pinkstars
-//				entities.add(PINKSTAR = new Tile(getAniSprites(0, 0, 8, LoadSave.PINKSTAR_ATLAS, 34, 30), id++, PINKSTAR_TILE));
-//
-//				// Sharks
-//				entities.add(SHARK = new Tile(getAniSprites(0, 0, 8, LoadSave.SHARK_ATLAS, 34, 30), id++, SHARK_TILE));
 //				
-//				// Player
-//				entities.add(PLAYER = new Tile(getAniSprites(0, 0, 5, LoadSave.PLAYER_ATLAS, 60, 40), id++, PLAYER_TILE));
-				
-				
+//				//Entities
+//				put(id++, new Color(0,0,0));//Granchietto
+//				put(id++, new Color(0,1,0));//stella
+//				put(id++, new Color(0,2,0));//bestia di satana 
+//				put(id++, new Color(0,100,0));//giocatore
+//				
+//				//Gomma
+//				put(id++, new Color(52, 52, 52));
+//				
+//			}
+//		};
+//
+//		@SuppressWarnings("rawtypes")
+//		public HashMap getColor() {
+//			return numeriColori;
+//		}
+		public static ArrayList<Color> getIdColori(){
+			ArrayList<Color> numeriColori = new ArrayList<Color>(43);
 
-				int id=0;
-				put(id++, new Color(48, 0, 0)); // water bottom 0
-				put(id++, new Color(11, 0, 0)); // water top 1
-				//Objects
-				for(int i=0;i<2;i++) {
-					put(id++, new Color(0, 0, i));//grass 2 3
-				}
-				put(id++, new Color(0, 0, 6)); // cannon right 4 
-				put(id++, new Color(0, 0, 5)); // cannon left 5
-				put(id++, new Color(0, 0, 4)); // spike 6
-				put(id++, new Color(0, 0, 2)); // barrel 7
-				put(id++, new Color(0, 0, 3)); // box 8
-				put(id++, new Color(0, 0, 1)); // potion blue 9
-				put(id++, new Color(0, 0, 0)); // potion red 10
-				
-				//Block 1
-				put(id++, new Color(0, 0, 0)); // outside terrain 1 11
-				put(id++, new Color(1, 0, 0)); // outside terrain 2 12
-				put(id++, new Color(2, 0, 0)); // outside terrain 3 13
-				put(id++, new Color(12, 0, 0)); // outside terrain 4 14
-				put(id++, new Color(13, 0, 0)); // outside terrain 5 15
-				put(id++, new Color(14, 0, 0)); // outside terrain 6 16
-				put(id++, new Color(24, 0, 0)); // outside terrain 7 17
-				put(id++, new Color(25, 0, 0)); // outside terrain 8 18
-				put(id++, new Color(26, 0, 0)); // outside terrain 9 19
-				
-				//Block 2
-				put(id++, new Color(3, 0, 0)); // outside pillar 1 20
-				put(id++, new Color(15, 0, 0)); // outside pillar 2 21
-				put(id++, new Color(27, 0, 0)); // outside pillar 3 22
-				
-				//Block 3
-				
-				put(id++, new Color(36, 0, 0)); // outside corner 1 23
-				put(id++, new Color(37, 0, 0)); // outside corner 2 24
-				put(id++, new Color(38, 0, 0)); // outside corner 3 25
-				put(id++, new Color(39, 0, 0)); // outside corner single 26
-				
-				//ship
-				for (int y = 0; y < 2; y++)
-					for (int x = 0; x < 2; x++)
-						put(id++, new Color(255,255,255)); // Barca 27 28 29 30
-				
-				
-				//alberi
-				for (int y = 0; y < 4; y++)
-					for (int x = 0; x < 2; x++)
-						put(id++, new Color(0,0,7));//albero dritto 
-				 
-				for (int y = 0; y < 4; y++)
-					for (int x = 0; x < 2; x++)
-						put(id++, new Color(0,0,8)); //albero piegato verso destra
-
-				
-				//Entities
-				put(id++, new Color(0,0,0));//Granchietto
-				put(id++, new Color(0,1,0));//stella
-				put(id++, new Color(0,2,0));//bestia di satana 
-				put(id++, new Color(0,100,0));//giocatore
-				
-				//Gomma
-				put(id++, new Color(52, 52, 52));
-				
+			numeriColori.add(new Color(48, 0, 0)); // water bottom 0
+			numeriColori.add(new Color(11, 0, 0)); // water top 1
+			// Objects
+			for (int i = 0; i < 3; i++) {
+				numeriColori.add(new Color(0, 0, i));// grass 2 3 4
 			}
-		};
+			numeriColori.add(new Color(0, 0, 6)); // cannon right 5
+			numeriColori.add(new Color(0, 0, 5)); // cannon left 6
+			numeriColori.add(new Color(0, 0, 4)); // spike 7
+			numeriColori.add(new Color(0, 0, 2)); // barrel 8
+			numeriColori.add(new Color(0, 0, 3)); // box 9
+			numeriColori.add(new Color(0, 0, 1)); // potion blue 10
+			numeriColori.add(new Color(0, 0, 0)); // potion red 11
+			
+			// Block 1
+			numeriColori.add(new Color(0, 0, 0)); // outside terrain 1 12
+			numeriColori.add(new Color(1, 0, 0)); // outside terrain 2 13
+			numeriColori.add(new Color(2, 0, 0)); // outside terrain 3 14
+			numeriColori.add(new Color(12, 0, 0)); // outside terrain 4 15
+			numeriColori.add(new Color(13, 0, 0)); // outside terrain 5 16
+			numeriColori.add(new Color(14, 0, 0)); // outside terrain 6 17
+			numeriColori.add(new Color(24, 0, 0)); // outside terrain 7 18
+			numeriColori.add(new Color(25, 0, 0)); // outside terrain 8 19
+			numeriColori.add(new Color(26, 0, 0)); // outside terrain 9 20
+			
+			// Block 2
+			numeriColori.add(new Color(3, 0, 0)); // outside pillar 1 21
+			numeriColori.add(new Color(15, 0, 0)); // outside pillar 2 22
+			numeriColori.add(new Color(27, 0, 0)); // outside pillar 3 23
+			
+			// Block 3
+			
+			numeriColori.add(new Color(36, 0, 0)); // outside corner 1 24
+			numeriColori.add(new Color(37, 0, 0)); // outside corner 2 25
+			numeriColori.add(new Color(38, 0, 0)); // outside corner 3 26
+			numeriColori.add(new Color(39, 0, 0)); // outside corner single 27
+			
+			// ship
+				numeriColori.add(new Color(0, 0, 7)); // Barca 28
+				numeriColori.add(new Color(0, 0, 8)); // Barca 29
+				numeriColori.add(new Color(0, 0, 9)); // Barca 30
+				numeriColori.add(new Color(0, 0, 10)); // Barca 31
+				
+			
+			// alberi
+				numeriColori.add(new Color(0, 0, 11));// albero dritto 32
+				numeriColori.add(new Color(0, 0, 12)); // albero dritto 33
+				numeriColori.add(new Color(0, 0, 13));// albero dritto 34
 
-		@SuppressWarnings("rawtypes")
-		public HashMap getColor() {
+				numeriColori.add(new Color(0, 0, 14)); // albero piegato verso destra 35
+				numeriColori.add(new Color(0, 0, 15)); // albero piegato verso destra 36
+				numeriColori.add(new Color(0, 0, 16)); // albero piegato verso destra 37
+				numeriColori.add(new Color(0, 0, 17)); // albero piegato verso destra 38
+				
+			// Entities
+			numeriColori.add(new Color(0, 0, 0));// Granchietto 39
+			numeriColori.add(new Color(0, 1, 0));// stella	40
+			numeriColori.add(new Color(0, 2, 0));// shark 41
+			numeriColori.add(new Color(0, 100, 0));// giocatore 42
+			
+			// Gomma
+			numeriColori.add(new Color(43, 43, 43)); // 43
+			System.out.println(numeriColori.size());
 			return numeriColori;
-		}
+			};
 	}
-	
 
 }
