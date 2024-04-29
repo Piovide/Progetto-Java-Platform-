@@ -69,10 +69,10 @@ public class TileManager {
 		// box 9
 		barrels.add(BOX = new Tile(getSprite(0, 1, LoadSave.CONTAINER_ATLAS, 35, 30), id++, BARRELS_TILE));
 
-		// Potions blue 10
+		// Potion blue 10
 		potions.add(POTION_BLUE = new Tile(getAniSprites(0, 0, 7, LoadSave.POTION_ATLAS, 12, 16), id++, POTIONS_TILE));
 		
-		// Potions red 11
+		// Potion red 11
 		potions.add(POTION_RED = new Tile(getAniSprites(0, 1, 7, LoadSave.POTION_ATLAS, 12, 16), id++, POTIONS_TILE));
 
 
@@ -101,10 +101,10 @@ public class TileManager {
 				ship.add(SHIP = new Tile(getSprite(x, y, LoadSave.SHIP, 39, 36), id++, SHIP_TILE));
 
 		
-		// Trees 36-43
-		for (int y = 0; y < 4; y++)
-			for (int x = 0; x < 2; x++)
-				trees.add(TREES = new Tile(getSprite(x, y, LoadSave.TREE_ONE_ATLAS, 20, 23), id++, TREES_TILE));
+		// Trees 36-43 
+		for (int y = 0; y < 3; y++)
+			for (int x = 0; x < 1; x++)
+				trees.add(TREES = new Tile(getSprite(x, y, LoadSave.TREE_ONE_ATLAS, 39, 30), id++, TREES_TILE));
 		
 		//44-47
 		for (int y = 0; y < 2; y++)

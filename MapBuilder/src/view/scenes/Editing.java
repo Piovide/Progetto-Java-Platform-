@@ -45,14 +45,14 @@ public class Editing extends GameScene implements SceneMethods {
 		lastTileX.add(-1);
 		lastTileY.add(-1);
 		lastTileId.add(-1);
-		
+
 		lvlBlocks = new int[14][90];
 		lvlEntities = new int[14][90];
 		lvlObjects = new int[14][90];
 	}
 
 	private void loadSavedLevel() {
-		//ROSSO VERDE BLU
+		// ROSSO VERDE BLU
 		LoadSave.LoadLevelData(lvlBlocks, lvlEntities, lvlObjects, this);
 	}
 
@@ -74,11 +74,11 @@ public class Editing extends GameScene implements SceneMethods {
 	// SETTA IL BACKGROND CON I TILE GIALLI A RIGHR
 	private void drawLevelBackground(Graphics g) {
 		int startX = 160;
-		int startY = 92-24;
+		int startY = 92 - 24;
 		g.drawImage(LoadSave.getSpriteAtlas("editing.png"), startX, startY, 1760, 944, null);
 	}
 
-	private void drawLevel(Graphics g) { 
+	private void drawLevel(Graphics g) {
 		g.fillRect(0, 0, TILE_SIZE, TILE_SIZE);
 		int screenHeight = game.getHeight();
 		int levelWidth = lvlBlocks[0].length * TILE_SIZE;
@@ -93,16 +93,16 @@ public class Editing extends GameScene implements SceneMethods {
 		int startX = 175;
 		int startY = screenHeight / 2 - levelHeight / 2;
 
-
 		for (int y = 0; y < lvlBlocks.length; y++) {
 			for (int x = 0; x < lvlBlocks[y].length; x++) {
-				int id = lvlObjects[y][x];
+				int id = lvlBlocks[y][x];
+
 				// TOGLIERE IL COMMENTO SOTTO PER RESETTARE LA TELA POI SALVA E RIAVVIA
 				// RIMETTENDO IL COMMENTO
 				if (deleteAll) {
-//					lvlBlocks[y][x] = getGame().getTileManager().getGomma().getId();
+					lvlBlocks[y][x] = getGame().getTileManager().getGomma().getId();
 //					lvlEntities[y][x] = getGame().getTileManager().getGomma().getId();
-					lvlObjects[y][x] = getGame().getTileManager().getGomma().getId();
+//					lvlObjects[y][x] = getGame().getTileManager().getGomma().getId();
 				}
 				int drawX = startX + x * TILE_SIZE;
 				int drawY = startY + y * TILE_SIZE;
@@ -183,14 +183,13 @@ public class Editing extends GameScene implements SceneMethods {
 		}
 		for (int y = 0; y < lvlBlocks.length; y++) {
 			for (int x = 0; x < lvlBlocks[y].length; x++) {
-				int id = lvlBlocks[y][x];
-
+				int id = lvlObjects[y][x];
 				// TOGLIERE IL COMMENTO SOTTO PER RESETTARE LA TELA POI SALVA E RIAVVIA
 				// RIMETTENDO IL COMMENTO
 				if (deleteAll) {
-					lvlBlocks[y][x] = getGame().getTileManager().getGomma().getId();
+//					lvlBlocks[y][x] = getGame().getTileManager().getGomma().getId();
 //					lvlEntities[y][x] = getGame().getTileManager().getGomma().getId();
-//					lvlObjects[y][x] = getGame().getTileManager().getGomma().getId();
+					lvlObjects[y][x] = getGame().getTileManager().getGomma().getId();
 				}
 				int drawX = startX + x * TILE_SIZE;
 				int drawY = startY + y * TILE_SIZE;
@@ -225,6 +224,7 @@ public class Editing extends GameScene implements SceneMethods {
 				}
 			}
 		}
+
 		deleteAll = false;
 		g.setColor(Color.black);
 		g.drawRect(startX, startY, levelWidth, levelHeight);
@@ -234,18 +234,18 @@ public class Editing extends GameScene implements SceneMethods {
 		int modX = -17;
 		int modY = 28;
 		if (selectedTile != null) {
-		BufferedImage img = selectedTile.getSprite();
+			BufferedImage img = selectedTile.getSprite();
 
-		double scaleX = (double) TILE_SIZE / img.getWidth();
-		double scaleY = (double) TILE_SIZE / img.getHeight();
+			double scaleX = (double) TILE_SIZE / img.getWidth();
+			double scaleY = (double) TILE_SIZE / img.getHeight();
 
-		double scale = Math.max(scaleX, scaleY);
+			double scale = Math.max(scaleX, scaleY);
 
-		int newWidth = (int) (img.getWidth() * scale);
-		int newHeight = (int) (img.getHeight() * scale);
+			int newWidth = (int) (img.getWidth() * scale);
+			int newHeight = (int) (img.getHeight() * scale);
 
-		int newX = mouseX + modX + (TILE_SIZE - newWidth) / 2;
-		int newY = mouseY + modY + (TILE_SIZE - newHeight) / 2;
+			int newX = mouseX + modX + (TILE_SIZE - newWidth) / 2;
+			int newY = mouseY + modY + (TILE_SIZE - newHeight) / 2;
 			if (selectedTile.getId() == game.getTileManager().getGomma().getId()) {
 				g.drawRect(mouseX - (-modX), mouseY - (-modY), TILE_SIZE, TILE_SIZE);
 				g.drawRect(mouseX - (-modX), mouseY - (-modY), TILE_SIZE - 1, TILE_SIZE - 1);
@@ -257,35 +257,38 @@ public class Editing extends GameScene implements SceneMethods {
 				int height = (int) dim.getHeight();
 				int width = (int) dim.getWidth();
 				int size = height * width;
-				
-				multiTileIndex = 0;
-				if (selectedTile.gettileBtnConst() == BTN_TREE) {
 
-					switch (toolbar.getCurrentIndex()) {
-					case 1:
-						multiTileIndex = 4;
-						break;
-					case 2:
-						multiTileIndex = 8;
-						break;
-					case 3:
-						multiTileIndex = 12;
-						break;
-					}
+				multiTileIndex = 0;
+				if (selectedTile.gettileBtnConst() == BTN_TREE && toolbar.getCurrentIndex() == 0) {
 					for (int h = 0; h < height; h++) {
 						for (int w = 0; w < width; w++) {
 							multiTileIndex = toolbar.getNext(multiTileIndex, size);
-							g.drawImage(selectedTile.getSprite(), newX + w * TILE_SIZE, newY + h * TILE_SIZE, newWidth, newHeight, null);
+							g.drawImage(selectedTile.getSprite(), newX + w * TILE_SIZE, newY + h * TILE_SIZE, newWidth,
+									newHeight, null);
 							// System.out.println(selectedTile.getId());
+						}
+					}
+				} else if (selectedTile.gettileBtnConst() == BTN_TREE && toolbar.getCurrentIndex() == 1) {
+					multiTileIndex = 3;
+					height = 2;
+					width = 2;
+					size = 4;
+					for (int h = 0; h < height; h++) {
+						for (int w = 0; w < width; w++) {
+							multiTileIndex = toolbar.getNext(multiTileIndex, size);
+							g.drawImage(selectedTile.getSprite(), newX + w * TILE_SIZE, newY + h * TILE_SIZE, newWidth,
+									newHeight, null);
+//							System.out.println(selectedTile.getId());
 						}
 					}
 				} else if (selectedTile.gettileBtnConst() == BTN_SHIP) {
 					multiTileIndex = 0;
+					System.out.println("heigh" + height + " width" + width + " size" + size);
 					for (int h = 0; h < height; h++) {
 						for (int w = 0; w < width; w++) {
 							multiTileIndex = toolbar.getNext(multiTileIndex, size);
-							g.drawImage(selectedTile.getSprite(), newX + w * TILE_SIZE,
-									newY + h * TILE_SIZE, newWidth, newHeight, null);
+							g.drawImage(selectedTile.getSprite(), newX + w * TILE_SIZE, newY + h * TILE_SIZE, newWidth,
+									newHeight, null);
 //							System.out.println(selectedTile.getId());
 						}
 					}
@@ -328,9 +331,17 @@ public class Editing extends GameScene implements SceneMethods {
 					lastTileX.add(tileX);
 					lastTileY.add(tileY);
 					lastTileId.add(selectedTile.getId());
-					lvlBlocks[tileY][tileX] = selectedTile.getId();
-					System.out.println(selectedTile.getId());
-					//System.out.println(selectedTile.getId());
+					switch (selectedTile.getType()) {
+						case 0:
+							lvlBlocks[tileY][tileX] = selectedTile.getId();
+							break;
+						case 1:
+							lvlEntities[tileY][tileX] = selectedTile.getId();
+							break;
+						case 2:
+							lvlObjects[tileY][tileX] = selectedTile.getId();
+							break;
+					}
 				}
 			}
 		}
@@ -339,12 +350,12 @@ public class Editing extends GameScene implements SceneMethods {
 	private void changeMultipleTile(int x, int y, int nx, int ny) {
 		if (selectedTile != null) {
 			int screenHeight = game.getHeight();
-			int levelHeight = lvlBlocks.length * TILE_SIZE;
+			int levelHeight = lvlEntities.length * TILE_SIZE;
 
 			int tileX = (x - 160) / TILE_SIZE;
 			int tileY = (y - (screenHeight / 2 - levelHeight / 2)) / TILE_SIZE;
 
-			if (tileX >= 0 && tileX < lvlBlocks[0].length && tileY >= 0 && tileY < lvlBlocks.length) {
+			if (tileX >= 0 && tileX < lvlEntities[0].length && tileY >= 0 && tileY < lvlEntities.length) {
 				if (selectedTile.getId() >= 0) {
 					if (lastTileX.getLast() == tileX && lastTileY.getLast() == tileY
 							&& lastTileId.getLast() == selectedTile.getId())
@@ -374,14 +385,14 @@ public class Editing extends GameScene implements SceneMethods {
 						for (int h = 0; h < ny; h++) {
 							for (int w = 0; w < nx; w++) {
 								multiPrintTileIndex = toolbar.getNext(multiPrintTileIndex, ny * nx);
-								lvlBlocks[tileY + h][tileX + w] = selectedTile.getId();
+								lvlObjects[tileY + h][tileX + w] = selectedTile.getId();
 							}
 						}
 					} else {
 						for (int h = 0; h < ny; h++) {
 							for (int w = 0; w < nx; w++) {
 								multiPrintTileIndex = toolbar.getNext(multiPrintTileIndex, ny * nx);
-								lvlBlocks[tileY + h][tileX + w] = selectedTile.getId();
+								lvlObjects[tileY + h][tileX + w] = selectedTile.getId();
 							}
 						}
 					}

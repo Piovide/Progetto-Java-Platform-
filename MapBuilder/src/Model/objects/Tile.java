@@ -44,7 +44,20 @@ public class Tile {
 	public boolean isAnimation() {
 		return sprite.length > 1;
 	}
-	
+	public int getType() {
+		switch(id) {
+			//Blocks
+			case 11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26:
+				return 0;
+			//Objects
+			case 0,1,2,3,4,5,6,7,8,9,10,27,28,29,30:
+				return 1;
+			//Entities
+			case 47,48,49,50:
+				return 2;
+		}
+		return -1;
+	}
 	
 	public boolean isMultiple() {
 		return tileBtnConst == BTN_SHIP || tileBtnConst == BTN_TREE;
@@ -62,8 +75,8 @@ public class Tile {
 			w = 2;
 			h = 2;
 		}else if(tileBtnConst == BTN_TREE) {
-			w = 2;
-			h = 4;
+			w = 1;
+			h = 3;
 		}
 		
 		

@@ -5,9 +5,15 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.imageio.ImageIO;
 
+import controller.ui.MyButton;
+import model.objects.Tile;
 import view.scenes.Editing;
 
 public class LoadSave {
@@ -60,16 +66,16 @@ public class LoadSave {
 		HashMap<Integer, Color> colorMap = Constants.IdColori.numeriColori;
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				if(colorMap.get(lvlBlocks[i][j]) != null && colorMap.get(lvlEntities[i][j]) != null && colorMap.get(lvlObjects[i][j]) != null) {
-					int r = colorMap.get(lvlBlocks[i][j]).getRed();
-					int g = colorMap.get(lvlEntities[i][j]).getGreen();
-					int b = colorMap.get(lvlObjects[i][j]).getBlue();
-					matrix[j][i] = new Color(r, g, b);// Corretta l'assegnazione di coordinate
-				}
-				
+				int r = colorMap.get(lvlBlocks[i][j]).getRed();
+				int g = colorMap.get(lvlEntities[i][j]).getGreen();
+				int b = colorMap.get(lvlObjects[i][j]).getBlue();
+				System.out.println("r: " + r + " lvlBlock: " + lvlBlocks[i][j] + " g: " + g + " lvlEntities: "
+						+ lvlEntities[i][j] + " b: " + b + " lvlObjects: " + lvlObjects[i][j]);
+				matrix[j][i] = new Color(r, g, b); // Corretta l'assegnazione di coordinate
+				System.out.println("matrix[j][i]: " + matrix[j][i].getRed());
+
 			}
 		}
-
 		// Imposta i colori della BufferedImage utilizzando i valori della matrice
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
@@ -80,7 +86,7 @@ public class LoadSave {
 				}
 			}
 		}
-		
+
 		// Salva l'immagine su disco
 		File outputFile = new File("level.png");
 		try {
@@ -128,19 +134,24 @@ public class LoadSave {
 						int red = c.getRed();
 						int green = c.getGreen();
 						int blue = c.getBlue();
-
-						RedData[y][x] = colorMap.entrySet().stream().filter(entry -> entry.getValue().getRed() == red).map(entry -> entry.getKey()).findFirst().orElse(0);
-
-						GreenData[y][x] = colorMap.entrySet().stream().filter(entry -> entry.getValue().getGreen() == green).map(entry -> entry.getKey()).findFirst().orElse(0);
-
-						BlueData[y][x] = colorMap.entrySet().stream().filter(entry -> entry.getValue().getBlue() == blue).map(entry -> entry.getKey()).findFirst().orElse(0);
+						for (Entry<Integer, Color> entry : colorMap.entrySet()) {
+							if (entry.getKey() == red)
+								RedData[y][x] = red;
+							if (entry.getKey() == green)
+								GreenData[y][x] = green;
+							if (entry.getKey() == blue)
+								BlueData[y][x] = blue;
+//TODO DA MODIFICARE L'ASSEGNAZIONE DEI VALORI
+						}
+						System.out.println("RedData: " + RedData[y][x] + " GreenData: " + GreenData[y][x]
+								+ " BlueData: " + BlueData[y][x]);
+						System.out.println("Red: " + red + " Green: " + green + " Blue: " + blue);
 					}
 				}
+				editing.setLvlBlocks(RedData);
+				editing.setLvlEntities(GreenData);
+				editing.setLvlObjects(BlueData);
 			}
-			editing.setLvlBlocks(RedData);
-			editing.setLvlEntities(GreenData);
-			editing.setLvlObjects(BlueData);
-
 		} catch (IOException e) {
 			System.out.println("Errore durante il caricamento del livello da BMP: " + e.getMessage());
 		}

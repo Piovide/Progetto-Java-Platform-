@@ -137,7 +137,7 @@ public class Toolbar extends Bar {
 			if (currentIndex >= map.get(currentButton).size())
 				currentIndex = 0;
 			if (map.get(currentButton).get(0).gettileBtnConst() == BTN_TREE)
-				if (currentIndex > 3)
+				if (currentIndex > 1)
 					currentIndex = 0;
 	
 			selectedTile = map.get(currentButton).get(currentIndex);
@@ -177,7 +177,6 @@ public class Toolbar extends Bar {
 		g.drawImage(getButtImg(b.getId()), b.x, b.y, b.width, b.height, null);
 		g.drawRect(b.x, b.y, 49, 49);
 		drawButtonFeedback(g, b);
-
 	}
 
 	private void drawMapButtons(Graphics g) {
@@ -363,7 +362,7 @@ public class Toolbar extends Bar {
 			if (map.get(b).get(0).gettileBtnConst() == map.get(currentButton).get(0).gettileBtnConst() && map.get(b).get(0).isMultiple()) {
 				if (map.get(b).size() > index) {
 					currentButton = b;
-					if (map.get(b).get(0).gettileBtnConst() == BTN_TREE) {
+					if (map.get(b).get(0).gettileBtnConst() == BTN_TREE && currentIndex == 0) {
 						switch (currentIndex) {
 						case 1:
 							size = 6;
@@ -378,7 +377,12 @@ public class Toolbar extends Bar {
 						editing.setSelectedTile(map.get(currentButton).get(index));
 						index = index >= size ? 0 : index + 1;
 						return index;
-					} else if (map.get(b).get(0).gettileBtnConst() == BTN_SHIP) {
+					}else if (map.get(b).get(0).gettileBtnConst() == BTN_TREE && currentIndex == 1) {
+						size = 6;
+						editing.setSelectedTile(map.get(currentButton).get(index));
+						index = index >= size ? 0 : index + 1;
+						return index;
+					}else if (map.get(b).get(0).gettileBtnConst() == BTN_SHIP) {
 						if (currentIndex > 0)
 							size = 4;
 						editing.setSelectedTile(map.get(currentButton).get(index));

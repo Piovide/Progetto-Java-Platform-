@@ -230,65 +230,58 @@ public class Constants {
 				
 
 				int id=0;
-				put(id++, new Color(48, 0, 0)); // water bottom
-				put(id++, new Color(11, 0, 0)); // water top
+				put(id++, new Color(48, 0, 0)); // water bottom 0
+				put(id++, new Color(11, 0, 0)); // water top 1
 				//Objects
 				for(int i=0;i<2;i++) {
-					put(id++, new Color(0, 0, i));//grass
+					put(id++, new Color(0, 0, i));//grass 2 3
 				}
-				put(id++, new Color(0, 0, 6)); // cannon right
-				put(id++, new Color(0, 0, 5)); // cannon left
-				put(id++, new Color(0, 0, 4)); // spike
-				put(id++, new Color(0, 0, 2)); // barrel
-				put(id++, new Color(0, 0, 3)); // box
-				put(id++, new Color(0, 0, 1)); // potion blue
-				put(id++, new Color(0, 0, 0)); // potion red
-				
+				put(id++, new Color(0, 0, 6)); // cannon right 4 
+				put(id++, new Color(0, 0, 5)); // cannon left 5
+				put(id++, new Color(0, 0, 4)); // spike 6
+				put(id++, new Color(0, 0, 2)); // barrel 7
+				put(id++, new Color(0, 0, 3)); // box 8
+				put(id++, new Color(0, 0, 1)); // potion blue 9
+				put(id++, new Color(0, 0, 0)); // potion red 10
 				
 				//Block 1
-				put(id++, new Color(0, 0, 0)); // outside terrain 1 
-				put(id++, new Color(1, 0, 0)); // outside terrain 2 
-				put(id++, new Color(2, 0, 0)); // outside terrain 3 
-				put(id++, new Color(12, 0, 0)); // outside terrain 4  
-				put(id++, new Color(13, 0, 0)); // outside terrain 5 
-				put(id++, new Color(14, 0, 0)); // outside terrain 6  
-				put(id++, new Color(24, 0, 0)); // outside terrain 7 
-				put(id++, new Color(25, 0, 0)); // outside terrain 8
-				put(id++, new Color(26, 0, 0)); // outside terrain 9
+				put(id++, new Color(0, 0, 0)); // outside terrain 1 11
+				put(id++, new Color(1, 0, 0)); // outside terrain 2 12
+				put(id++, new Color(2, 0, 0)); // outside terrain 3 13
+				put(id++, new Color(12, 0, 0)); // outside terrain 4 14
+				put(id++, new Color(13, 0, 0)); // outside terrain 5 15
+				put(id++, new Color(14, 0, 0)); // outside terrain 6 16
+				put(id++, new Color(24, 0, 0)); // outside terrain 7 17
+				put(id++, new Color(25, 0, 0)); // outside terrain 8 18
+				put(id++, new Color(26, 0, 0)); // outside terrain 9 19
 				
 				//Block 2
-				put(id++, new Color(3, 0, 0)); // outside pillar 1
-				put(id++, new Color(15, 0, 0)); // outside pillar 2
-				put(id++, new Color(27, 0, 0)); // outside pillar 3
+				put(id++, new Color(3, 0, 0)); // outside pillar 1 20
+				put(id++, new Color(15, 0, 0)); // outside pillar 2 21
+				put(id++, new Color(27, 0, 0)); // outside pillar 3 22
 				
 				//Block 3
 				
-				put(id++, new Color(36, 0, 0)); // outside corner 1
-				put(id++, new Color(37, 0, 0)); // outside corner 2
-				put(id++, new Color(38, 0, 0)); // outside corner 3
-				put(id++, new Color(39, 0, 0)); // outside corner single
+				put(id++, new Color(36, 0, 0)); // outside corner 1 23
+				put(id++, new Color(37, 0, 0)); // outside corner 2 24
+				put(id++, new Color(38, 0, 0)); // outside corner 3 25
+				put(id++, new Color(39, 0, 0)); // outside corner single 26
 				
 				//ship
 				for (int y = 0; y < 2; y++)
 					for (int x = 0; x < 2; x++)
-						put(id++, new Color(255,255,255));//albero dritto 
+						put(id++, new Color(255,255,255)); // Barca 27 28 29 30
 				
 				
 				//alberi
 				for (int y = 0; y < 4; y++)
 					for (int x = 0; x < 2; x++)
 						put(id++, new Color(0,0,7));//albero dritto 
-				
+				 
 				for (int y = 0; y < 4; y++)
 					for (int x = 0; x < 2; x++)
 						put(id++, new Color(0,0,8)); //albero piegato verso destra
-				
-				for (int y = 0; y < 4; y++)
-					for (int x = 0; x < 2; x++)
-						put(id++, new Color(0,0,9)); //albero piegato verso sinistra
-			
-				
-				
+
 				
 				//Entities
 				put(id++, new Color(0,0,0));//Granchietto
