@@ -23,7 +23,7 @@ public class Game extends JFrame implements Runnable {
 	private Render render;
 	private Editing editing;
 
-	private TileManager tileManager;
+	private static TileManager tileManager;
 
 	public Game() {
 		initClasses();
@@ -115,7 +115,7 @@ public class Game extends JFrame implements Runnable {
 		return gameScreen;
 	}
 
-	public TileManager getTileManager() {
+	public static TileManager getTileManager() {
 		return tileManager;
 	}
 	public void close() {

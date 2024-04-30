@@ -51,8 +51,7 @@ public class TileManager {
 
 		// Grass 2-4
 		for (int x = 0; x < 3; x++)
-			grass.add(GRASS = new Tile(getSprite(x, 0, LoadSave.GRASS_ATLAS, 21, 32), id++, GRASS_TILE));
-
+			grass.add(GRASS = new Tile(getSprite(x, 0, LoadSave.GRASS_ATLAS, 22, 22), id++, GRASS_TILE));
 		// Cannon Right 5
 		cannon.add(CANNON = new Tile(ImgFix.getMirroredImage(getSprite(0, 0, LoadSave.CANNON_ATLAS, 40, 26)), id++,
 				CANNON_TILE));
@@ -104,23 +103,28 @@ public class TileManager {
 		for (int y = 0; y < 3; y++)
 			for (int x = 0; x < 1; x++)
 				trees.add(TREES = new Tile(getSprite(x, y, LoadSave.TREE_ONE_ATLAS, 39, 30), id++, TREES_TILE));
-		
 		//35-38
 		for (int y = 0; y < 2; y++)
-			for (int x = 0; x < 2; x++)
+			for (int x = 0; x < 2; x++) {
 				trees.add(TREES = new Tile(getSprite(x, y, LoadSave.TREE_TWO_ATLAS, 31, 27), id++, TREES_TILE));
+		}
+		//39-42
+		for (int y = 0; y < 2; y++)
+			for (int x = 0; x < 2; x++)
+				trees.add(TREES = new Tile(ImgFix.getMirroredImage(getSprite(x, y, LoadSave.TREE_TWO_ATLAS, 31, 27)), id++, TREES_TILE));
+		
 
-		// Crabbies 39
-		entities.add(CRABBY = new Tile(getAniSprites(0, 0, 9, LoadSave.CRABBY_SPRITE, 72, 32), id++, CRABBY_TILE));
+		// Crabs 43
+		entities.add(CRABBY = new Tile(getAniSprites(0, 0, 9, LoadSave.CRABBY_SPRITE, 72, 29), id++, CRABBY_TILE));
 
-		// Pinkstars 40
-		entities.add(PINKSTAR = new Tile(getAniSprites(0, 0, 8, LoadSave.PINKSTAR_ATLAS, 34, 30), id++, PINKSTAR_TILE));
+		// Pinkstars 44
+		entities.add(PINKSTAR = new Tile(getAniSprites(0, 0, 8, LoadSave.PINKSTAR_ATLAS, 34, 29), id++, PINKSTAR_TILE));
 
-		// Sharks 41
-		entities.add(SHARK = new Tile(getAniSprites(0, 0, 8, LoadSave.SHARK_ATLAS, 34, 30), id++, SHARK_TILE));
+		// Sharks 45
+		entities.add(SHARK = new Tile(getAniSprites(0, 0, 8, LoadSave.SHARK_ATLAS, 34, 28), id++, SHARK_TILE));
 
-		// Player 42
-		entities.add(PLAYER = new Tile(getAniSprites(0, 0, 5, LoadSave.PLAYER_ATLAS, 60, 40), id++, PLAYER_TILE));
+		// Player 46
+		entities.add(PLAYER = new Tile(getAniSprites(0, 0, 5, LoadSave.PLAYER_ATLAS, 64, 32), id++, PLAYER_TILE));
 
 		tiles.addAll(water_bottom);
 		tiles.addAll(water_top);
@@ -136,9 +140,10 @@ public class TileManager {
 		tiles.addAll(trees);
 		tiles.addAll(entities);
 
+		// Gomma 47
 		tiles.add(GOMMA = new Tile(getSprite(11, 0, LoadSave.LEVEL_ATLAS), id, GOMMA_TILE));
 
-		System.out.println("Tiles created: " + id);
+//		System.out.println("Tiles created: " + id);
 	}
 
 	private void loadAtalas(String path) {

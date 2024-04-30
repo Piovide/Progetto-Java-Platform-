@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import controller.helpz.LoadSave;
 import model.objects.Tile;
+import view.main.Game;
 import view.scenes.Editing;
 import model.managers.*;
 
@@ -30,7 +31,7 @@ public class Toolbar extends Bar {
 	private MyButton bWaterTop, bWaterBottom, bSpikes;
 
 	// BOTTONI MAP
-	private MyButton bGrass, bCannon, bBarrels, bPotions, bOutsideTerrain, bOutsidePillar, bOutsideCorner, bOutsideFlowting,
+	private MyButton bGrass, bCannon, bBarrels, bPotions, bOutsideTerrain, bOutsidePillar, bOutsideFlowting,
 			bShip, bTrees, bEntity;
 
 	// BOTTONE SELEZIONATO
@@ -64,51 +65,63 @@ public class Toolbar extends Bar {
 		int xOffset = (int) (w * 1.1f);
 		int i = 2;
 		
-		TileManager tileManager = editing.getGame().getTileManager();
+		TileManager tileManager = Game.getTileManager();
 
 		// Get water tiles
 		bWaterBottom = new MyButton("Water bottom", xStart, yStart, w, h, tileManager.getWater_bottom().get(0).getId());
-
+		buttons.add(bWaterBottom);
+		
 		// Get water tiles
-		bWaterTop = new MyButton("Water top", xStart, yStart + yOffset, w, h,tileManager.getWater_top().get(0).getId());
-
+		bWaterTop = new MyButton("Water top", xStart, yStart + yOffset, w, h, tileManager.getWater_top().get(0).getId());
+		buttons.add(bWaterTop);
+		
 		// Get grass tiles
 		initMapButton(bGrass, tileManager.getGrass(), xStart , yStart, yOffset * i++, w, h, tileManager.getGrass().get(0).getId(), "Grass");
+		buttons.add(bGrass);
 		
 		// Get cannon tiles
 		initMapButton(bCannon, tileManager.getCannon(), xStart, yStart, yOffset * i++, w, h, tileManager.getCannon().get(0).getId(), "Cannon");
-
+		buttons.add(bCannon);
+		
 		// Get spikes tiles
 		bSpikes = new MyButton("Spikes", xStart + xOffset, yStart, w, h, tileManager.getSpikes().get(0).getId());
-
+		buttons.add(bSpikes);
+		
 		// Get barrels tiles
 		initMapButton(bBarrels, tileManager.getBarrels(), xStart, yStart, yOffset * i++, w, h, tileManager.getBarrels().get(0).getId(), "Barrels");
-
+		buttons.add(bBarrels);
+		
 		// Get potions tiles
 		initMapButton(bPotions, tileManager.getPotions(), xStart, yStart, yOffset * i++, w, h, tileManager.getPotions().get(0).getId(), "Potions");
-
+		buttons.add(bPotions);
+		
 		// Get outside terrain tiles
 		initMapButton(bOutsideTerrain, tileManager.getOutside_terrain(), xStart,
 				yStart, yOffset * i++, w, h, tileManager.getOutside_terrain().get(0).getId(), "Outside terrain");
-
+		buttons.add(bOutsideTerrain);
+		
 		// Get outside pillar tiles
 		initMapButton(bOutsidePillar, tileManager.getOutside_pillar(), xStart, yStart,
 				yOffset * i++, w, h, tileManager.getOutside_pillar().get(0).getId(), "Outside pillar");
-
+		buttons.add(bOutsidePillar);
+		
 		// Get outside flowting tiles
 		initMapButton(bOutsideFlowting, tileManager.getOutside_floating(), xStart,
 				yStart, yOffset * i++, w, h, tileManager.getOutside_floating().get(0).getId(), "Outside floating");
-
+		buttons.add(bOutsideFlowting);
+		
 		// Get ship tiles
 		initMapButton(bShip, tileManager.getShip(), xStart, yStart, yOffset * i++, w, h, tileManager.getShip().get(0).getId(), "Ship", BTN_SHIP);
-
+		buttons.add(bShip);
+		
 		// Get trees tiles
 		initMapButton(bTrees, tileManager.getTrees(), xStart, yStart, yOffset * i++, w, h, tileManager.getTrees().get(0).getId(), "Trees", BTN_TREE);
+		buttons.add(bTrees);
 		
 		// Get entities tiles
 //		bEntity = new MyButton("Player", xStart, yStart + yOffset * i++, w, h, tileManager.getEntities().get(0).getId());
 		initMapButton(bEntity, tileManager.getEntities(), xStart, yStart, yOffset * i++, w, h, tileManager.getEntities().get(0).getId(), "Player");
-		
+		buttons.add(bEntity);
 		
 	}
 
@@ -137,7 +150,7 @@ public class Toolbar extends Bar {
 			if (currentIndex >= map.get(currentButton).size())
 				currentIndex = 0;
 			if (map.get(currentButton).get(0).gettileBtnConst() == BTN_TREE)
-				if (currentIndex > 1)
+				if (currentIndex > 2)
 					currentIndex = 0;
 	
 			selectedTile = map.get(currentButton).get(currentIndex);
@@ -148,7 +161,6 @@ public class Toolbar extends Bar {
 
 		// Background
 		g.drawImage(LoadSave.getSpriteAtlas("toolbar.png"), 0, 0, 160, 1080, null);
-
 		// Buttons
 		drawButtons(g);
 		drawSelectedTile(g);
@@ -299,7 +311,7 @@ public class Toolbar extends Bar {
 	}
 
 	public BufferedImage getButtImg(int id) {
-		return editing.getGame().getTileManager().getSprite(id);
+		return Game.getTileManager().getSprite(id);
 	}
 
 	public void mouseClicked(int x, int y) {
@@ -308,7 +320,7 @@ public class Toolbar extends Bar {
 		else if (bExit.getBounds().contains(x, y))
 			editing.getGame().close();
 		else if (bGomma.getBounds().contains(x, y)) {
-			selectedTile = editing.getGame().getTileManager().getGomma();
+			selectedTile = Game.getTileManager().getGomma();
 			editing.setSelectedTile(selectedTile);
 			return;
 		} else if (bGrid.getBounds().contains(x, y)) {
@@ -320,15 +332,15 @@ public class Toolbar extends Bar {
 				editing.deleteAll();
 			return;
 		} else if (bWaterTop.getBounds().contains(x, y)) {
-			selectedTile = editing.getGame().getTileManager().getTile(bWaterTop.getId());
+			selectedTile = Game.getTileManager().getTile(bWaterTop.getId());
 			editing.setSelectedTile(selectedTile);
 			return;
 		} else if (bWaterBottom.getBounds().contains(x, y)) {
-			selectedTile = editing.getGame().getTileManager().getTile(bWaterBottom.getId());
+			selectedTile = Game.getTileManager().getTile(bWaterBottom.getId());
 			editing.setSelectedTile(selectedTile);
 			return;
 		} else if (bSpikes.getBounds().contains(x, y)) {
-			selectedTile = editing.getGame().getTileManager().getTile(bSpikes.getId());
+			selectedTile = Game.getTileManager().getTile(bSpikes.getId());
 			editing.setSelectedTile(selectedTile);
 			return;
 		} else {
@@ -363,17 +375,6 @@ public class Toolbar extends Bar {
 				if (map.get(b).size() > index) {
 					currentButton = b;
 					if (map.get(b).get(0).gettileBtnConst() == BTN_TREE && currentIndex == 0) {
-						switch (currentIndex) {
-						case 1:
-							size = 6;
-							break;
-						case 2:
-							size = 9;
-							break;
-						case 3:
-							size = 12;
-							break;
-						}
 						editing.setSelectedTile(map.get(currentButton).get(index));
 						index = index >= size ? 0 : index + 1;
 						return index;
@@ -382,7 +383,13 @@ public class Toolbar extends Bar {
 						editing.setSelectedTile(map.get(currentButton).get(index));
 						index = index >= size ? 0 : index + 1;
 						return index;
-					}else if (map.get(b).get(0).gettileBtnConst() == BTN_SHIP) {
+					}else if(map.get(b).get(0).gettileBtnConst() == BTN_TREE && currentIndex == 2) {
+						size = 10;
+						editing.setSelectedTile(map.get(currentButton).get(index));
+						index = index >= size ? 0 : index + 1;
+						return index;
+					}
+					else if (map.get(b).get(0).gettileBtnConst() == BTN_SHIP) {
 						if (currentIndex > 0)
 							size = 4;
 						editing.setSelectedTile(map.get(currentButton).get(index));
@@ -457,5 +464,8 @@ public class Toolbar extends Bar {
 	public int getCurrentIndex() {
 		return currentIndex;
 	}
-
+	
+	public ArrayList<MyButton> getButtons() {
+		return buttons;
+	}
 }

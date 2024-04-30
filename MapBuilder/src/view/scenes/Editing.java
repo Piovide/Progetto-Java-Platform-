@@ -99,9 +99,9 @@ public class Editing extends GameScene implements SceneMethods {
 				// TOGLIERE IL COMMENTO SOTTO PER RESETTARE LA TELA POI SALVA E RIAVVIA
 				// RIMETTENDO IL COMMENTO
 				if (deleteAll) {
-					lvlBlocks[y][x] = getGame().getTileManager().getGomma().getId();
-					lvlEntities[y][x] = getGame().getTileManager().getGomma().getId();
-					lvlObjects[y][x] = getGame().getTileManager().getGomma().getId();
+					lvlBlocks[y][x] = Game.getTileManager().getGomma().getId();
+					lvlEntities[y][x] = Game.getTileManager().getGomma().getId();
+					lvlObjects[y][x] = Game.getTileManager().getGomma().getId();
 				}
 				int drawX = startX + x * TILE_SIZE;
 				int drawY = startY + y * TILE_SIZE;
@@ -119,7 +119,7 @@ public class Editing extends GameScene implements SceneMethods {
 
 						int newX = drawX + (TILE_SIZE - newWidth) / 2;
 						int newY = drawY + (TILE_SIZE - newHeight) / 2;
-						
+
 						if (isAnimation(id)) {
 							g.drawImage(getSprite(id, animationIndex), newX, newY, newWidth, newHeight, null);
 						} else {
@@ -147,7 +147,7 @@ public class Editing extends GameScene implements SceneMethods {
 				int drawY = startY + y * TILE_SIZE;
 				if (drawY + TILE_SIZE >= 0 && drawY < screenHeight) {
 					BufferedImage img = getSprite(id);
-					if ((img.getWidth() != TILE_SIZE || img.getHeight() != TILE_SIZE) && id != 10 && id != 11) {
+					if ((img.getWidth() != TILE_SIZE || img.getHeight() != TILE_SIZE)) {
 
 						double scaleX = (double) TILE_SIZE / img.getWidth();
 						double scaleY = (double) TILE_SIZE / img.getHeight();
@@ -184,7 +184,7 @@ public class Editing extends GameScene implements SceneMethods {
 				int drawY = startY + y * TILE_SIZE;
 				if (drawY + TILE_SIZE >= 0 && drawY < screenHeight) {
 					BufferedImage img = getSprite(id);
-					if ((img.getWidth() != TILE_SIZE || img.getHeight() != TILE_SIZE) && id != 10 && id != 2) {
+					if ((img.getWidth() != TILE_SIZE || img.getHeight() != TILE_SIZE) && id != 10 && id != 11) {
 
 						double scaleX = (double) TILE_SIZE / img.getWidth();
 						double scaleY = (double) TILE_SIZE / img.getHeight();
@@ -225,17 +225,27 @@ public class Editing extends GameScene implements SceneMethods {
 		if (selectedTile != null) {
 			BufferedImage img = selectedTile.getSprite();
 
-			double scaleX = (double) TILE_SIZE / img.getWidth();
-			double scaleY = (double) TILE_SIZE / img.getHeight();
+			int newWidth;
+			int newHeight;
 
-			double scale = Math.max(scaleX, scaleY);
+			int newX;
+			int newY;
+			if (selectedTile.getId() != 11 && selectedTile.getId() != 10) {
+				double scaleX = (double) TILE_SIZE / img.getWidth();
+				double scaleY = (double) TILE_SIZE / img.getHeight();
+				double scale = Math.max(scaleX, scaleY);
+				newWidth = (int) (img.getWidth() * scale);
+				newHeight = (int) (img.getHeight() * scale);
+				newX = mouseX + modX + (TILE_SIZE - newWidth) / 2;
+				newY = mouseY + modY + (TILE_SIZE - newHeight) / 2;
+			} else {
+				newWidth = TILE_SIZE;
+				newHeight = TILE_SIZE;
+				newX = mouseX + modX;
+				newY = mouseY + modY;
+			}
 
-			int newWidth = (int) (img.getWidth() * scale);
-			int newHeight = (int) (img.getHeight() * scale);
-
-			int newX = mouseX + modX + (TILE_SIZE - newWidth) / 2;
-			int newY = mouseY + modY + (TILE_SIZE - newHeight) / 2;
-			if (selectedTile.getId() == game.getTileManager().getGomma().getId()) {
+			if (selectedTile.getId() == Game.getTileManager().getGomma().getId()) {
 				g.drawRect(mouseX - (-modX), mouseY - (-modY), TILE_SIZE, TILE_SIZE);
 				g.drawRect(mouseX - (-modX), mouseY - (-modY), TILE_SIZE - 1, TILE_SIZE - 1);
 				g.drawRect(mouseX - (-modX) - 1, mouseY - (-modY) - 1, TILE_SIZE - 1, TILE_SIZE - 1);
@@ -262,6 +272,7 @@ public class Editing extends GameScene implements SceneMethods {
 					height = 2;
 					width = 2;
 					size = 4;
+
 					for (int h = 0; h < height; h++) {
 						for (int w = 0; w < width; w++) {
 							multiTileIndex = toolbar.getNext(multiTileIndex, size);
@@ -270,6 +281,20 @@ public class Editing extends GameScene implements SceneMethods {
 //							System.out.println(selectedTile.getId());
 						}
 					}
+				} else if (selectedTile.gettileBtnConst() == BTN_TREE && toolbar.getCurrentIndex() == 2) {
+					multiTileIndex = 7;
+                    height = 2;
+                    width = 2;
+                    size = 10;
+
+                    for (int h = 0; h < height; h++) {
+                        for (int w = 2; w > 0; w--) {
+                        	multiTileIndex = toolbar.getNext(multiTileIndex, size);
+                            g.drawImage(selectedTile.getSprite(), newX + w * TILE_SIZE, newY + h * TILE_SIZE, newWidth,
+                                    newHeight, null);
+                            
+                        }
+                    }
 				} else if (selectedTile.gettileBtnConst() == BTN_SHIP) {
 					multiTileIndex = 0;
 					System.out.println("heigh" + height + " width" + width + " size" + size);
@@ -321,17 +346,18 @@ public class Editing extends GameScene implements SceneMethods {
 					lastTileY.add(tileY);
 					lastTileId.add(selectedTile.getId());
 					switch (selectedTile.getType()) {
-						case 0:
-							lvlBlocks[tileY][tileX] = selectedTile.getId();
-							break;
-						case 1:
-							lvlEntities[tileY][tileX] = selectedTile.getId();
-							break;
-						case 2:
-							lvlObjects[tileY][tileX] = selectedTile.getId();
-							break;
+					case 0:
+						lvlBlocks[tileY][tileX] = selectedTile.getId();
+						break;
+					case 1:
+						lvlObjects[tileY][tileX] = selectedTile.getId();
+						break;
+					case 2:
+						lvlEntities[tileY][tileX] = selectedTile.getId();
+						break;
 					}
-					if (selectedTile.getId() == game.getTileManager().getGomma().getId()) {
+					
+					if (selectedTile.getId() == Game.getTileManager().getGomma().getId()) {
 						lvlBlocks[tileY][tileX] = selectedTile.getId();
 						lvlEntities[tileY][tileX] = selectedTile.getId();
 						lvlObjects[tileY][tileX] = selectedTile.getId();
@@ -364,7 +390,7 @@ public class Editing extends GameScene implements SceneMethods {
 					lastTileId.add(selectedTile.getId());
 					multiPrintTileIndex = 0;
 					System.out.println(selectedTile.gettileBtnConst());
-					if (selectedTile.gettileBtnConst() == BTN_TREE) {
+					if (selectedTile.gettileBtnConst() == BTN_TREE && toolbar.getCurrentIndex() == 0) {
 						switch (toolbar.getCurrentIndex()) {
 						case 1:
 							multiPrintTileIndex = 3;
@@ -382,9 +408,29 @@ public class Editing extends GameScene implements SceneMethods {
 								lvlObjects[tileY + h][tileX + w] = selectedTile.getId();
 							}
 						}
-					} else {
+					} else if (selectedTile.gettileBtnConst() == BTN_SHIP) {
 						for (int h = 0; h < ny; h++) {
 							for (int w = 0; w < nx; w++) {
+								multiPrintTileIndex = toolbar.getNext(multiPrintTileIndex, ny * nx);
+								lvlObjects[tileY + h][tileX + w] = selectedTile.getId();
+							}
+						}
+					} else if (selectedTile.gettileBtnConst() == BTN_TREE && toolbar.getCurrentIndex() == 1) {
+						multiPrintTileIndex = 3;
+						nx = 2;
+						ny = 2;
+						for (int h = 0; h < ny; h++) {
+							for (int w = 0; w < nx; w++) {
+								multiPrintTileIndex = toolbar.getNext(multiPrintTileIndex, ny * nx);
+								lvlObjects[tileY + h][tileX + w] = selectedTile.getId();
+							}
+						}
+					}else if (selectedTile.gettileBtnConst() == BTN_TREE && toolbar.getCurrentIndex() == 2) {
+						multiPrintTileIndex = 7;
+						nx = 2;
+						ny = 2;
+						for (int h = 0; h < ny; h++) {
+							for (int w = nx; w > 0; w--) {
 								multiPrintTileIndex = toolbar.getNext(multiPrintTileIndex, ny * nx);
 								lvlObjects[tileY + h][tileX + w] = selectedTile.getId();
 							}
@@ -454,7 +500,7 @@ public class Editing extends GameScene implements SceneMethods {
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_R) {
 			if ((selectedTile != null && !drawMultiple)
-					|| (selectedTile != null && selectedTile.gettileBtnConst() == BTN_TREE )) {
+					|| (selectedTile != null && selectedTile.gettileBtnConst() == BTN_TREE)) {
 				toolbar.rotateSprite();
 			}
 		}
