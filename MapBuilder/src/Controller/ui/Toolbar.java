@@ -51,11 +51,11 @@ public class Toolbar extends Bar {
 
 	private void initButtons() {
 
-		bExit = new MyButton("Esci", 40, y + 20, 80, 28, 100);
-		bSave = new MyButton("Salva", 40, y + 60, 80, 28, 101);
-		bGomma = new MyButton("Gomma", 40, y + 100, 80, 28, 102);
-		bGrid = new MyButton("Griglia", 40, y + 140, 80, 28, 103);
-		bDelete = new MyButton("Delete", 40, y + 180, 80, 28, 104);
+		bExit = new MyButton("Esci", 30, y + 20, 100, 40, 100);
+        bSave = new MyButton("Salva", 30, y + 62, 100, 40, 101);
+        bGomma = new MyButton("Gomma", 30, y + 104, 100, 40, 102);
+        bGrid = new MyButton("Griglia", 30, y + 146, 100, 40, 103);
+        bDelete = new MyButton("Delete", 30, y + 188, 100, 40, 104);
 		
 		int w = 50;
 		int h = 50;
