@@ -61,14 +61,14 @@ public class Editing extends GameScene implements SceneMethods {
 		lvlObjects = new int[14][90];
 	}
 	/**
-     * Carica il livello salvato.
+     * questo metodo Carica il livello salvato.
      */
 	private void loadSavedLevel() {
 		// ROSSO VERDE BLU
 		LoadSave.LoadLevelData(lvlBlocks, lvlEntities, lvlObjects, this);
 	}
 	/**
-     * Aggiorna la logica della scena di editing.
+     * questo metodo Aggiorna la logica della scena di editing.
      */
 	public void update() {
 		updateTick();
@@ -76,7 +76,7 @@ public class Editing extends GameScene implements SceneMethods {
 
 	@Override
 	 /**
-     * Disegna la scena di editing.
+     * questo metodo Disegna la scena di editing.
      * @param g il contesto grafico su cui disegnare
      */
 	public void render(Graphics g) {
@@ -90,7 +90,7 @@ public class Editing extends GameScene implements SceneMethods {
 
 	// SETTA IL BACKGROND CON I TILE GIALLI A RIGHR
 	/**
-     * Disegna lo sfondo della scena di editing.
+     * questo metodo Disegna lo sfondo della scena di editing.
      * @param g il contesto grafico su cui disegnare
      */
 	private void drawLevelBackground(Graphics g) {
@@ -101,7 +101,7 @@ public class Editing extends GameScene implements SceneMethods {
 		g.drawImage(LoadSave.getSpriteAtlas("editing.png"), startX, startY, 1760, 944, null);
 	}
 	/**
-     * Disegna il livello della scena di editing.
+     * questo metodo Disegna il livello della scena di editing.
      * @param g il contesto grafico su cui disegnare
      */
 	private void drawLevel(Graphics g) {
@@ -246,7 +246,7 @@ public class Editing extends GameScene implements SceneMethods {
 		g.drawImage(LoadSave.getSpriteAtlas("EditingTop.png"), sX, sY, 1760, 944, null);
 	}
 	/**
-     * Disegna il tile selezionato.
+     * questo metodo Disegna il tile selezionato.
      * @param g il contesto grafico su cui disegnare
      */
 	private void drawSelectedTile(Graphics g) {
@@ -342,13 +342,13 @@ public class Editing extends GameScene implements SceneMethods {
 		}
 	}
 	 /**
-     * Salva il livello corrente.
+     * questo metodo Salva il livello corrente.
      */
 	public void saveLevel() {
 		LoadSave.SaveLevel(lvlBlocks, lvlEntities, lvlObjects, "level.png");
 	}
 	/**
-     * Imposta il tile selezionato.
+     * questo metodo Imposta il tile selezionato.
      * @param tile il tile da impostare come selezionato
      */
 	public void setSelectedTile(Tile tile) {
@@ -359,7 +359,7 @@ public class Editing extends GameScene implements SceneMethods {
 			drawSelect = true;
 	}
 	 /**
-	  * cambia il tile nella posizione corrente dell mouse
+	  * questo metodo cambia il tile nella posizione corrente dell mouse
 	  * @param x
 	  * @param y
 	  */
@@ -529,7 +529,11 @@ public class Editing extends GameScene implements SceneMethods {
 		}
 	}
 
-	@Override
+	/**
+	 * questo metodo gestisce la pressione del mouse
+	 * @param x la coordinata x del mouse
+     * @param y la coordinata y del mouse
+	 */
 	public void mousePressed(int x, int y) {
 		if ((x <= 160 && y <= 1080) || (y >= 944 && x >= 160)) {
 			toolbar.mousePressed(x, y);
@@ -537,11 +541,21 @@ public class Editing extends GameScene implements SceneMethods {
 	}
 
 	@Override
+	/**
+	 * questo metodo gestisce il rilascio dell mouse
+	 * @param x la coordinata x del mouse
+     * @param y la coordinata y del mouse
+	 */
 	public void mouseReleased(int x, int y) {
 		toolbar.mouseReleased(x, y);
 	}
 
 	@Override
+	/**
+	 * questo metodo gestice lo spostamento della preview dell tile
+	 * @param x la coordinata x del mouse
+     * @param y la coordinata y del mouse
+	 */
 	public void mouseDragged(int x, int y) {
 		if (x >= 160) {
 			if (drawSelect && !selectedTile.isMultiple()) {
@@ -551,7 +565,10 @@ public class Editing extends GameScene implements SceneMethods {
 			}
 		}
 	}
-
+	/**
+	 * questo metodo 
+	 * @param e
+	 */
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_R) {
 			if ((selectedTile != null && !drawMultiple)
@@ -560,50 +577,83 @@ public class Editing extends GameScene implements SceneMethods {
 			}
 		}
 	}
-
+	/**
+	 * questo metodo ritorna l'oggetto game 
+	 */
 	public Game getGame() {
 		return game;
 	}
-
+	/**
+	 * questo metodo imposta il boleano all valore opposto 
+	 */
 	public void setDrawGrid() {
 		this.drawGrid = !drawGrid;
 	}
-
+	/**
+	 * questo metodo viene utilizzato per il pulsante di cancellazione 
+	 */
 	public void deleteAll() {
 		this.deleteAll = true;
 	}
-
+	/**
+	 * questo metodo restituisce la matrice lvlBlocks
+	 * @return int[][]
+	 */
 	public int[][] getLvlBlocks() {
 		return lvlBlocks;
 	}
-
+	/**
+	 * questo metodo imposta la matrice lvlBlocks
+	 * @param lvlBlocks
+	 */
 	public void setLvlBlocks(int[][] lvlBlocks) {
 		this.lvlBlocks = lvlBlocks;
 	}
-
+	/**
+	 * questo metodo restituisce la matrice lvlEntities
+	 * @return int[][]
+	 */
 	public int[][] getLvlEntities() {
 		return lvlEntities;
 	}
-
+	/**
+	 * questo metodo imposta la matrice lvlEntities
+	 * @param lvlEntities
+	 */
 	public void setLvlEntities(int[][] lvlEntities) {
 		this.lvlEntities = lvlEntities;
 	}
-
+	/**
+	 * questo metodo restituisce la matrice lvlObjects
+	 * @return int[][]
+	 */
 	public int[][] getLvlObjects() {
 		return lvlObjects;
 	}
-
+	/**
+	 * questo metodo imposta la matrice lvlObjects
+	 * @param lvlObjects
+	 */
 	public void setLvlObjects(int[][] lvlObjects) {
 		this.lvlObjects = lvlObjects;
 	}
+	/**
+	 * questo metodo restituisce il parametro offsetIndex
+	 * @return int 
+	 */
 	public int getOffsetIndex() {
 		return offsetIndex;
 	}
+	/**
+	 * questo metodo aumenta offsetIndex qualora la condizione venga rispettata 
+	 */
 	public void increaseOffsetIndex() {
 		if(offsetIndex < (lvlBlocks[0].length - ((game.getWidth() - 160) / TILE_SIZE)))
 			this.offsetIndex ++;
 	}
-	
+	/**
+	 * questo metodo diminuisce offsetIndex qualora la condizione venga rispettata 
+	 */
 	public void decreaseOffsetIndex() {
 		if(offsetIndex > 0)
 			this.offsetIndex--;

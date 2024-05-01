@@ -2,11 +2,19 @@ package controller.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
+/**
+ * questa classe si occupa di disegnare i bottoni della toolbar 
+ */
 public class Bar {
 
 	protected int x, y, width, height;
-
+	/**
+	 * metodo costruttore
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
 	public Bar(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;
@@ -14,7 +22,11 @@ public class Bar {
 		this.height = height;
 
 	}
-	
+	/**
+	 * questo metodo si occupa di disegnare i bottoni 
+	 * @param g
+	 * @param b
+	 */
 	protected void drawButtonFeedback(Graphics g, MyButton b) {
 		// MouseOver
 		if (b.isMouseOver())

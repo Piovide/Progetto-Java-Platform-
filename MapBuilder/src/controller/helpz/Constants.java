@@ -45,7 +45,11 @@ public class Constants {
 		public static final int CANNON_HEIGHT_DEFAULT = 26;
 		public static final int CANNON_WIDTH = (int) (CANNON_WIDTH_DEFAULT * Game.getSCALE());
 		public static final int CANNON_HEIGHT = (int) (CANNON_HEIGHT_DEFAULT * Game.getSCALE());
-
+		/**
+		 * questo metodo restituisce un valore in base a quale tipo di oggetto e stato richiamato 
+		 * @param object_type
+		 * @return int 
+		 */
 		public static int GetSpriteAmount(int object_type) {
 			switch (object_type) {
 			case RED_POTION, BLUE_POTION:
@@ -57,7 +61,11 @@ public class Constants {
 			}
 			return 1;
 		}
-
+		/**
+		 * questo metodo restituisce il valore di offset orizzontale collegato a ogni tipo di albero 
+		 * @param treeType
+		 * @return int 
+		 */
 		public static int GetTreeOffsetX(int treeType) {
 			switch (treeType) {
 			case TREE_ONE:
@@ -70,7 +78,11 @@ public class Constants {
 
 			return 0;
 		}
-
+		/**
+		 * questo metodo restituisce il valore di offset verticale collegato a ogni tipo di albero 
+		 * @param treeType
+		 * @return int 
+		 */
 		public static int GetTreeOffsetY(int treeType) {
 
 			switch (treeType) {
@@ -82,7 +94,11 @@ public class Constants {
 			return 0;
 
 		}
-
+		/**
+		 * questo metodo restituisce la larghezza collagata a ogni tipo di albero 
+		 * @param treeType
+		 * @return int 
+		 */
 		public static int GetTreeWidth(int treeType) {
 			switch (treeType) {
 			case TREE_ONE:
@@ -95,7 +111,11 @@ public class Constants {
 			}
 			return 0;
 		}
-
+		/**
+		 * questo metodo restituisce l'altezza collegata a ogni tipo di albero 
+		 * @param treeType
+		 * @return int 
+		 */
 		public static int GetTreeHeight(int treeType) {
 			switch (treeType) {
 			case TREE_ONE:
@@ -107,7 +127,9 @@ public class Constants {
 			return 0;
 		}
 	}
-
+/**
+ * questa classe contiene i valori degli id di ogni tile 
+ */
 	public static class Tiles {
 		/**
 		 * 
@@ -134,94 +156,24 @@ public class Constants {
 		public static final int GOMMA_TILE = 47;
 
 	}
-
+	/**
+	 * contiene i valori dei bottoni composti da molteplici tiles
+	 */
 	public static class Buttons {
-		/**
-		 * contiene i valori dei bottoni composti da molteplici tiles
-		 */
+		
 		public static final int BTN_SHIP = 0;
 		public static final int BTN_TREE = 1;
 
 	}
-
+	/**
+	 * questa classe crea l'arrylist che contiene all suo interno ogni tile associato con il propio codice rgb identificativo
+	 */
 	public static class IdColori {
+		
 		/**
-		 * questa classe contiene l'arrylist che contiene all suo interno ogni tile associato con il propio codice rgb identificativo
+		 * questo metodo restituisce l'arraylist<Color> contenete tutti gli id e i colori dei suddetti tiles 
 		 * @return
 		 */
-//		protected static HashMap<Integer, Color> numeriColori = new HashMap<Integer, Color>() {
-//			{	
-//
-//				int id=0;
-//				put(id++, new Color(48, 0, 0)); // water bottom 0
-//				put(id++, new Color(11, 0, 0)); // water top 1
-//				//Objects
-//				for(int i=0;i<2;i++) {
-//					put(id++, new Color(0, 0, i));//grass 2 3
-//				}
-//				put(id++, new Color(0, 0, 6)); // cannon right 4 
-//				put(id++, new Color(0, 0, 5)); // cannon left 5
-//				put(id++, new Color(0, 0, 4)); // spike 6
-//				put(id++, new Color(0, 0, 2)); // barrel 7
-//				put(id++, new Color(0, 0, 3)); // box 8
-//				put(id++, new Color(0, 0, 1)); // potion blue 9
-//				put(id++, new Color(0, 0, 0)); // potion red 10
-//				
-//				//Block 1
-//				put(id++, new Color(0, 0, 0)); // outside terrain 1 11
-//				put(id++, new Color(1, 0, 0)); // outside terrain 2 12
-//				put(id++, new Color(2, 0, 0)); // outside terrain 3 13
-//				put(id++, new Color(12, 0, 0)); // outside terrain 4 14
-//				put(id++, new Color(13, 0, 0)); // outside terrain 5 15
-//				put(id++, new Color(14, 0, 0)); // outside terrain 6 16
-//				put(id++, new Color(24, 0, 0)); // outside terrain 7 17
-//				put(id++, new Color(25, 0, 0)); // outside terrain 8 18
-//				put(id++, new Color(26, 0, 0)); // outside terrain 9 19
-//				
-//				//Block 2
-//				put(id++, new Color(3, 0, 0)); // outside pillar 1 20
-//				put(id++, new Color(15, 0, 0)); // outside pillar 2 21
-//				put(id++, new Color(27, 0, 0)); // outside pillar 3 22
-//				
-//				//Block 3
-//				
-//				put(id++, new Color(36, 0, 0)); // outside corner 1 23
-//				put(id++, new Color(37, 0, 0)); // outside corner 2 24
-//				put(id++, new Color(38, 0, 0)); // outside corner 3 25
-//				put(id++, new Color(39, 0, 0)); // outside corner single 26
-//				
-//				//ship
-//				for (int y = 0; y < 2; y++)
-//					for (int x = 0; x < 2; x++)
-//						put(id++, new Color(255,255,255)); // Barca 27 28 29 30
-//				
-//				
-//				//alberi
-//				for (int y = 0; y < 4; y++)
-//					for (int x = 0; x < 2; x++)
-//						put(id++, new Color(0,0,7));//albero dritto 
-//				 
-//				for (int y = 0; y < 4; y++)
-//					for (int x = 0; x < 2; x++)
-//						put(id++, new Color(0,0,8)); //albero piegato verso destra
-//
-//				
-//				//Entities
-//				put(id++, new Color(0,0,0));//Granchietto
-//				put(id++, new Color(0,1,0));//stella
-//				put(id++, new Color(0,2,0));//bestia di satana 
-//				put(id++, new Color(0,100,0));//giocatore
-//				
-//				//Gomma
-//				put(id++, new Color(52, 52, 52));
-//				
-//			}
-//		};
-//
-//		@SuppressWarnings("rawtypes")
-//		public HashMap getColor() {
-//			return numeriColori;
-//		}
 		public static ArrayList<Color> getIdColori() {
 			ArrayList<Color> numeriColori = new ArrayList<Color>(43);
 

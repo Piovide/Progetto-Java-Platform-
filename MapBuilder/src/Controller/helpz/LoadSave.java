@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import view.scenes.Editing;
-
+/**
+ * questa classe contiene tutte le stringhe che riconducono ai file, da qui vengono presi gli sprite dei tiles 
+ * oltre ai metodi per il salvataggio dell livello creato e all caricamento dello stesso all avvio dell programma 
+ */
 public class LoadSave {
 
 	public static final String PLAYER_ATLAS = "player_sprites.png";
@@ -32,7 +35,13 @@ public class LoadSave {
 	public static final String BTN_ARROWS = "arrows.png";
 
 	private static final String fileName = "level.png";
-
+	/**
+	 * questo metodo si occpua di salvare su tre matrici diverse oggetti entita e blocchi 
+	 * @param lvlBlocks
+	 * @param lvlEntities
+	 * @param lvlObjects
+	 * @param fileName
+	 */
 	public static void SaveLevel(int[][] lvlBlocks, int[][] lvlEntities, int[][] lvlObjects, String fileName) {
 		int width = lvlBlocks[0].length;
 		int height = lvlBlocks.length;
@@ -62,7 +71,13 @@ public class LoadSave {
 		}
 
 	}
-
+	/**
+	 * questo metodo si occupa di caricare il livello sull pannello tramite i dati presenti sulle matrici 
+	 * @param RED
+	 * @param GREEN
+	 * @param BLUE
+	 * @param editing
+	 */
 	public static void LoadLevelData(int[][] RED, int[][] GREEN, int[][] BLUE, Editing editing) {
 		int[][] RedData = RED;
 		int[][] GreenData = GREEN;
@@ -128,7 +143,11 @@ public class LoadSave {
 			System.out.println("Errore durante il caricamento del livello da BMP: " + e.getMessage());
 		}
 	}
-
+	/**
+	 * questo metodo restiuisce lo sprite associato alla all percorso file in ingresso 
+	 * @param path
+	 * @return BufferedImage 
+	 */
 	public static BufferedImage getSpriteAtlas(String path) {
 		BufferedImage img = null;
 		InputStream is = LoadSave.class.getClassLoader().getResourceAsStream(path);

@@ -5,7 +5,9 @@ import java.awt.Rectangle;
 
 import controller.helpz.ImgFix;
 import controller.helpz.LoadSave;
-
+/**
+ * questa classe contiene i metodi per creare il bottone 
+ */
 public class MyButton {
 
 	public int x, y, width, height, id, btnConst;
@@ -14,6 +16,15 @@ public class MyButton {
 	private boolean mouseOver, mousePressed;
 
 	// For tile buttons
+	/**
+	 * metodo costruttore 
+	 * @param text
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param id
+	 */
 	public MyButton(String text, int x, int y, int width, int height, int id) {
 		this.text = text;
 		this.x = x;
@@ -23,11 +34,16 @@ public class MyButton {
 		this.id = id;
 		initBounds();
 	}
-
+	/**
+	 * questo metodo imposta i limiti dell bottone 
+	 */
 	private void initBounds() {
 		this.bounds = new Rectangle(x, y, width, height);
 	}
-
+	/**
+	 * questo metodo si occpua di disegnare il corpo e i bordi dell bottone 
+	 * @param g
+	 */
 	public void draw(Graphics g) {
 		// Body
 		drawBody(g);
@@ -35,7 +51,10 @@ public class MyButton {
 		// Border
 		drawBorder(g);
 	}
-
+	/**
+	 * questo metodo si occpua di disegnare i bordi dell bottone 
+	 * @param g
+	 */
 	private void drawBorder(Graphics g) {
 		if (mousePressed) {
 			if (id <= 104)
@@ -54,7 +73,10 @@ public class MyButton {
 			}
 		}
 	}
-
+	/**
+	 * questo metodo si occupa di disegnare il corpo dell bottone 
+	 * @param g
+	 */
 	private void drawBody(Graphics g) {
 		if (mouseOver) {
 			if(id <= 104)
@@ -80,7 +102,12 @@ public class MyButton {
 			}
 		}
 	}
-	
+	/**
+	 * questo metodo ritorna un valore in base alla posizione dell mouse sui bottoni 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public int mouseOver(int x, int y) {
 		if (bounds.contains(x, y)) {
 			mouseOver = true;
@@ -96,44 +123,66 @@ public class MyButton {
 		return "MyButton [name= "+text +" x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ", id=" + id + ", text="
 				+ text + ", bounds=" + bounds + ", mouseOver=" + mouseOver + ", mousePressed=" + mousePressed + "]";
 	}
-
+	/**
+	 * questo metodo resetta a false le variabili boleane 
+	 */
 	public void resetBooleans() {
 		this.mouseOver = false;
 		this.mousePressed = false;
 	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
+	/**
+	 * questo metodo imposta il valore booleano di mousePressed
+	 * @param mousePressed
+	 */
 	public void setMousePressed(boolean mousePressed) {
 		this.mousePressed = mousePressed;
 	}
-
+	/**
+	 * questo metodo imposta il valore booleano di mouseOver
+	 * @param mouseOver
+	 */
 	public void setMouseOver(boolean mouseOver) {
 		this.mouseOver = mouseOver;
 	}
-
+	/**
+	 * questo metodo restituisce il booleano mouseOver
+	 * @return boolean 
+	 */
 	public boolean isMouseOver() {
 		return mouseOver;
 	}
-
+	/**
+	 * questo metodo restituisce il booleano mousePressed
+	 * @return boolean 
+	 */
 	public boolean isMousePressed() {
 		return mousePressed;
 	}
-
+	/**
+	 * questo metodo restituisce le dimensioni dell bottone 
+	 * @return Rectangle 
+	 */
 	public Rectangle getBounds() {
 		return bounds;
 	}
-
+	/**
+	 * questo metodo restituisce l'id 
+	 * @return int 
+	 */
 	public int getId() {
 		return id;
 	}
-
+	/**
+	 * questo metodo restituisce btnConst 
+	 * @return int 
+	 */
 	public int getBtnConst() {
 		return btnConst;
 	}
-
+	/**
+	 * questo metodo imposta btnConst
+	 * @param btnConst
+	 */
 	public void setBtnConst(int btnConst) {
 		this.btnConst = btnConst;
 	}
