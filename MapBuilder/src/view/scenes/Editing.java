@@ -27,7 +27,9 @@ public class Editing extends GameScene implements SceneMethods {
 	private Game game;
 
 	private static final int TILE_SIZE = 64;
-
+	
+	private int offsetIndex = 0;
+	
 	private int multiTileIndex, multiPrintTileIndex;
 	private Graphics graphics = null;
 	/**
@@ -94,6 +96,8 @@ public class Editing extends GameScene implements SceneMethods {
 	private void drawLevelBackground(Graphics g) {
 		int startX = 160;
 		int startY = 92 - 24;
+		g.setColor(new Color(238, 189, 138));
+		g.fillRect(0, 0, 1920, 1080);
 		g.drawImage(LoadSave.getSpriteAtlas("editing.png"), startX, startY, 1760, 944, null);
 	}
 	/**
@@ -101,9 +105,8 @@ public class Editing extends GameScene implements SceneMethods {
      * @param g il contesto grafico su cui disegnare
      */
 	private void drawLevel(Graphics g) {
-		g.fillRect(0, 0, TILE_SIZE, TILE_SIZE);
+		g.setColor(Color.BLACK);
 		int screenHeight = game.getHeight();
-		int levelWidth = lvlBlocks[0].length * TILE_SIZE;
 		int levelHeight = lvlBlocks.length * TILE_SIZE;
 
 		// SETTA IL COLORE DI BACKGROUND
@@ -116,7 +119,7 @@ public class Editing extends GameScene implements SceneMethods {
 		int startY = screenHeight / 2 - levelHeight / 2;
 
 		for (int y = 0; y < lvlBlocks.length; y++) {
-			for (int x = 0; x < lvlBlocks[y].length; x++) {
+			for (int x = offsetIndex; x < lvlBlocks[y].length; x++) {
 				int id = lvlBlocks[y][x];
 
 				// TOGLIERE IL COMMENTO SOTTO PER RESETTARE LA TELA POI SALVA E RIAVVIA
@@ -126,7 +129,7 @@ public class Editing extends GameScene implements SceneMethods {
 					lvlEntities[y][x] = Game.getTileManager().getGomma().getId();
 					lvlObjects[y][x] = Game.getTileManager().getGomma().getId();
 				}
-				int drawX = startX + x * TILE_SIZE;
+				int drawX = startX + (x - offsetIndex) * TILE_SIZE;
 				int drawY = startY + y * TILE_SIZE;
 				if (drawY + TILE_SIZE >= 0 && drawY < screenHeight) {
 					BufferedImage img = getSprite(id);
@@ -161,12 +164,12 @@ public class Editing extends GameScene implements SceneMethods {
 			}
 		}
 		for (int y = 0; y < lvlEntities.length; y++) {
-			for (int x = 0; x < lvlEntities[y].length; x++) {
+			for (int x = offsetIndex; x < lvlEntities[y].length; x++) {
 				int id = lvlEntities[y][x];
 
 				// TOGLIERE IL COMMENTO SOTTO PER RESETTARE LA TELA POI SALVA E RIAVVIA
 				// RIMETTENDO IL COMMENTO
-				int drawX = startX + x * TILE_SIZE;
+				int drawX = startX + (x - offsetIndex) * TILE_SIZE;
 				int drawY = startY + y * TILE_SIZE;
 				if (drawY + TILE_SIZE >= 0 && drawY < screenHeight) {
 					BufferedImage img = getSprite(id);
@@ -200,10 +203,10 @@ public class Editing extends GameScene implements SceneMethods {
 			}
 		}
 		for (int y = 0; y < lvlObjects.length; y++) {
-			for (int x = 0; x < lvlObjects[y].length; x++) {
+			for (int x = offsetIndex; x < lvlObjects[y].length; x++) {
 				int id = lvlObjects[y][x];
-
-				int drawX = startX + x * TILE_SIZE;
+ 
+				int drawX = startX + (x - offsetIndex) * TILE_SIZE;
 				int drawY = startY + y * TILE_SIZE;
 				if (drawY + TILE_SIZE >= 0 && drawY < screenHeight) {
 					BufferedImage img = getSprite(id);
@@ -238,8 +241,9 @@ public class Editing extends GameScene implements SceneMethods {
 		}
 
 		deleteAll = false;
-		g.setColor(Color.black);
-		g.drawRect(startX, startY, levelWidth, levelHeight);
+		int sX = 160;
+		int sY = 92 - 24;
+		g.drawImage(LoadSave.getSpriteAtlas("EditingTop.png"), sX, sY, 1760, 944, null);
 	}
 	/**
      * Disegna il tile selezionato.
@@ -382,20 +386,20 @@ public class Editing extends GameScene implements SceneMethods {
 					lastTileId.add(selectedTile.getId());
 					switch (selectedTile.getType()) {
 					case 0:
-						lvlBlocks[tileY][tileX] = selectedTile.getId();
+						lvlBlocks[tileY][tileX + offsetIndex] = selectedTile.getId();
 						break;
 					case 1:
-						lvlObjects[tileY][tileX] = selectedTile.getId();
+						lvlObjects[tileY][tileX + offsetIndex] = selectedTile.getId();
 						break;
 					case 2:
-						lvlEntities[tileY][tileX] = selectedTile.getId();
+						lvlEntities[tileY][tileX + offsetIndex] = selectedTile.getId();
 						break;
 					}
 					
 					if (selectedTile.getId() == Game.getTileManager().getGomma().getId()) {
-						lvlBlocks[tileY][tileX] = selectedTile.getId();
-						lvlEntities[tileY][tileX] = selectedTile.getId();
-						lvlObjects[tileY][tileX] = selectedTile.getId();
+						lvlBlocks[tileY][tileX + offsetIndex] = selectedTile.getId();
+						lvlEntities[tileY][tileX + offsetIndex] = selectedTile.getId();
+						lvlObjects[tileY][tileX + offsetIndex] = selectedTile.getId();
 					}
 				}
 			}
@@ -446,14 +450,14 @@ public class Editing extends GameScene implements SceneMethods {
 						for (int h = 0; h < ny; h++) {
 							for (int w = 0; w < nx; w++) {
 								multiPrintTileIndex = toolbar.getNext(multiPrintTileIndex, ny * nx);
-								lvlObjects[tileY + h][tileX + w] = selectedTile.getId();
+								lvlObjects[tileY + h][tileX + w + offsetIndex] = selectedTile.getId();
 							}
 						}
 					} else if (selectedTile.gettileBtnConst() == BTN_SHIP) {
 						for (int h = 0; h < ny; h++) {
 							for (int w = 0; w < nx; w++) {
 								multiPrintTileIndex = toolbar.getNext(multiPrintTileIndex, ny * nx);
-								lvlObjects[tileY + h][tileX + w] = selectedTile.getId();
+								lvlObjects[tileY + h][tileX + w + offsetIndex] = selectedTile.getId();
 							}
 						}
 					} else if (selectedTile.gettileBtnConst() == BTN_TREE && toolbar.getCurrentIndex() == 1) {
@@ -463,7 +467,7 @@ public class Editing extends GameScene implements SceneMethods {
 						for (int h = 0; h < ny; h++) {
 							for (int w = 0; w < nx; w++) {
 								multiPrintTileIndex = toolbar.getNext(multiPrintTileIndex, ny * nx);
-								lvlObjects[tileY + h][tileX + w] = selectedTile.getId();
+								lvlObjects[tileY + h][tileX + w + offsetIndex] = selectedTile.getId();
 							}
 						}
 					}else if (selectedTile.gettileBtnConst() == BTN_TREE && toolbar.getCurrentIndex() == 2) {
@@ -473,7 +477,7 @@ public class Editing extends GameScene implements SceneMethods {
 						for (int h = 0; h < ny; h++) {
 							for (int w = nx; w > 0; w--) {
 								multiPrintTileIndex = toolbar.getNext(multiPrintTileIndex, ny * nx);
-								lvlObjects[tileY + h][tileX + w] = selectedTile.getId();
+								lvlObjects[tileY + h][tileX + w + offsetIndex] = selectedTile.getId();
 							}
 						}
 					}
@@ -489,7 +493,7 @@ public class Editing extends GameScene implements SceneMethods {
      * @param y la coordinata y del clic
      */
 	public void mouseClicked(int x, int y) {
-		if (x <= 160) {
+		if ((x <= 160 && y <= 1080) || (y >= 944 && x >= 160)) {
 			toolbar.mouseClicked(x, y);
 		} else {
 			if (drawSelect && !selectedTile.isMultiple()) {
@@ -509,7 +513,7 @@ public class Editing extends GameScene implements SceneMethods {
      * @param y la coordinata y del mouse
      */
 	public void mouseMoved(int x, int y) {
-		if (x >= 160) {
+		if (x >= 160 && y < 944) {
 			if (selectedTile != null) {
 				if (selectedTile.isMultiple())
 					drawMultiple = true;
@@ -518,7 +522,7 @@ public class Editing extends GameScene implements SceneMethods {
 				mouseX = x / TILE_SIZE * TILE_SIZE;
 				mouseY = y / TILE_SIZE * TILE_SIZE;
 			}
-		} else if (x <= 160) {
+		} else if ((x <= 160 && y <= 1080) || (y >= 944 && x >= 160)) {
 			drawSelect = false;
 			drawMultiple = false;
 			toolbar.mouseMoved(x, y);
@@ -527,7 +531,7 @@ public class Editing extends GameScene implements SceneMethods {
 
 	@Override
 	public void mousePressed(int x, int y) {
-		if (x <= 160) {
+		if ((x <= 160 && y <= 1080) || (y >= 944 && x >= 160)) {
 			toolbar.mousePressed(x, y);
 		}
 	}
@@ -592,5 +596,18 @@ public class Editing extends GameScene implements SceneMethods {
 	public void setLvlObjects(int[][] lvlObjects) {
 		this.lvlObjects = lvlObjects;
 	}
+	public int getOffsetIndex() {
+		return offsetIndex;
+	}
+	public void increaseOffsetIndex() {
+		if(offsetIndex < (lvlBlocks[0].length - ((game.getWidth() - 160) / TILE_SIZE)))
+			this.offsetIndex ++;
+	}
+	
+	public void decreaseOffsetIndex() {
+		if(offsetIndex > 0)
+			this.offsetIndex--;
+	}
+
 
 }

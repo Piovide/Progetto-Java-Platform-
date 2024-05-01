@@ -28,6 +28,8 @@ public class LoadSave {
 	public static final String WATER_TOP = "water_atlas_animation.png";
 	public static final String WATER_BOTTOM = "water.png";
 	public static final String SHIP = "ship.png";
+	public static final String BTN_EDITING = "btn_editing.png";
+	public static final String BTN_ARROWS = "arrows.png";
 
 	private static final String fileName = "level.png";
 
@@ -100,7 +102,7 @@ public class LoadSave {
 						Color c = new Color(image.getRGB(x, y));
 						int red = c.getRed();
 						int green = c.getGreen();
-						int blue = c.getBlue(); 
+						int blue = c.getBlue();
 						
 							RedData[y][x] = colorMap.indexOf(new Color(red, gomma, gomma));
 							GreenData[y][x] = colorMap.indexOf(new Color(gomma, green, gomma));

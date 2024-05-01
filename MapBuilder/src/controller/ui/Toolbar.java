@@ -25,7 +25,7 @@ public class Toolbar extends Bar {
 	private ArrayList<MyButton> buttons = new ArrayList<MyButton>();
 
 	// BOTTONI FUNZIONI
-	private MyButton bExit, bSave, bGomma, bGrid, bDelete;
+	private MyButton bExit, bSave, bGomma, bGrid, bDelete, bArrowLeft, bArrowRight;
 
 	// BOTTONI SINGOLI
 	private MyButton bWaterTop, bWaterBottom, bSpikes;
@@ -51,12 +51,12 @@ public class Toolbar extends Bar {
 
 	private void initButtons() {
 
-		bExit = new MyButton("Esci", 30, y + 20, 100, 30);
-		bSave = new MyButton("Salva", 30, y + 60, 100, 30);
-		bGomma = new MyButton("Gomma", 30, y + 100, 100, 30);
-		bGrid = new MyButton("Griglia", 30, y + 140, 100, 30);
-		bDelete = new MyButton("Delete", 30, y + 180, 100, 30);
-
+		bExit = new MyButton("Esci", 40, y + 20, 80, 28, 100);
+		bSave = new MyButton("Salva", 40, y + 60, 80, 28, 101);
+		bGomma = new MyButton("Gomma", 40, y + 100, 80, 28, 102);
+		bGrid = new MyButton("Griglia", 40, y + 140, 80, 28, 103);
+		bDelete = new MyButton("Delete", 40, y + 180, 80, 28, 104);
+		
 		int w = 50;
 		int h = 50;
 		int xStart = 30;
@@ -123,6 +123,14 @@ public class Toolbar extends Bar {
 		initMapButton(bEntity, tileManager.getEntities(), xStart, yStart, yOffset * i++, w, h, tileManager.getEntities().get(0).getId(), "Player");
 		buttons.add(bEntity);
 		
+		// Get arrow left
+		bArrowRight = new MyButton("Arrow right", 1920 - 70, 1080 - 70, 70, 70, 105);
+		buttons.add(bArrowRight);
+
+		// Get arrow right
+		bArrowLeft = new MyButton("Arrow left", 160, 1080 - 70, 70, 70, 106);
+		buttons.add(bArrowLeft);
+		
 	}
 
 	private void initMapButton(MyButton b, ArrayList<Tile> list, int x, int y, int xOff, int w, int h, int id, String name) {
@@ -168,15 +176,12 @@ public class Toolbar extends Bar {
 
 	private void drawButtons(Graphics g) {
 		bSave.draw(g);
-		g.drawRect(bSave.x, bSave.y, bSave.width - 1, bSave.height - 1);
 		bExit.draw(g);
-		g.drawRect(bExit.x, bExit.y, bExit.width - 1, bExit.height - 1);
 		bGomma.draw(g);
-		g.drawRect(bGomma.x, bGomma.y, bGomma.width - 1, bGomma.height - 1);
 		bGrid.draw(g);
-		g.drawRect(bGrid.x, bGrid.y, bGrid.width - 1, bGrid.height - 1);
 		bDelete.draw(g);
-		g.drawRect(bDelete.x, bDelete.y, bDelete.width - 1, bDelete.height - 1);
+		bArrowLeft.draw(g);
+		bArrowRight.draw(g);
 		drawNormalButton(g, bWaterTop);
 		drawNormalButton(g, bWaterBottom);
 		drawNormalButton(g, bSpikes);
@@ -331,6 +336,12 @@ public class Toolbar extends Bar {
 			if (scelta == 0)
 				editing.deleteAll();
 			return;
+		} else if (bArrowRight.getBounds().contains(x, y)) {
+			editing.increaseOffsetIndex();
+			return;
+		} else if (bArrowLeft.getBounds().contains(x, y)) {
+			editing.decreaseOffsetIndex();
+			return;
 		} else if (bWaterTop.getBounds().contains(x, y)) {
 			selectedTile = Game.getTileManager().getTile(bWaterTop.getId());
 			editing.setSelectedTile(selectedTile);
@@ -407,6 +418,8 @@ public class Toolbar extends Bar {
 		bGomma.setMouseOver(false);
 		bGrid.setMouseOver(false);
 		bDelete.setMouseOver(false);
+		bArrowLeft.setMouseOver(false);
+		bArrowRight.setMouseOver(false);
 		
 		if (bSave.getBounds().contains(x, y))
 			bSave.setMouseOver(true);
@@ -418,6 +431,15 @@ public class Toolbar extends Bar {
 			bGrid.setMouseOver(true);
 		else if (bDelete.getBounds().contains(x, y))
 			bDelete.setMouseOver(true);
+		else if (bArrowLeft.getBounds().contains(x, y)) {
+			bArrowLeft.setMouseOver(true);
+			System.out.println("Arrow left");
+			}
+		else if (bArrowRight.getBounds().contains(x, y)) {
+			bArrowRight.setMouseOver(true);
+			System.out.println("Arrow right");
+		}
+		
 
 	}
 
@@ -432,6 +454,10 @@ public class Toolbar extends Bar {
 			bGrid.setMousePressed(true);
 		} else if (bDelete.getBounds().contains(x, y)) {
 			bDelete.setMousePressed(true);
+		} else if (bArrowLeft.getBounds().contains(x, y)) {
+			bArrowLeft.setMousePressed(true);
+		} else if (bArrowRight.getBounds().contains(x, y)) {
+			bArrowRight.setMousePressed(true);
 		} else if (bWaterTop.getBounds().contains(x, y)) {
 			bWaterTop.setMousePressed(true);
 		} else if (bWaterBottom.getBounds().contains(x, y)) {
@@ -453,6 +479,8 @@ public class Toolbar extends Bar {
 		bGomma.resetBooleans();
 		bGrid.resetBooleans();
 		bDelete.resetBooleans();
+		bArrowLeft.resetBooleans();
+		bArrowRight.resetBooleans();
 		bWaterTop.resetBooleans();
 		bWaterBottom.resetBooleans();
 		bSpikes.resetBooleans();

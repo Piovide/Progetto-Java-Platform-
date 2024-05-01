@@ -1,8 +1,10 @@
 package controller.ui;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import controller.helpz.ImgFix;
+import controller.helpz.LoadSave;
 
 public class MyButton {
 
@@ -10,18 +12,6 @@ public class MyButton {
 	private String text;
 	private Rectangle bounds;
 	private boolean mouseOver, mousePressed;
-
-	// For normal Buttons
-	public MyButton(String text, int x, int y, int width, int height) {
-		this.text = text;
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.id = -1;
-
-		initBounds();
-	}
 
 	// For tile buttons
 	public MyButton(String text, int x, int y, int width, int height, int id) {
@@ -44,31 +34,51 @@ public class MyButton {
 
 		// Border
 		drawBorder(g);
-
-		// Text
-		drawText(g);
 	}
 
 	private void drawBorder(Graphics g) {
-
-		g.setColor(Color.black);
-		g.drawRect(x, y, width, height);
 		if (mousePressed) {
-			g.drawRect(x + 1, y + 1, width - 2, height - 2);
-			g.drawRect(x + 2, y + 2, width - 4, height - 4);
+			if (id <= 104)
+				g.drawImage(LoadSave.getSpriteAtlas(LoadSave.BTN_EDITING).getSubimage(160, 28 * (id - 100), 80, 28), x,
+						y, width, height, null);
+			else {
+				if (id == 105) {
+					g.drawImage(LoadSave.getSpriteAtlas(LoadSave.BTN_ARROWS).getSubimage(112, 0, 56, 56), x, y, width,
+							height, null);
+				} else if (id == 106) {
+					g.drawImage(
+							ImgFix.getMirroredImage(
+									LoadSave.getSpriteAtlas(LoadSave.BTN_ARROWS).getSubimage(112, 0, 56, 56)),
+							x, y, width, height, null);
+				}
+			}
 		}
-
 	}
 
 	private void drawBody(Graphics g) {
 		if (mouseOver) {
-			g.setColor(Color.black);
-			g.drawRect(x-2, y-2, width+4, height+4);
-			g.setColor(Color.WHITE);
-		}else
-			g.setColor(Color.WHITE);
-		g.fillRect(x, y, width, height);
-
+			if(id <= 104)
+				g.drawImage(LoadSave.getSpriteAtlas(LoadSave.BTN_EDITING).getSubimage(80, 28 * (id - 100), 80, 28), x, y, width, height, null);
+			else {
+				if (id == 105) {
+					g.drawImage(LoadSave.getSpriteAtlas(LoadSave.BTN_ARROWS).getSubimage(56, 0, 56, 56), x, y, width, height, null);
+				} else if (id == 106) {
+					g.drawImage(ImgFix.getMirroredImage(LoadSave.getSpriteAtlas(LoadSave.BTN_ARROWS).getSubimage(56, 0, 56, 56)),
+							x, y, width, height, null);
+				}
+				}
+		}else {
+			if (id <= 104)
+				g.drawImage(LoadSave.getSpriteAtlas(LoadSave.BTN_EDITING).getSubimage(0, 28 * (id - 100), 80, 28), x, y,
+						width, height, null);
+			else {
+				if (id == 105)
+					g.drawImage(LoadSave.getSpriteAtlas(LoadSave.BTN_ARROWS).getSubimage(0, 0, 56, 56), x, y, width, height, null);
+				else if (id == 106)
+					g.drawImage(ImgFix.getMirroredImage(LoadSave.getSpriteAtlas(LoadSave.BTN_ARROWS).getSubimage(0, 0, 56, 56)), x, y, width, height, null);
+		
+			}
+		}
 	}
 	
 	public int mouseOver(int x, int y) {
@@ -85,13 +95,6 @@ public class MyButton {
 	public String toString() {
 		return "MyButton [name= "+text +" x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ", id=" + id + ", text="
 				+ text + ", bounds=" + bounds + ", mouseOver=" + mouseOver + ", mousePressed=" + mousePressed + "]";
-	}
-
-	private void drawText(Graphics g) {
-		int w = g.getFontMetrics().stringWidth(text);
-		int h = g.getFontMetrics().getHeight();
-		g.drawString(text, x - w / 2 + width / 2, y + h / 2 + height / 2 - 2);
-
 	}
 
 	public void resetBooleans() {
