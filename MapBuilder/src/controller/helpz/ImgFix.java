@@ -4,10 +4,18 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-
+	/**
+	 * contiene i metodi per modificare le immagini 
+	 */
 public class ImgFix {
-
+	
 	// Ruota l'immagine
+	/**
+	 * ruota l'immagine in ingresso
+	 * @param img
+	 * @param rotAngle
+	 * @return BufferedImage 
+	 */
 	public static BufferedImage getRotImg(BufferedImage img, int rotAngle) {
 
 		int w = img.getWidth();
@@ -25,7 +33,7 @@ public class ImgFix {
 	}
 
 	// Sovrappone 2 immagini
-	public static BufferedImage buildImg(BufferedImage[] imgs) {
+	/*public static BufferedImage buildImg(BufferedImage[] imgs) {
 		int w = imgs[0].getWidth();
 		int h = imgs[0].getHeight();
 
@@ -39,10 +47,10 @@ public class ImgFix {
 		g2d.dispose();
 		return newImg;
 
-	}
+	}*/
 
 	// Ruota l'immagine mantenendo l'immagine di background
-	public static BufferedImage getBuildRotImg(BufferedImage[] imgs, int rotAngle, int rotAtIndex) {
+	/*public static BufferedImage getBuildRotImg(BufferedImage[] imgs, int rotAngle, int rotAtIndex) {
 		int w = imgs[0].getWidth();
 		int h = imgs[0].getHeight();
 
@@ -60,10 +68,10 @@ public class ImgFix {
 		g2d.dispose();
 		return newImg;
 
-	}
+	}*/
 
 	// Ruota l'immagine mantenendo l'animazione
-	public static BufferedImage[] getBuildRotImg(BufferedImage[] imgs, BufferedImage secondImage, int rotAngle) {
+	/*public static BufferedImage[] getBuildRotImg(BufferedImage[] imgs, BufferedImage secondImage, int rotAngle) {
 		int w = imgs[0].getWidth();
 		int h = imgs[0].getHeight();
 
@@ -84,47 +92,11 @@ public class ImgFix {
 
 		return arr;
 
-	}
-	// Metodo per modificare l'immagine e incollare sopra un immagine trasparente
-	public static BufferedImage getTransparentImageOnBackGround(BufferedImage background, BufferedImage overlay) {
-	        // Prende la dimensione massima fra le due
-	        int width = Math.max(background.getWidth(), overlay.getWidth());
-	        int height = Math.max(background.getHeight(), overlay.getHeight());
-
-	        // Crea un'immagine trasparente con le dimensioni massime delle due immagini
-	        BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-	        // Ottieni un contesto grafico
-	        Graphics2D g2d = result.createGraphics();
-
-	        // Disegna l'immagine di background
-	        g2d.drawImage(background, 0, 0, null);
-
-	        // Disegna l'immagine overlay
-	        g2d.drawImage(overlay, 0, 0, null);
-
-	        // Rilascia le risorse del contesto grafico
-	        g2d.dispose();
-
-	        return result;
-	    }
+	}*/
 	
-	// Metodo per modificare l'immagine e incollare sopra un immagine trasparente
-	public static BufferedImage getTrasparentImage(BufferedImage img) {
-
-//        // Ottieni un contesto grafico
-//        Graphics2D g2d = img.createGraphics();
-//
-//        // Imposta il colore di sfondo trasparente e lo applica all'immagine
-//        img = g2d.getDeviceConfiguration().createCompatibleImage(img.getWidth(), img.getHeight(), java.awt.Transparency.TRANSLUCENT);
-//        g2d.dispose();
-//        g2d = img.createGraphics();
-		
-        return img;
-        
-	}
 	
-	public static BufferedImage[] getTrasparentImage(BufferedImage[] img) {
+	
+	/*public static BufferedImage[] getTrasparentImage(BufferedImage[] img) {
 
 //        // Ottieni un contesto grafico
 //		for(int i = 0; i < img.length; i++) {
@@ -137,8 +109,12 @@ public class ImgFix {
 //	        img[i] = image;
 //		}
         return img;
-	}
-	
+	}*/
+	/**
+	 * specchia l'immagine
+	 * @param img
+	 * @return BufferedImage
+	 */
 	public static BufferedImage getMirroredImage(BufferedImage img) {
         int width = img.getWidth();
         int height = img.getHeight();

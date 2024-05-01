@@ -5,12 +5,19 @@ import static controller.helpz.Constants.Buttons.BTN_TREE;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
-
+/**
+ * questa classe contiene i metodi per gestire i tiles 
+ */
 public class Tile {
 
 	private BufferedImage[] sprite;
 	private int id, tileType, tileBtnConst;
-
+	/**
+	 * metodo costruttore 
+	 * @param sprite
+	 * @param id
+	 * @param tileType
+	 */
 	public Tile(BufferedImage sprite, int id, int tileType) {
 		this.sprite = new BufferedImage[1];
 		this.sprite[0] = sprite;
@@ -18,32 +25,58 @@ public class Tile {
 		this.tileType = tileType;
 		this.tileBtnConst = -1;
 	}
-
+	/**
+	 * metodo costruttore 
+	 * @param sprite
+	 * @param id
+	 * @param tileType
+	 */
 	public Tile(BufferedImage[] sprite, int id, int tileType) {
 		this.sprite = sprite;
 		this.id = id;
 		this.tileType = tileType;
 		this.tileBtnConst = -1;
 	}
-
+	/**
+	 * questo metodo restituisce il tipo di tile 
+	 * @return int 
+	 */
 	public int getTileType() {
 		return tileType;
 	}
-
+	/**
+	 * questo metodo restituisce il frame dell animazione associato all indice 
+	 * @param animationIndex
+	 * @return BufferedImage 
+	 */
 	public BufferedImage getSprite(int animationIndex) {
 		return sprite[animationIndex];
 	}
-
+	/**
+	 * questo medoto restituisce il frame iniziale di un animazione 
+	 * @return BufferedImage
+	 */
 	public BufferedImage getSprite() {
 		return sprite[0];
 	}
+	/**
+	 * questo metodo restituisce la lunghezza in frame dello sprite 
+	 * @return int
+	 */
 	public int getSpriteLenght() {
 		return sprite.length;
 	}
-
+	/**
+	 * questo metodo restituisce un boolean in base alla lunghezza di sprite 
+	 * @return boolean
+	 */
 	public boolean isAnimation() {
 		return sprite.length > 1;
 	}
+	/**
+	 * questo metodo restituisce il tipo di tile (oggetto,blocco,entita) 
+	 * @return int 
+	 */
 	public int getType() {
 		switch(id) {
 			//Blocks
@@ -58,15 +91,19 @@ public class Tile {
 		}
 		return -1;
 	}
-	
+	/**
+	 * questo metodo restituisce un bolean true se tileBtnConst e associato ad un tile multiplo 
+	 * @return
+	 */
 	public boolean isMultiple() {
 		return tileBtnConst == BTN_SHIP || tileBtnConst == BTN_TREE;
 	}
 	
-	/*public boolean isObject() {
-		
-	}*/
-	
+	/**
+	 * questo metodo restituisce le dimensioni dell tile multiplo 
+	 * @param tileType
+	 * @return Dimension 
+	 */
 	public Dimension getmultipleBounds(int tileType) {
 		int w = 0;
 		int h = 0;
@@ -83,16 +120,25 @@ public class Tile {
 		Dimension dim = new Dimension(w,h);
 		return dim;
 	}
-
+	/**
+	 * questo metodo restituisce l'id del tile 
+	 * @return int 
+	 */
 	public int getId() {
 		//System.out.println(id);
 		return id;
 	}
-
+	/**
+	 * questo metodo restituisce tileBtnConst
+	 * @return int 
+	 */
 	public int gettileBtnConst() {
 		return tileBtnConst;
 	}
-
+	/**
+	 * questo metodo assegna a tileBtnConst il valore in ingersso 
+	 * @param tileBtnConst
+	 */
 	public void settileBtnConst(int tileBtnConst) {
 		this.tileBtnConst = tileBtnConst;
 	}

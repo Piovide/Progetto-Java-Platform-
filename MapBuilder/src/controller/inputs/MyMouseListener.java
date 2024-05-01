@@ -6,7 +6,9 @@ import java.awt.event.MouseMotionListener;
 
 import view.main.Game;
 import view.main.GameStates;
-
+/**
+ * questa classe gestisce gli imput dell mouse 
+ */
 public class MyMouseListener implements MouseListener, MouseMotionListener {
 
 	private Game game;

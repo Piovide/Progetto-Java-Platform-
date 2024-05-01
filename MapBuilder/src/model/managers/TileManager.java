@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import controller.helpz.ImgFix;
 import controller.helpz.LoadSave;
 import model.objects.Tile;
-
+/**
+ * questa classe crea gli array list associati ai tiles in qui vengono memorizzate le informazioni riguardanti i tiles 
+ */
 public class TileManager {
 
 	private int id = 0;
@@ -36,11 +38,16 @@ public class TileManager {
 	public ArrayList<Tile> trees = new ArrayList<>();
 	public ArrayList<Tile> entities = new ArrayList<>();
 
+	/**
+	 * metodo costruttore
+	 */
 	public TileManager() {
 		createTiles();
 
 	}
-
+	/**
+	 * questo metodo aggiunge tutti i tiles ai corrispettivi arraylist e in fine li aggiunge all arylist tiles 
+	 */
 	private void createTiles() {
 
 		// Water bottom 0
@@ -146,26 +153,55 @@ public class TileManager {
 //		System.out.println("Tiles created: " + id);
 	}
 
+	/**
+	 * questo metodo assegna ad atlas il png associato alla stringa di input 
+	 * @param path
+	 */
 	private void loadAtalas(String path) {
 		atlas = LoadSave.getSpriteAtlas(path);
 	}
-
+	/**
+	 * questo metodo restituisce la dimensione -1 dell' araylist tiles 
+	 * @return Tile 
+	 */
 	public Tile getGomma() {
 		return tiles.get(tiles.size() - 1);
 	}
-
+	/**
+	 * questo metodo restituisce il tile associato all' id di input 
+	 * @param id
+	 * @return Tile
+	 */
 	public Tile getTile(int id) {
 		return tiles.get(id);
 	}
-
+	/**
+	 * questo metodo restituisce lo sprite associato all' id di input 
+	 * @param id
+	 * @return BufferedImage 
+	 */
 	public BufferedImage getSprite(int id) {
 		return tiles.get(id).getSprite();
 	}
-
+	/**
+	 * questo metodo restituisce lo sprite associato all' id di input nell momento indicato dalindice 
+	 * usato per gli oggetti e le entita animate 
+	 * @param id
+	 * @param animationIndex
+	 * @return BufferedImage 
+	 */
 	public BufferedImage getAniSprite(int id, int animationIndex) {
 		return tiles.get(id).getSprite(animationIndex);
 	}
-
+	
+	/**
+	 * questo metodo restituisce un array di sprite che verranno trasformati in un animazione 
+	 * @param xCord
+	 * @param yCord
+	 * @param nAni
+	 * @param path
+	 * @return BufferedImage[]
+	 */
 	private BufferedImage[] getAniSprites(int xCord, int yCord, int nAni, String path) {
 		BufferedImage[] arr = new BufferedImage[nAni];
 		for (int i = 0; i < nAni; i++) {
@@ -176,6 +212,16 @@ public class TileManager {
 
 	}
 
+	/**
+	 * questo metodo restituisce un array di sprite (con grandezza diversa da 32x32) che verranno trasformati in un animazione 
+	 * @param xCord
+	 * @param yCord
+	 * @param nAni
+	 * @param path
+	 * @param w
+	 * @param h
+	 * @return BufferedImage[]
+	 */
 	private BufferedImage[] getAniSprites(int xCord, int yCord, int nAni, String path, int w, int h) {
 		BufferedImage[] arr = new BufferedImage[nAni];
 		for (int i = 0; i < nAni; i++) {
@@ -184,77 +230,140 @@ public class TileManager {
 
 		return arr;
 	}
-
+	/**
+	 * questo metodo restituisce uno sprite (con grandezza diversa da 32x32)
+	 * @param xCord
+	 * @param yCord
+	 * @param path
+	 * @return BufferedImage 
+	 */
 	private BufferedImage getSprite(int xCord, int yCord, String path) {
 		loadAtalas(path);
 		return atlas.getSubimage(xCord * TILE_SIZE, yCord * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 	}
-
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param path
+	 * @param w
+	 * @param h
+	 * @return BufferedImage
+	 */
 	private BufferedImage getSprite(int x, int y, String path, int w, int h) {
 		loadAtalas(path);
 		return atlas.getSubimage(x * w, y * h, w, h);
 	}
-
+	/**
+	 * questo metodo restituisce un boolean qualora lo sprite associato all id faccia parte di un animazione 
+	 * @param spriteID
+	 * @return Boolean
+	 */
 	public boolean isSpriteAnimation(int spriteID) {
 		return tiles.get(spriteID).isAnimation();
 	}
-
+	/**
+	 * questo metodo restituisce l'arraylist tiles
+	 * @return arrayList
+	 */
 	public ArrayList<Tile> getTiles() {
 		return tiles;
 	}
-
+	/**
+	 * questo metodo restituisce l'arraylist water_bottom
+	 * @return arrayList
+	 */
 	public ArrayList<Tile> getWater_bottom() {
 		return water_bottom;
 	}
-
+	/**
+	 * questo metodo restituisce l'arraylist water_top
+	 * @return arrayList
+	 */
 	public ArrayList<Tile> getWater_top() {
 		return water_top;
 	}
-
+	/**
+	 * questo metodo restituisce l'arraylist grass
+	 * @return arrayList
+	 */
 	public ArrayList<Tile> getGrass() {
 		return grass;
 	}
-
+	/**
+	 * questo metodo restituisce l'arraylist cannon
+	 * @return arrayList
+	 */
 	public ArrayList<Tile> getCannon() {
 		return cannon;
 	}
-
+	/**
+	 * questo metodo restituisce l'arraylist spikes
+	 * @return arrayList
+	 */
 	public ArrayList<Tile> getSpikes() {
 		return spikes;
 	}
-
+	/**
+	 * questo metodo restituisce l'arraylist barrels
+	 * @return arrayList
+	 */
 	public ArrayList<Tile> getBarrels() {
 		return barrels;
 	}
-
+	/**
+	 * questo metodo restituisce l'arraylist potions
+	 * @return arrayList
+	 */
 	public ArrayList<Tile> getPotions() {
 		return potions;
 	}
-
+	/**
+	 * questo metodo restituisce l'arraylist outside_terrain
+	 * @return arrayList
+	 */
 	public ArrayList<Tile> getOutside_terrain() {
 		return outside_terrain;
 	}
-
+	/**
+	 * questo metodo restituisce l'arraylist outside_pillar
+	 * @return arrayList
+	 */
 	public ArrayList<Tile> getOutside_pillar() {
 		return outside_pillar;
 	}
-
+	/**
+	 * questo metodo restituisce l'arraylist outside_floating
+	 * @return arrayList
+	 */
 	public ArrayList<Tile> getOutside_floating() {
 		return outside_floating;
 	}
-
+	/**
+	 * questo metodo restituisce l'arraylist ship
+	 * @return arrayList
+	 */
 	public ArrayList<Tile> getShip() {
 		return ship;
 	}
-
+	/**
+	 * questo metodo restituisce l'arraylist trees
+	 * @return arrayList
+	 */
 	public ArrayList<Tile> getTrees() {
 		return trees;
 	}
-
+	/**
+	 * questo metodo restituisce l'arraylist entities
+	 * @return arrayList
+	 */
 	public ArrayList<Tile> getEntities() {
 		return entities;
 	}
-
+	/**
+	 * questo metodo restituisce la dimensione di tiles 
+	 * @return
+	 */
 	public int getTilesLenght() {
 		return tiles.size();
 	}

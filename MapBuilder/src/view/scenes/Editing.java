@@ -13,7 +13,9 @@ import controller.helpz.LoadSave;
 import controller.ui.Toolbar;
 import model.objects.Tile;
 import view.main.Game;
-
+/**
+ * questa classe si occupa della gestione della scena dell editing 
+ */
 public class Editing extends GameScene implements SceneMethods {
 
 	private int[][] lvlBlocks, lvlEntities, lvlObjects;
@@ -28,16 +30,22 @@ public class Editing extends GameScene implements SceneMethods {
 
 	private int multiTileIndex, multiPrintTileIndex;
 	private Graphics graphics = null;
-
+	/**
+	 * metodo costruttore 
+	 * @param game
+	 */
 	public Editing(Game game) {
 		super(game);
 		this.game = game;
 		toolbar = new Toolbar(0, 10, 160, 160, this);
-		initLinkedList();
+		initComponents();
 		loadSavedLevel();
 	}
-
-	private void initLinkedList() {
+	/**
+	 * questo metodo inizzializza le linked list  
+	 * e le matrici 
+	 */
+	private void initComponents() {
 		lastTileX = new LinkedList<Integer>();
 		lastTileY = new LinkedList<Integer>();
 		lastTileId = new LinkedList<Integer>();
@@ -50,17 +58,25 @@ public class Editing extends GameScene implements SceneMethods {
 		lvlEntities = new int[14][90];
 		lvlObjects = new int[14][90];
 	}
-
+	/**
+     * Carica il livello salvato.
+     */
 	private void loadSavedLevel() {
 		// ROSSO VERDE BLU
 		LoadSave.LoadLevelData(lvlBlocks, lvlEntities, lvlObjects, this);
 	}
-
+	/**
+     * Aggiorna la logica della scena di editing.
+     */
 	public void update() {
 		updateTick();
 	}
 
 	@Override
+	 /**
+     * Disegna la scena di editing.
+     * @param g il contesto grafico su cui disegnare
+     */
 	public void render(Graphics g) {
 		if (graphics == null)
 			this.graphics = g;
@@ -71,12 +87,19 @@ public class Editing extends GameScene implements SceneMethods {
 	}
 
 	// SETTA IL BACKGROND CON I TILE GIALLI A RIGHR
+	/**
+     * Disegna lo sfondo della scena di editing.
+     * @param g il contesto grafico su cui disegnare
+     */
 	private void drawLevelBackground(Graphics g) {
 		int startX = 160;
 		int startY = 92 - 24;
 		g.drawImage(LoadSave.getSpriteAtlas("editing.png"), startX, startY, 1760, 944, null);
 	}
-
+	/**
+     * Disegna il livello della scena di editing.
+     * @param g il contesto grafico su cui disegnare
+     */
 	private void drawLevel(Graphics g) {
 		g.fillRect(0, 0, TILE_SIZE, TILE_SIZE);
 		int screenHeight = game.getHeight();
@@ -218,7 +241,10 @@ public class Editing extends GameScene implements SceneMethods {
 		g.setColor(Color.black);
 		g.drawRect(startX, startY, levelWidth, levelHeight);
 	}
-
+	/**
+     * Disegna il tile selezionato.
+     * @param g il contesto grafico su cui disegnare
+     */
 	private void drawSelectedTile(Graphics g) {
 		int modX = -17;
 		int modY = 28;
@@ -311,11 +337,16 @@ public class Editing extends GameScene implements SceneMethods {
 
 		}
 	}
-
+	 /**
+     * Salva il livello corrente.
+     */
 	public void saveLevel() {
 		LoadSave.SaveLevel(lvlBlocks, lvlEntities, lvlObjects, "level.png");
 	}
-
+	/**
+     * Imposta il tile selezionato.
+     * @param tile il tile da impostare come selezionato
+     */
 	public void setSelectedTile(Tile tile) {
 		this.selectedTile = tile;
 		if (tile.isMultiple())
@@ -323,7 +354,11 @@ public class Editing extends GameScene implements SceneMethods {
 		else
 			drawSelect = true;
 	}
-
+	 /**
+	  * cambia il tile nella posizione corrente dell mouse
+	  * @param x
+	  * @param y
+	  */
 	private void changeTile(int x, int y) {
 		if (selectedTile != null) {
 			int screenHeight = game.getHeight();
@@ -366,7 +401,13 @@ public class Editing extends GameScene implements SceneMethods {
 			}
 		}
 	}
-
+	/**
+	 * questo metodo cambia molteplici tiles in base alla posizione 
+	 * @param x
+	 * @param y
+	 * @param nx
+	 * @param ny
+	 */
 	private void changeMultipleTile(int x, int y, int nx, int ny) {
 		if (selectedTile != null) {
 			int screenHeight = game.getHeight();
@@ -442,6 +483,11 @@ public class Editing extends GameScene implements SceneMethods {
 	}
 
 	@Override
+	 /**
+     * questo metodo gestisce un clic del mouse.
+     * @param x la coordinata x del clic
+     * @param y la coordinata y del clic
+     */
 	public void mouseClicked(int x, int y) {
 		if (x <= 160) {
 			toolbar.mouseClicked(x, y);
@@ -457,6 +503,11 @@ public class Editing extends GameScene implements SceneMethods {
 	}
 
 	@Override
+	/**
+     * questo metodo gestisce il movimento del mouse.
+     * @param x la coordinata x del mouse
+     * @param y la coordinata y del mouse
+     */
 	public void mouseMoved(int x, int y) {
 		if (x >= 160) {
 			if (selectedTile != null) {

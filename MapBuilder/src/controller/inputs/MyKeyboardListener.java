@@ -7,10 +7,15 @@ import java.awt.event.KeyListener;
 
 import view.main.Game;
 import view.main.GameStates;
-
+/**
+ * questa classe gestice gli imput provenienti dalla tastiera
+ */
 public class MyKeyboardListener implements KeyListener {
 	private Game game;
-
+	
+	/*
+	 * metodo costruttore
+	 */
 	public MyKeyboardListener(Game game) {
 		this.game = game;
 	}
@@ -22,6 +27,9 @@ public class MyKeyboardListener implements KeyListener {
 	}
 
 	@Override
+	/*
+	 * 
+	 */
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			game.dispose();

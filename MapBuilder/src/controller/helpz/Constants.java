@@ -3,11 +3,15 @@ package controller.helpz;
 import java.awt.Color;
 import java.util.ArrayList;
 import view.main.Game;
-
+/**
+ * questa classe contiene tutti i valori costanti collegatiai vari tiles 
+ */
 public class Constants {
-
+	
+	/**
+	 * contiene tutti i valori dei tiles object 
+	 */
 	public static class ObjectConstants {
-
 		public static final int RED_POTION = 0;
 		public static final int BLUE_POTION = 1;
 		public static final int BARREL = 2;
@@ -105,7 +109,9 @@ public class Constants {
 	}
 
 	public static class Tiles {
-
+		/**
+		 * 
+		 */
 		public static final int TILE_SIZE = 32;
 
 		public static final int WATER_BOTTOM_TILE = 0;
@@ -130,13 +136,19 @@ public class Constants {
 	}
 
 	public static class Buttons {
+		/**
+		 * contiene i valori dei bottoni composti da molteplici tiles
+		 */
 		public static final int BTN_SHIP = 0;
 		public static final int BTN_TREE = 1;
 
 	}
 
 	public static class IdColori {
-
+		/**
+		 * questa classe contiene l'arrylist che contiene all suo interno ogni tile associato con il propio codice rgb identificativo
+		 * @return
+		 */
 //		protected static HashMap<Integer, Color> numeriColori = new HashMap<Integer, Color>() {
 //			{	
 //
